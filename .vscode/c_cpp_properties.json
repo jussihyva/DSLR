@@ -1,0 +1,23 @@
+{
+    "configurations":
+    [
+        {
+            "name": "Mac",
+            "includePath":
+            [
+                "${workspaceFolder}/**",
+				"${env:HOME}/.brew/Cellar/openssl@1.1/1.1.1k/include/**",
+				"${env:HOME}/.brew/Cellar/openssl@1.1/1.1.1l/include/**"
+            ],
+            "defines": [],
+            "macFrameworkPath":
+            [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "intelliSenseMode": "macos-clang-x64"
+        }
+    ],
+    "version": 4
+}

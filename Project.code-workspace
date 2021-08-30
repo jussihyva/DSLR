@@ -1,0 +1,18 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"files.associations":
+		{
+			"functional": "c",
+			"libft.h": "c",
+			"__locale": "c",
+			"libft_addons.h": "c"
+		}
+	}
+}
