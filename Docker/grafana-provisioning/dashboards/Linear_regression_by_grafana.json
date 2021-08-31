@@ -1,0 +1,435 @@
+{
+	"annotations": {
+	  "list": [
+		{
+		  "builtIn": 1,
+		  "datasource": "-- Grafana --",
+		  "enable": true,
+		  "hide": true,
+		  "iconColor": "rgba(0, 211, 255, 1)",
+		  "name": "Annotations & Alerts",
+		  "target": {
+			"limit": 100,
+			"matchAny": false,
+			"tags": [],
+			"type": "dashboard"
+		  },
+		  "type": "dashboard"
+		}
+	  ]
+	},
+	"editable": true,
+	"gnetId": null,
+	"graphTooltip": 0,
+	"id": 10,
+	"links": [],
+	"panels": [
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 16,
+		  "w": 21,
+		  "x": 0,
+		  "y": 0
+		},
+		"id": 2,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#17a53d",
+			  "dotSize": 3,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "linear"
+			},
+			{
+			  "col": 3,
+			  "color": "#9716f4",
+			  "dotSize": 2,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "linear"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": true,
+			"size": 2
+		  },
+		  "rotateYAxisTitle": true,
+		  "xAxis": {
+			"col": 2,
+			"inverted": false
+		  },
+		  "xAxisExtents": {
+			"min": 0,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "mileage/1000",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": 3000,
+			"max": 9000
+		  },
+		  "yAxisTitle": {
+			"text": "Price ($)",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"pluginVersion": "7.5.2",
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "project=ft_linear_regression",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"dependent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"Calculated by grafana"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"independent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					" / 1000"
+				  ],
+				  "type": "math"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"predicted_price"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "data_type",
+				"operator": "=",
+				"value": "input"
+			  }
+			]
+		  }
+		],
+		"title": "Linear regression by Grafana",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"aliasColors": {},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": null,
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 8,
+		  "w": 9,
+		  "x": 0,
+		  "y": 16
+		},
+		"hiddenSeries": false,
+		"id": 4,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "8.1.1",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"alias": "",
+			"groupBy": [
+			  {
+				"params": [
+				  "$__interval"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "null"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "project=ft_linear_regression",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"dependent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				},
+				{
+				  "params": [
+					"Observed Price"
+				  ],
+				  "type": "alias"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "data_type",
+				"operator": "=",
+				"value": "input"
+			  }
+			]
+		  }
+		],
+		"thresholds": [],
+		"timeFrom": null,
+		"timeRegions": [],
+		"timeShift": null,
+		"title": "Number of received observed (price) records.",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:53",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:54",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
+	  },
+	  {
+		"aliasColors": {},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": null,
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 8,
+		  "w": 9,
+		  "x": 9,
+		  "y": 16
+		},
+		"hiddenSeries": false,
+		"id": 5,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "8.1.1",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"alias": "",
+			"groupBy": [
+			  {
+				"params": [
+				  "$__interval"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "null"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "project=ft_linear_regression",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"predicted_price"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				},
+				{
+				  "params": [
+					"Predicted prize"
+				  ],
+				  "type": "alias"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "data_type",
+				"operator": "=",
+				"value": "input"
+			  }
+			]
+		  }
+		],
+		"thresholds": [],
+		"timeFrom": null,
+		"timeRegions": [],
+		"timeShift": null,
+		"title": "Number of received predicted (price) records.",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:106",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:107",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
+	  }
+	],
+	"refresh": "5s",
+	"schemaVersion": 30,
+	"style": "dark",
+	"tags": [],
+	"templating": {
+	  "list": []
+	},
+	"time": {
+	  "from": "now-2m",
+	  "to": "now"
+	},
+	"timepicker": {},
+	"timezone": "",
+	"title": "Linear_regression_by_grafana",
+	"uid": "Linear_regression_by_grafana",
+	"version": 1
+  }
