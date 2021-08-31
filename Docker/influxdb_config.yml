@@ -1,7 +1,7 @@
 assets-path: ""
-bolt-path: /root/.influxdbv2/influxd.bolt
+bolt-path: /home/influxdb/.influxdbv2/influxd.bolt
 e2e-testing: false
-engine-path: /root/.influxdbv2/engine
+engine-path: /home/influxdb/.influxdbv2/engine
 feature-flags: {}
 http-bind-address: :8086
 http-idle-timeout: 3m0s
