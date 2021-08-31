@@ -1,39 +1,41 @@
 version: '3'
 services:
   influxdb:
-    image: influxdb:latest
+    image: influxdb:2.0.8
     container_name: influxdb
     env_file:
       - ./.env
     ports:
       - '8086:8086'
     volumes:
-      - ./storages/influxdb-storage:/var/lib/influxdb:rw
-      - ./influxdb.conf:/etc/influxdb/influxdb.conf
+      # - influxdb-storage:/var/lib/influxdb:rw
+      # - ./influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:ro
-    environment:
   chronograf:
-    image: chronograf:latest
+    image: chronograf:1.9.0
     container_name: chronograf
     ports:
       - '127.0.0.1:8888:8888'
     volumes:
-      - ./storages/chronograf-storage:/var/lib/chronograf:rw
+      - chronograf-storage:/var/lib/chronograf:rw
     depends_on:
       - influxdb
-    environment:
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:8.1.1
     container_name: grafana
     ports:
       - '3000:3000'
     volumes:
-      - ./storages/grafana-storage:/var/lib/grafana:rw
+      - grafana-storage:/var/lib/grafana:rw
       - ./grafana-provisioning/:/etc/grafana/provisioning
       - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:ro
-      - ./grafana.ini:/etc/grafana/grafana.ini:ro
+      # - ./custom.ini:/etc/grafana/custom.ini:ro
       - ./plugins:/var/lib/grafana/plugins
     depends_on:
       - influxdb
+volumes:
+  influxdb-storage:
+  chronograf-storage:
+  grafana-storage:

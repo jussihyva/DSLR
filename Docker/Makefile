@@ -26,6 +26,9 @@ login_influxdb:
 login_grafana:
 	docker exec -it grafana bash
 
+login_chronograf:
+	docker exec -it chronograf bash
+
 stop:
 	-docker kill chronograf
 	-docker kill grafana

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/20 10:35:04 by ubuntu            #+#    #+#              #
-#    Updated: 2021/08/31 12:40:39 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/08/31 15:36:03 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ folders:
 	@for folder in $(SUB_FOLDERS) ; do \
 		echo "$(PURPLE)" ; \
 		echo "  $$folder" ; \
+		@echo "$(END)"
 		make -C $$folder ; \
 	done
 	@echo "$(END)"
