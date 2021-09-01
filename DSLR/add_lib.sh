@@ -42,3 +42,8 @@ rm -rf lib/libft_printf/.vscode
 rm -f lib/libft_printf/author
 git add lib/libft_printf
 git commit -m "Library (libft_printf) added"
+
+
+
+rm -rf ../.git/modules/*
+vi ../.git/config
