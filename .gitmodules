@@ -1,0 +1,3 @@
+[submodule "DSLR/lib/libft_addons"]
+	path = DSLR/lib/libft_addons
+	url = git@github.com:jussihyva/libft_addons.git
