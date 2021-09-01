@@ -1,8 +1,15 @@
 #!/bin/bash
 
-git rm --cached submodule_path # delete reference to submodule HEAD (no trailing slash)
-git rm .gitmodules             # if you have more than one submodules,
+git submodule add git@github.com:jussihyva/libft.git lib/libft
+git commit -m "Submodule (libft) added"
+
+git rm --cached lib/libft # delete reference to submodule HEAD (no trailing slash)
+git rm /home/juhani/DSLR/.gitmodules             # if you have more than one submodules,
                                # you need to edit this file instead of deleting!
-rm -rf submodule_path/.git     # make sure you have backup!!
-git add submodule_path         # will add files instead of commit reference
-git commit -m "Libraries are added"
+rm -rf lib/libft/.git
+rm -f lib/libft/.gitignore
+rm -rf lib/libft/.vscode
+rm -f lib/libft/author
+git add lib/libft
+git commit -m "Library (libft) added"
+
