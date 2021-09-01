@@ -30,7 +30,7 @@ git commit -m "Library (libft_addons) added"
 
 
 
-git submodule add git@github.com:jussihyva/libft_addons.git lib/libft_printf
+git submodule add git@github.com:jussihyva/libft_printf.git lib/libft_printf
 git commit -m "Submodule (libft_printf) added"
 
 git rm --cached lib/libft_printf # delete reference to submodule HEAD (no trailing slash)
