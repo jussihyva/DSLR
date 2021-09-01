@@ -11,7 +11,7 @@ services:
       - influxdb-storage:/var/lib/influxdb2:rw
       - ./influxdb2:/home/influxdb/.influxdbv2:rw
       - ./influxdb_config.yml:/etc/influxdb2/config.yml:rw
-      - ./influx-configs:/etc/influxdb2/influx-configs:rw
+      # - ./influx-configs:/etc/influxdb2/influx-configs:rw
       - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:ro
   chronograf:
@@ -30,11 +30,11 @@ services:
       - '3000:3000'
     volumes:
       - grafana-storage:/var/lib/grafana:rw
-      - ./grafana-provisioning/:/etc/grafana/provisioning
+      - ./grafana-provisioning/:/etc/grafana/provisioning:ro
       - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:ro
       - ./grafana_custom.ini:/etc/grafana/custom.ini:ro
-      - ./plugins:/var/lib/grafana/plugins
+      - ./plugins:/var/lib/grafana/plugins:ro
     depends_on:
       - influxdb
 volumes:
