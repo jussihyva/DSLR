@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/20 10:35:04 by ubuntu            #+#    #+#              #
-#    Updated: 2021/07/20 11:01:28 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/01 22:03:54 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ h_files: $(H_FILES)
 
 .PHONY: libraries
 libraries:
-	for folder in $(LIB_FOLDERS) ; do \
-	    make -C $$folder ; \
+	@for folder in $(LIB_FOLDERS) ; do \
+	    make --no-print-directory -C $$folder ; \
 	done
 
 .PHONY: clean

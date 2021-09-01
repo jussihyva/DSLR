@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/01 14:43:50 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/01 22:04:52 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(H_FILES):
 
 .PHONY: libraries
 libraries:
-	@make -C ${LIB}
+	@make --no-print-directory -C ${LIB}
 
 .PHONY: libraries_re
 libraries_re:
@@ -112,7 +112,7 @@ endif
 
 .PHONY: clean
 clean:
-	@make -C ${LIB} clean
+	@make --no-print-directory -C ${LIB} clean
 	rm -f $(O_FILES)
 
 .PHONY: fclean
