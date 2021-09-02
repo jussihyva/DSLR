@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/08/20 17:57:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 11:33:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,21 +161,21 @@ typedef struct s_bt_node
 	t_bt_elem			bt_elem[MAX_NUM_OF_B_TREE_ELEMS];
 }				t_bt_node;
 
-typedef void	(*t_save_cmd_argument)(void*, char, t_argc_argv*,
+typedef void	(*t_input_param_save)(void*, char, t_argc_argv*,
 															t_cmd_param_type);
 
-typedef void*	(*t_initialize_cmd_args)(t_argc_argv *argc_argv);
+typedef void*	(*t_input_params_initialize)(t_argc_argv *argc_argv);
 
-typedef void	(*t_usage)(void);
+typedef void	(*t_usage_print)(void);
 
 typedef struct s_arg_parser
 {
-	t_argc_argv				argc_argv;
-	t_initialize_cmd_args	fn_initialize_cmd_args;
-	t_save_cmd_argument		fn_save_cmd_argument;
-	t_usage					fn_usage;
-	char					*options;
-	void					*input_params;
+	t_argc_argv					argc_argv;
+	t_input_params_initialize	fn_input_params_initialize;
+	t_input_param_save			fn_input_param_save;
+	t_usage_print				fn_usage_print;
+	char						*options;
+	void						*input_params;
 }				t_arg_parser;
 
 void					ft_log_trace(const char *file, const int line,
