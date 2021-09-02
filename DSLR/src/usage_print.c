@@ -6,14 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:21:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 11:42:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 13:20:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static void	examples_print(
-						void)
+static void	examples_print(void)
 {
 	ft_printf("\n\n Examples:\n");
 	ft_printf("\n   1:\n");
@@ -24,8 +23,7 @@ static void	examples_print(
 	return ;
 }
 
-void	usage_print(
-				void)
+void	usage_print(void)
 {
 	ft_printf("Usage:\n");
 	ft_printf("  ./computor\n");
