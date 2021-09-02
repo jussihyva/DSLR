@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 14:54:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 15:57:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-void	*input_params_initialize(
+t_input_params	*input_params_initialize(
 						t_argc_argv *argc_argv)
 {
 	t_input_params			*input_params;
@@ -20,11 +20,11 @@ void	*input_params_initialize(
 	input_params = ft_memalloc(sizeof(*input_params));
 	input_params->argc_argv = argc_argv;
 	input_params->event_logging_level = LOG_WARN;
-	return ((void *)input_params);
+	return (input_params);
 }
 
 static void	input_param_save_short(
-								t_input_params *input_params,
+								t_input_params *const input_params,
 								char opt,
 								t_argc_argv *argc_argv)
 {
@@ -44,7 +44,8 @@ static void	input_param_save_short(
 }
 
 static void	input_param_save_mandatory(
-									t_input_params *input_params, char opt,
+									t_input_params *const input_params,
+									char opt,
 									t_argc_argv *argc_argv)
 {
 	const char			*arg;
@@ -59,7 +60,7 @@ static void	input_param_save_mandatory(
 }
 
 void	input_param_save(
-					void *input_params,
+					void *const input_params,
 					char opt, t_argc_argv *argc_argv,
 					t_cmd_param_type cmd_param_type)
 {
@@ -71,7 +72,7 @@ void	input_param_save(
 }
 
 void	input_params_remove(
-						t_input_params **input_params)
+						const t_input_params **input_params)
 {
 	ft_strdel((char **)&(*input_params)->dataset_file);
 	ft_memdel((void **)input_params);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 14:31:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 15:57:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ typedef struct s_input_params
 	const char			*dataset_file;
 }				t_input_params;
 
-void	*input_params_initialize(
-			t_argc_argv *argc_argv);
-void	input_param_save(
-			void *input_params,
-			char opt, t_argc_argv *argc_argv,
-			t_cmd_param_type cmd_param_type);
-void	usage_print(
-			void);
-void	input_params_remove(
-			t_input_params **input_params);
+t_input_params	*input_params_initialize(
+					t_argc_argv *argc_argv);
+void			input_param_save(
+					void *const input_params,
+					char opt, t_argc_argv *argc_argv,
+					t_cmd_param_type cmd_param_type);
+void			usage_print(
+					void);
+void			input_params_remove(
+					const t_input_params **input_params);
 
 #endif
