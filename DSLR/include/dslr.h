@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 15:57:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:45:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,29 @@
 # include "ft_printf.h"
 # include "libft_addons.h"
 
+typedef struct s_file_params
+{
+	int		fd;
+	char	*line;
+}				t_file_params;
+
+typedef struct s_index_name_pair
+{
+	size_t		index;
+	const char	*name;
+}				t_index_name_pair;
+
+typedef struct s_dataset
+{
+	const char	*file_path;
+}				t_dataset;
+
 typedef struct s_input_params
 {
 	t_argc_argv			*argc_argv;
 	t_loging_level		event_logging_level;
 	t_bool				print_leaks;
-	const char			*dataset_file;
+	const t_dataset		*dataset;
 }				t_input_params;
 
 t_input_params	*input_params_initialize(
@@ -34,5 +51,6 @@ void			usage_print(
 					void);
 void			input_params_remove(
 					const t_input_params **input_params);
+t_dataset		*dataset_initialize(const char *const dataset_file_path);
 
 #endif

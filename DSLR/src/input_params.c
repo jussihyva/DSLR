@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 15:57:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:21:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ static void	input_param_save_mandatory(
 									char opt,
 									t_argc_argv *argc_argv)
 {
-	const char			*arg;
+	const char		*arg;
+	const char		*dataset_file_path;
 
 	(void)opt;
 	arg = (*argc_argv->argv)[argc_argv->i];
 	if (((*argc_argv->argc) - argc_argv->i) == 1)
-		input_params->dataset_file = (const char *)ft_strdup(arg);
+	{
+		dataset_file_path = (const char *)ft_strdup(arg);
+		input_params->dataset = dataset_initialize(dataset_file_path);
+	}
 	else
 		usage_print();
 	return ;
@@ -74,7 +78,8 @@ void	input_param_save(
 void	input_params_remove(
 						const t_input_params **input_params)
 {
-	ft_strdel((char **)&(*input_params)->dataset_file);
+	ft_strdel((char **)&(*input_params)->dataset->file_path);
+	ft_memdel((void **)&(*input_params)->dataset);
 	ft_memdel((void **)input_params);
 	return ;
 }

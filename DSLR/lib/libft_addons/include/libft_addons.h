@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 15:43:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:52:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void					ft_prio_enqueue(t_bt_node **states_prio_queue,
 							int *prio, void *puzzle_status);
 void					*ft_prio_dequeue(t_bt_node **states_prio_queue);
 void					ft_print_memory(const void *addr, size_t size);
-int						ft_open_fd(char *file_path);
+int						ft_open_fd(const char *const file_path);
 const void				*ft_arg_parser(t_arg_parser *arg_parser);
 t_loging_level			ft_logging_level_param_validate(const char *level_str);
 void					ft_print_leaks(const char *prog_name);
