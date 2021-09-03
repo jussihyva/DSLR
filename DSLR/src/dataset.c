@@ -6,22 +6,19 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/03 15:06:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/03 18:00:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static void	array_print(const char **const array)
+static void	array_print(const char **const array, const size_t number_of_values)
 {
 	size_t		i;
 
-	i = 0;
-	while (array[i])
-	{
+	i = -1;
+	while (++i < number_of_values)
 		ft_printf("  %s\n", array[i]);
-		i++;
-	}
 	return ;
 }
 
@@ -65,7 +62,7 @@ static const char	**dataset_save_record(
 	{
 		ft_printf("FATAL: %u\n", number_of_values);
 		ft_printf("%s\n", line);
-		array_print(value_array);
+		array_print(value_array, number_of_values);
 		exit(42);
 	}
 	new_elem = ft_lstnew(&value_array, sizeof(value_array) * number_of_values);
@@ -98,10 +95,10 @@ const t_dataset	*dataset_read_file(
 		{
 			value_array = dataset_save_record(file_params.line,
 					&dataset->value_array_lst, dataset->number_of_columns);
-			if (line_cnt == 2)
+			if (line_cnt >= 2)
 			{
 				ft_printf("%s\n", file_params.line);
-				array_print(value_array);
+				array_print(value_array, dataset->number_of_columns);
 			}
 		}
 		ft_strdel((char **)&file_params.line);
