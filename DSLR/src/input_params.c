@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 17:21:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/03 12:36:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,13 @@ void	input_param_save(
 void	input_params_remove(
 						const t_input_params **input_params)
 {
-	ft_strdel((char **)&(*input_params)->dataset->file_path);
-	ft_memdel((void **)&(*input_params)->dataset);
+	if ((*input_params)->dataset)
+	{
+		ft_strdel((char **)&(*input_params)->dataset->file_path);
+		ft_memdel((void **)&(*input_params)->dataset->column_length_array);
+		ft_strarraydel((char ***)&(*input_params)->dataset->column_name_array);
+		ft_memdel((void **)&(*input_params)->dataset);
+	}
 	ft_memdel((void **)input_params);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 17:42:28 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 15:44:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/03 12:43:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,15 @@ static void	split_cmd_argument(
 	{
 		while (*(++arg))
 		{
-			if (pre_analyse_argument(arg_parser->options, *arg, argc_argv))
-				fn_input_param_save(input_params, *arg, argc_argv,
-					cmd_param_type);
-			else
-			{
+			if (!pre_analyse_argument(arg_parser->options, *arg, argc_argv))
 				cmd_param_type = E_MANDATORY;
-				fn_input_param_save(input_params, *arg, argc_argv,
-					cmd_param_type);
+			fn_input_param_save(input_params, *arg, argc_argv, cmd_param_type);
+			if (cmd_param_type == E_MANDATORY)
 				break ;
-			}
 		}
 	}
 	else if (cmd_param_type == E_MANDATORY || cmd_param_type == E_OPTIONAL_LONG)
-		fn_input_param_save(input_params, *arg, argc_argv,
-			cmd_param_type);
+		fn_input_param_save(input_params, *arg, argc_argv, cmd_param_type);
 	return ;
 }
 

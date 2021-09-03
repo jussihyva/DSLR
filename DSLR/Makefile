@@ -6,13 +6,21 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/01 22:04:52 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/03 11:31:54 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Application specific parameters
 NAME			=	dslr
 NAMES			=	$(NAME)
+
+# Colours for printouts
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+YELLOW			=	\033[0;33m
+GRAY			=	\033[1;30m
+PURPLE			=	\033[0;35m
+END				=	\033[0m
 
 # Input parameters
 
@@ -60,14 +68,14 @@ LD_FLAGS			+=	$(D_ATTRIBUTES)
 
 .PHONY: all
 all: $(FOLDERS) $(H_FILES) $(APP_C_FILES) $(C_FILES) libraries $(APP_FILES)
-	@rm -f ~/theta_values.yaml
-	@echo "$(GREEN)Done!$(END)"
 
 $(APP_FILES): $(BIN)/%: $(SRC)/%.c $(H_FILES) $(O_FILES) Makefile
-	$(CC) -o $@ $< $(O_FILES) $(LD_FLAGS) $(C_FLAGS)
+	@$(CC) -o $@ $< $(O_FILES) $(LD_FLAGS) $(C_FLAGS)
+	@echo "Program $(GREEN)$@$(END) created!"
 
 $(O_FILES): $(OBJ)/%.o: $(SRC)/%.c $(H_FILES) Makefile $(LOCAL_LIB_FILES)
-	$(CC) -c -o $@ $< $(C_FLAGS) $(D_ATTRIBUTES)
+	@$(CC) -c -o $@ $< $(C_FLAGS) $(D_ATTRIBUTES)
+	@echo "File $(YELLOW)$<$(END) -> $(GREEN)$@$(END) compiled!"
 
 $(FOLDERS):
 	mkdir $@
@@ -96,18 +104,18 @@ libraries_norm:
 .PHONY: run
 run: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(POLYNOMIAL)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(DATASET)
 else
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(POLYNOMIAL)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(DATASET)
 endif
 
 .PHONY: run_leaks
 run_leaks: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) -l $(POLYNOMIAL)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) -l $(DATASET)
 else
 	valgrind -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(POLYNOMIAL)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(DATASET)
 endif
 
 .PHONY: clean

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 17:45:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/03 12:22:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ typedef struct s_file_params
 	char	*line;
 }				t_file_params;
 
-typedef struct s_index_name_pair
-{
-	size_t		index;
-	const char	*name;
-}				t_index_name_pair;
-
 typedef struct s_dataset
 {
-	const char	*file_path;
+	const char		*file_path;
+	const char		**column_name_array;
+	size_t			*column_length_array;
+	size_t			number_of_columns;
 }				t_dataset;
 
 typedef struct s_input_params
@@ -47,10 +44,14 @@ void			input_param_save(
 					void *const input_params,
 					char opt, t_argc_argv *argc_argv,
 					t_cmd_param_type cmd_param_type);
-void			usage_print(
-					void);
+void			usage_print(void);
 void			input_params_remove(
 					const t_input_params **input_params);
-t_dataset		*dataset_initialize(const char *const dataset_file_path);
+const t_dataset	*dataset_initialize(
+					const char *const dataset_file_path);
+char			**ft_strsplit_ex(
+					char const *s,
+					const char c,
+					size_t *const num_of_words);
 
 #endif
