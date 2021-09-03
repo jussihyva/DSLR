@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/03 12:22:56 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/03 14:14:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_dataset
 	const char		**column_name_array;
 	size_t			*column_length_array;
 	size_t			number_of_columns;
+	t_list			*value_array_lst;
 }				t_dataset;
 
 typedef struct s_input_params
