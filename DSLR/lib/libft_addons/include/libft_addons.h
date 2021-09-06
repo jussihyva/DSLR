@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 17:52:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 11:18:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # include <openssl/ssl.h>
 # include <openssl/err.h>
 
-# define MAX_LOGING_EXTENSIONS		32
+# define MAX_LOGGING_EXTENSIONS		32
 # define PI							3.141592654
-# define LOGING_LEVELS				6
+# define LOGGING_LEVELS				6
 # define MAX_NUM_OF_B_TREE_ELEMS	10
 
 typedef enum e_bool
@@ -39,7 +39,7 @@ typedef enum e_bool
 	E_TRUE
 }			t_bool;
 
-typedef enum e_loging_level
+typedef enum e_logging_level
 {
 	LOG_TRACE = 0,
 	LOG_DEBUG = 1,
@@ -47,7 +47,9 @@ typedef enum e_loging_level
 	LOG_WARN = 3,
 	LOG_ERROR = 4,
 	LOG_FATAL = 5
-}				t_loging_level;
+}				t_logging_level;
+
+# define DEFAULT_LOGGING_LEVEL	LOG_WARN
 
 typedef enum e_cmd_param_type
 {
@@ -63,11 +65,11 @@ typedef struct s_argc_argv
 	int			i;
 }				t_argc_argv;
 
-typedef struct s_event_logging_data
+typedef struct s_logging_data
 {
 	const char	**level_strings;
 	const char	**level_colors;
-}				t_event_logging_data;
+}				t_logging_data;
 
 # if DARWIN
 typedef struct s_timeval
@@ -107,26 +109,26 @@ typedef struct s_log_event
 	int				level;
 }				t_log_event;
 
-typedef void	(*t_loging_function)(t_log_event *event);
-typedef void	(*t_loging_lock_function)(int lock, void *udata);
+typedef void	(*t_logging_function)(t_log_event *event);
+typedef void	(*t_logging_lock_function)(int lock, void *udata);
 
-typedef struct s_loging_extension
+typedef struct s_logging_extension
 {
-	t_loging_function	fn;
+	t_logging_function	fn;
 	void				*additional_event_data;
 	int					level;
-}				t_loging_extension;
+}				t_logging_extension;
 
-typedef struct s_loging_params
+typedef struct s_logging_params
 {
 	void					*udata;
-	t_loging_lock_function	lock;
+	t_logging_lock_function	lock;
 	int						level;
 	int						quiet;
 	const char				**level_strings;
 	const char				**level_colors;
-	t_loging_extension		*loging_extensions[MAX_LOGING_EXTENSIONS];
-}				t_loging_params;
+	t_logging_extension		*logging_extensions[MAX_LOGGING_EXTENSIONS];
+}				t_logging_params;
 
 typedef struct s_queue
 {
@@ -189,21 +191,23 @@ void					ft_log_error(const char *file, const int line,
 							const char *fmt, ...);
 void					ft_log_fatal(const char *file, const int line,
 							const char *fmt, ...);
-void					ft_log_set_lock(t_loging_lock_function fn, void *udata);
+void					ft_log_set_lock(
+							t_logging_lock_function fn,
+							void *udata);
 void					ft_log_set_level(int level);
 /*
 ** void			log_set_quiet(int enable);
 */
 int						ft_log_add_fd(int *fd, int level);
-void					ft_log_set_params(const char **level_strings,
+void					ft_logging_params_set(const char **level_strings,
 							const char **level_colors);
-void					set_g_loging_params_2(t_loging_params *loging_params);
-void					set_g_loging_params_3(t_loging_params *loging_params);
-void					set_g_loging_params_4(t_loging_params *loging_params);
-void					set_g_loging_params_5(t_loging_params *loging_params);
-t_event_logging_data	*ft_event_logging_init(t_loging_level event_type);
-void					ft_event_logging_release(
-							t_event_logging_data **event_logging_data);
+void					logging_params_2_set(t_logging_params *logging_params);
+void					logging_params_3_set(t_logging_params *logging_params);
+void					logging_params_4_set(t_logging_params *logging_params);
+void					logging_params_5_set(t_logging_params *logging_params);
+t_logging_data			*ft_event_logging_init(t_logging_level logging_level);
+void					ft_logging_release(
+							const t_logging_data **const logging_data);
 double					ft_radian(double angle_degree);
 int						ft_max_int(int nbr1, int nbr2);
 int						ft_min_int(int nbr1, int nbr2);
@@ -220,11 +224,11 @@ void					stdout_callback(t_log_event *event);
 void					unlock(void);
 void					lock(void);
 void					file_callback(t_log_event *event);
-void					execute_login_extensions(t_log_event *event,
+void					execute_logging_extensions(t_log_event *event,
 							const char *fmt, ...);
-int						ft_log_add_callback(t_loging_function fn,
+int						ft_log_add_callback(t_logging_function fn,
 							void *additional_event_data, int level);
-void					ft_release_loging_params(void);
+void					ft_logging_params_release(void);
 void					ft_openssl_init(void);
 SSL_CTX					*ft_openssl_init_ctx(const SSL_METHOD	*tls_method,
 							char *pem_cert_file, char *pem_private_key_file);
@@ -258,7 +262,7 @@ void					*ft_prio_dequeue(t_bt_node **states_prio_queue);
 void					ft_print_memory(const void *addr, size_t size);
 int						ft_open_fd(const char *const file_path);
 const void				*ft_arg_parser(t_arg_parser *arg_parser);
-t_loging_level			ft_logging_level_param_validate(const char *level_str);
+t_logging_level			ft_logging_level_param_validate(const char *level_str);
 void					ft_print_leaks(const char *prog_name);
 void					ft_strarraydel(char ***array);
 

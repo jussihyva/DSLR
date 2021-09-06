@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/02 15:55:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 11:36:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ static void	arg_parser_remove(t_arg_parser **arg_parser)
 
 static void	main_remove(
 					t_arg_parser **arg_parser,
-					t_event_logging_data **event_logging_data,
-					const t_input_params **input_params)
+					const t_input_params **const input_params)
 {
 	t_bool			print_leaks;
 
 	print_leaks = (*input_params)->print_leaks;
+	ft_logging_release(
+		(const t_logging_data **const) &(*input_params)->logging_data);
 	input_params_remove(input_params);
 	arg_parser_remove(arg_parser);
-	ft_event_logging_release(event_logging_data);
 	if (print_leaks)
 		ft_print_leaks("dslr");
 	return ;
@@ -55,12 +55,9 @@ int	main(
 {
 	t_arg_parser			*arg_parser;
 	const t_input_params	*input_params;
-	t_event_logging_data	*event_logging_data;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
-	event_logging_data = ft_event_logging_init(
-			input_params->event_logging_level);
-	main_remove(&arg_parser, &event_logging_data, &input_params);
+	main_remove(&arg_parser, &input_params);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/03 12:36:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 10:39:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_input_params	*input_params_initialize(
 
 	input_params = ft_memalloc(sizeof(*input_params));
 	input_params->argc_argv = argc_argv;
-	input_params->event_logging_level = LOG_WARN;
+	input_params->logging_level = LOG_WARN;
+	input_params->logging_data = ft_event_logging_init(DEFAULT_LOGGING_LEVEL);
 	return (input_params);
 }
 
@@ -33,8 +34,9 @@ static void	input_param_save_short(
 	if (opt == 'L')
 	{
 		arg = (*argc_argv->argv)[argc_argv->i];
-		input_params->event_logging_level
+		input_params->logging_level
 			= ft_logging_level_param_validate(arg);
+		ft_log_set_level(input_params->logging_level);
 	}
 	else if (opt == 'l')
 		input_params->print_leaks = E_TRUE;

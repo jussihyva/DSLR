@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/03 14:14:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 11:31:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ typedef struct s_dataset
 
 typedef struct s_input_params
 {
-	t_argc_argv			*argc_argv;
-	t_loging_level		event_logging_level;
-	t_bool				print_leaks;
-	const t_dataset		*dataset;
+	const t_argc_argv		*argc_argv;
+	const t_logging_data	*logging_data;
+	t_logging_level			logging_level;
+	t_bool					print_leaks;
+	const t_dataset			*dataset;
 }				t_input_params;
 
 t_input_params	*input_params_initialize(
