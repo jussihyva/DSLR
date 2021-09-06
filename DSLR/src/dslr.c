@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 11:36:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 12:50:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	main_remove(
 	t_bool			print_leaks;
 
 	print_leaks = (*input_params)->print_leaks;
-	ft_logging_release(
-		(const t_logging_data **const) &(*input_params)->logging_data);
 	input_params_remove(input_params);
 	arg_parser_remove(arg_parser);
 	if (print_leaks)

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 11:31:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 12:20:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ char			**ft_strsplit_ex(
 					char const *s,
 					const char c,
 					size_t *const num_of_words);
+void			dataset_value_array_remove(void *contnet, size_t size);
 
 #endif

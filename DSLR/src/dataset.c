@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 11:47:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 16:09:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,14 @@ static void	dataset_save_record(
 	const char		**value_array;
 	const t_list	*new_elem;
 
-	(void)number_of_columns;
 	value_array = (const char **)ft_strsplit_ex(line, ',', &number_of_values);
 	if (number_of_values != number_of_columns)
 	{
-		ft_printf("FATAL: %u\n", number_of_values);
-		ft_printf("%s\n", line);
 		array_print(value_array, number_of_values);
-		exit(42);
+		ft_printf("%s\n", line);
+		FT_LOG_FATAL("FATAL: %u\n", number_of_values);
 	}
-	new_elem = ft_lstnew(&value_array, sizeof(value_array) * number_of_values);
+	new_elem = ft_lstnew(&value_array, sizeof(value_array));
 	ft_lstadd(value_array_lst, (t_list *)new_elem);
 	FT_LOG_DEBUG("%s\n", line);
 	array_print(value_array, number_of_columns);
@@ -109,4 +107,14 @@ const t_dataset	*dataset_initialize(
 
 	dataset = dataset_read_file(dataset_file_path);
 	return (dataset);
+}
+
+void	dataset_value_array_remove(void *content, size_t size)
+{
+	const char		***value_array;
+
+	(void)size;
+	value_array = (const char ***)content;
+	ft_strarraydel(value_array);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 17:55:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/03 17:56:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/06 16:07:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static size_t	count_number_of_values(const char *str, const char delim)
 	return (number_of_values);
 }
 
-static const char	*read_value(
-							const char *start_ptr,
-							const char *end_ptr)
+static char	*read_value(
+					const char *start_ptr,
+					const char *end_ptr)
 {
-	const char	*value;
+	char	*value;
 
 	if (start_ptr == end_ptr)
-		value = NULL;
+		value = ft_strdup("");
 	else
 		value = ft_strsub(start_ptr, 0, end_ptr - start_ptr);
 	return (value);
@@ -45,7 +45,7 @@ static const char	*read_value(
 static void	parse_and_save_values(
 							const char *const str,
 							const char delim,
-							const char **value_array)
+							char **value_array)
 {
 	const char		*start_ptr;
 	const char		*end_ptr;
@@ -73,10 +73,10 @@ char	**ft_strsplit_ex(
 					const char c,
 					size_t *const number_of_values)
 {
-	const char		**value_array;
+	char		**value_array;
 
 	*number_of_values = count_number_of_values(s, c);
 	value_array = ft_memalloc(sizeof(*value_array) * (*number_of_values + 1));
 	parse_and_save_values(s, c, value_array);
-	return ((char **)value_array);
+	return (value_array);
 }
