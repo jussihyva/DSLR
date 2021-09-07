@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 12:20:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 12:50:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "libft_addons.h"
+# include <stdio.h>
+# include "tensorflow/c/c_api.h"
 
 typedef struct s_file_params
 {

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 10:47:03 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/07 12:50:08 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ GLOBAL_LIBS				=
 GLOBAL_LIB_FOLDERS		=	
 ifeq ($(OS), Darwin)
 	GLOBAL_LIBS			+=	libtensorflow.dylib
-	GLOBAL_LIB_FOLDERS	+=	/Users/jkauppi/DSLR/DSLR/lib/libtensorflow
+	GLOBAL_LIB_FOLDERS	+=	$(HOME)/lib/libtensorflow
 else
 	GLOBAL_LIBS	+=	libm.a
 endif

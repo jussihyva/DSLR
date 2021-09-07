@@ -6,13 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 10:31:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 12:50:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
-#include <stdio.h>
-#include "../lib/libtensorflow/include/tensorflow/c/c_api.h"
 
 static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 {
