@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 14:20:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 18:12:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define PEM_CERT_FILE				"tls-selfsigned.crt"
 # define PEM_PRIVTE_KEY_FILE		"tls-selfsigned.key"
+# define SEND_REC_BUF_MAX_SIZE		4096
 # define MAX_LOGGING_EXTENSIONS		32
 # define PI							3.141592654
 # define LOGGING_LEVELS				6
@@ -278,5 +279,9 @@ char					*ft_file_create(
 							const char *const folder,
 							const char *const file_name);
 const char				*ft_home_dir(void);
+void					ft_influxdb_write(
+							const t_tls_connection *const connection,
+							const char *const body,
+							const char *const database);
 
 #endif

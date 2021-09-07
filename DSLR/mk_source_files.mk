@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 14:47:46 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/07 18:08:37 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ ifeq ($(OS), Darwin)
 	GLOBAL_LIBS			+=	libtensorflow.a
 	GLOBAL_LIB_FOLDERS	+=	$(HOME)/lib/libtensorflow
 	GLOBAL_LIB_FOLDERS	+=	$(HOME)/.brew/Cellar/openssl@1.1/1.1.1k/lib
-	GLOBAL_LIB_FOLDERS	+=	$(HOME)/.brew/Cellar/openssl@1.1/1.1.1l/lib
 else
 	GLOBAL_LIBS	+=	libm.a
 endif

@@ -6,11 +6,14 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/21 11:50:38 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 14:50:32 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/07 16:32:12 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Input parameters
+
 include		mk_source_files.mk
+include		mk_cert_variables.mk
 
 OS				=	$(shell uname -s)
 ifeq ($(OS), Darwin)
@@ -49,7 +52,7 @@ YELLOW			=	\033[0;33m
 END				=	\033[0m
 
 .PHONY: all
-all: $(TARGET_NAME)
+all: $(SELF_SIGNED_CRT) $(TARGET_NAME)
 	@echo "$(GREEN)Done!$(END)"
 
 $(TARGET_NAME): ../%: % $(FOLDERS) $(H_FILES) $(C_FILES) $(O_FILES)
@@ -86,3 +89,5 @@ ifeq ($(OS), Darwin)
 else
 	norminette
 endif
+
+include		mk_cert_actions.mk

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/07 14:28:42 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 14:50:44 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/07 18:02:53 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,5 +27,5 @@ SRC_C_FILES		=	ft_radian.c ft_max_int.c ft_min_int.c \
 					ft_prio_enqueue.c ft_prio_dequeue.c ft_print_memory.c \
 					ft_open_fd.c ft_arg_parser.c ft_print_leaks.c \
 					ft_strarraydel.c ft_influxdb_connect.c ft_file_create.c \
-					ft_home_dir.c
+					ft_home_dir.c ft_influxdb_write.c
 SRC_H_FILES		=	libft_addons.h libft_addons_against_norm.h
