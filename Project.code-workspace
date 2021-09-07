@@ -13,7 +13,9 @@
 			"libft.h": "c",
 			"__locale": "c",
 			"libft_addons.h": "c",
-			"c_api.h": "c"
+			"c_api.h": "c",
+			"tf_datatype.h": "c",
+			"tf_tensor.h": "c"
 		}
 	}
 }
