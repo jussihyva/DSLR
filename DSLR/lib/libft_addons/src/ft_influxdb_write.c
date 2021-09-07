@@ -6,13 +6,14 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:03:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 18:58:24 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 23:23:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_addons.h"
 
-static void	read_response(const int socket_fd)
+// static void	read_response(const int socket_fd)
+static void	read_response(SSL *const ssl_bio)
 {
 	char		*read_buf;
 	int			chars;
@@ -24,7 +25,8 @@ static void	read_response(const int socket_fd)
 	end = start + (CLOCKS_PER_SEC * 2);
 	chars = -1;
 	while (chars == -1 && end > clock())
-		chars = read(socket_fd, read_buf, SEND_REC_BUF_MAX_SIZE);
+		chars = SSL_read(ssl_bio, read_buf, SEND_REC_BUF_MAX_SIZE);
+		// chars = read(socket_fd, read_buf, SEND_REC_BUF_MAX_SIZE);
 	if (chars == -1)
 		FT_LOG_ERROR("%s", "Reading of influxdb response failed!");
 	else
@@ -32,7 +34,8 @@ static void	read_response(const int socket_fd)
 		while (chars > 0)
 		{
 			FT_LOG_TRACE("CHARS: %s", read_buf);
-			chars = read(socket_fd, read_buf, SEND_REC_BUF_MAX_SIZE);
+			chars = SSL_read(ssl_bio, read_buf, SEND_REC_BUF_MAX_SIZE);
+			// chars = read(socket_fd, read_buf, SEND_REC_BUF_MAX_SIZE);
 		}
 	}
 	ft_strdel(&read_buf);
@@ -50,12 +53,15 @@ void	ft_influxdb_write(
 	{
 		sprintf(header,
 			"POST /api/v2/write?org=Builders&bucket=%s&precision=s %sContent-Length: %ld\r\n\r\n",
-			database, "HTTP/1.1\r\nHost: None\r\nAuthorization: Token hY8i8qNMkwmZlIIHwNxhiWO_qNKuGuaZvKZBTwYV4PjyvRFYB7gzRImKZm8pqV9-Yvd6PIqC2T0zCbqHwnQ33A==\r\n", strlen(body));
-		write(connection->socket_fd, header, strlen(header));
+			database, "HTTP/1.1\r\nHost: None\r\nAuthorization: Token XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9viYS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==\r\n", strlen(body));
+		// write(connection->socket_fd, header, strlen(header));
+		SSL_write(connection->ssl_bio, header, strlen(header));
 		FT_LOG_TRACE("BODY: %s", header);
 		FT_LOG_TRACE("BODY: %s", body);
-		write(connection->socket_fd, body, strlen(body));
-		read_response(connection->socket_fd);
+		// write(connection->socket_fd, body, strlen(body));
+		SSL_write(connection->ssl_bio, body, strlen(body));
+		// read_response(connection->socket_fd);
+		read_response(connection->ssl_bio);
 	}
 	return ;
 }

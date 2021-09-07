@@ -3,9 +3,9 @@ datasources:
   - name: Local database (Influxdb2 Flux)
     type: influxdb
     access: proxy
-    url: http://influxdb:8086
+    url: https://influxdb:8086
     secureJsonData:
-      token: hY8i8qNMkwmZlIIHwNxhiWO_qNKuGuaZvKZBTwYV4PjyvRFYB7gzRImKZm8pqV9-Yvd6PIqC2T0zCbqHwnQ33A==
+      token: XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9viYS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==
     jsonData:
       version: Flux
       organization: Builders
@@ -15,11 +15,11 @@ datasources:
   - name: Local database (Influxdb2 QL)
     type: influxdb
     access: proxy
-    url: http://influxdb:8086
+    url: https://influxdb:8086
     # This database should be mapped to a bucket
     database: Hive
     jsonData:
       httpMode: GET
       httpHeaderName1: 'Authorization'
     secureJsonData:
-      httpHeaderValue1: 'Token hY8i8qNMkwmZlIIHwNxhiWO_qNKuGuaZvKZBTwYV4PjyvRFYB7gzRImKZm8pqV9-Yvd6PIqC2T0zCbqHwnQ33A=='
+      httpHeaderValue1: 'XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9viYS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw=='

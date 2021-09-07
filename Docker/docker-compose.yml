@@ -9,11 +9,11 @@ services:
       - '8086:8086'
     volumes:
       - influxdb-storage:/var/lib/influxdb2:rw
-      - ./influxdb2:/home/influxdb/.influxdbv2:rw
+      # - ./influxdb2:/home/influxdb/.influxdbv2:rw
       - ./influxdb_config.yml:/etc/influxdb2/config.yml:rw
       # - ./influx-configs:/etc/influxdb2/influx-configs:rw
-      # - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:rw
-      # - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:rw
+      - ./influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:ro
+      - ./influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:ro
   chronograf:
     image: chronograf:1.9.0
     container_name: chronograf
