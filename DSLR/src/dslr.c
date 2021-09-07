@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 12:50:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 14:22:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int	main(
 {
 	t_arg_parser			*arg_parser;
 	const t_input_params	*input_params;
+	t_tls_connection		*influxdb_connection;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
+	influxdb_connection = ft_influxdb_connect("127.0.0.1", "8086");
 	main_remove(&arg_parser, &input_params);
 	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	return (0);

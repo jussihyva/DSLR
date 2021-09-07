@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 16:13:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 14:20:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 # include <sys/stat.h>
 # include <openssl/ssl.h>
 # include <openssl/err.h>
+# include <pwd.h>
 
+# define PEM_CERT_FILE				"tls-selfsigned.crt"
+# define PEM_PRIVTE_KEY_FILE		"tls-selfsigned.key"
 # define MAX_LOGGING_EXTENSIONS		32
 # define PI							3.141592654
 # define LOGGING_LEVELS				6
@@ -234,8 +237,11 @@ SSL_CTX					*ft_openssl_init_ctx(const SSL_METHOD	*tls_method,
 							char *pem_cert_file, char *pem_private_key_file);
 SSL_CTX					*ft_openssl_init_client(char *pem_cert_file,
 							char *pem_private_key_file, int *socket_fd);
-t_tls_connection		*ft_openssl_connect(char *hostname, char *port,
-							int socket_fd, SSL_CTX *ctx);
+t_tls_connection		*ft_openssl_connect(
+							const char *const hostname,
+							const char *const port,
+							const int socket_fd,
+							SSL_CTX *const ctx);
 void					ft_openssl_rel_conn(t_tls_connection **connection);
 void					ft_stack_push(t_list **stack, void *data);
 void					*ft_stack_pop(t_list **stack);
@@ -265,5 +271,12 @@ const void				*ft_arg_parser(t_arg_parser *arg_parser);
 t_logging_level			ft_logging_level_param_validate(const char *level_str);
 void					ft_print_leaks(const char *prog_name);
 void					ft_strarraydel(const char ***const array);
+t_tls_connection		*ft_influxdb_connect(
+							const char *const host_name,
+							const char *const port_number);
+char					*ft_file_create(
+							const char *const folder,
+							const char *const file_name);
+const char				*ft_home_dir(void);
 
 #endif

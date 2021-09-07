@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 11:01:59 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/07 14:53:30 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ INCLUDES		=	-I $(INCLUDE) -I $(LIB)
 # C (Source code) and H (Header) files
 LOCAL_LIB_FILES	=	$(addprefix $(LIB)/, $(LOCAL_LIBS))
 LIB_FILES		=	$(addprefix -l , $(patsubst lib%.a, %, $(LOCAL_LIBS)))
-LIB_FILES		+=	$(addprefix -l , $(patsubst lib%.dylib, %, $(GLOBAL_LIBS)))
+LIB_FILES		+=	$(addprefix -l , $(patsubst lib%.a, %, $(GLOBAL_LIBS)))
+LIB_FOLDERS		=	$(addprefix -L, $(GLOBAL_LIB_FOLDERS))
 
 # Path folders for H, C, O and APP files
 H_FILES			=	$(addprefix $(INCLUDE)/, $(SRC_H_FILES))
@@ -56,7 +57,7 @@ APP_C_FILES		=	$(addprefix $(SRC)/, $(patsubst %, %.c, $(NAMES)))
 # Compiler and linking parameters
 CC				=	clang
 C_FLAGS			=	-g -Wall -Wextra -Werror $(INCLUDES) $(SYSTEM_INCLUDE)
-LD_FLAGS		=	-std=gnu17 -L$(LIB) $(LIB_FILES) -L $(GLOBAL_LIB_FOLDERS)
+LD_FLAGS		=	-std=gnu17 -L$(LIB) $(LIB_FILES) $(LIB_FOLDERS)
 
 ifeq ($(OS), Darwin)
 	D_ATTRIBUTES	=	-D DARWIN

@@ -12,7 +12,8 @@
 			"functional": "c",
 			"libft.h": "c",
 			"__locale": "c",
-			"libft_addons.h": "c"
+			"libft_addons.h": "c",
+			"c_api.h": "c"
 		}
 	}
 }
