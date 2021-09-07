@@ -6,11 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 12:50:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/07 10:31:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
+#include <stdio.h>
+#include "../lib/libtensorflow/include/tensorflow/c/c_api.h"
 
 static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 {
@@ -57,5 +59,6 @@ int	main(
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
 	main_remove(&arg_parser, &input_params);
+	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	return (0);
 }
