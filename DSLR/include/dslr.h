@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 18:03:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/08 20:25:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@
 # include <stdio.h>
 # include "tensorflow/c/c_api.h"
 
-static const char	*g_influxdb_token_array[] =
+# define	NUMBER_OF_INFLUXDB_TOKENS		2
+
+static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
-	"XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9viYS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==",
-	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwusx8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
+	"XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9vi"
+	"YS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==",
+	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
+	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
 };
 
 typedef struct s_file_params

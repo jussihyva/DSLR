@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:03:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 17:48:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/08 20:21:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static const char	*create_header(
 void	ft_influxdb_write(
 						const t_tls_connection *const connection,
 						const char *const body,
-						const char *const database,
-						const char **const influxdb_token_array)
+						const char **const influxdb_token_array,
+						const size_t number_of_influxdb_tokens)
 {
 	const char	*header;
 	t_bool		validation_result;
@@ -66,13 +66,12 @@ void	ft_influxdb_write(
 	const char	*token;
 	size_t		body_length;
 
-	(void)database;
 	body_length = ft_strlen(body);
 	if (connection)
 	{
 		validation_result = E_FALSE;
 		i = -1;
-		while (!validation_result && ++i < 2)
+		while (!validation_result && ++i < number_of_influxdb_tokens)
 		{
 			token = influxdb_token_array[i];
 			header = create_header(token, body_length);
