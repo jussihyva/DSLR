@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 12:50:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/08 18:03:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "libft_addons.h"
 # include <stdio.h>
 # include "tensorflow/c/c_api.h"
+
+static const char	*g_influxdb_token_array[] =
+{
+	"XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9viYS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==",
+	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwusx8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
+};
 
 typedef struct s_file_params
 {

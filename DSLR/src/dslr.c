@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 00:29:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/08 17:49:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int	main(
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
 	influxdb_connection = ft_influxdb_connect("127.0.0.1", "8086");
-	ft_influxdb_write(influxdb_connection, "mem,host=host1 used_percent=23.43234543 1631028679", "Hive");
+	ft_influxdb_write(influxdb_connection,
+		"mem,host=host1 used_percent=23.43234543 1631058679", "Hive",
+		g_influxdb_token_array);
 	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	number = TF_max(23, 822);
 	FT_LOG_INFO("Number: %u", number);

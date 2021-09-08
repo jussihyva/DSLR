@@ -6,11 +6,23 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:42:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 23:13:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/08 18:04:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_addons.h"
+
+static void	sockaddr_initialize(
+							struct sockaddr_in *const sockaddr,
+							const char *const hostname,
+							const char *const port)
+{
+	bzero(sockaddr, sizeof(*sockaddr));
+	sockaddr->sin_family = AF_INET;
+	sockaddr->sin_port = htons(atoi(port));
+	sockaddr->sin_addr.s_addr = inet_addr(hostname);
+	return ;
+}
 
 t_tls_connection	*ft_openssl_connect(
 									const char *const hostname,
@@ -19,15 +31,12 @@ t_tls_connection	*ft_openssl_connect(
 									SSL_CTX *const ctx)
 {
 	int					error;
-	struct sockaddr_in	addr;
+	struct sockaddr_in	sockaddr;
 	t_tls_connection	*tls_connection;
 
 	tls_connection = NULL;
-	bzero(&addr, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(atoi(port));
-	addr.sin_addr.s_addr = inet_addr(hostname);
-	error = connect(socket_fd, (struct sockaddr *)&addr, sizeof(addr));
+	sockaddr_initialize(&sockaddr, hostname, port);
+	error = connect(socket_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
 	if (error != -1)
 	{
 		tls_connection = ft_memalloc(sizeof(*tls_connection));
