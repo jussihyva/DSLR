@@ -44,8 +44,8 @@ storage-validate-keys: false
 storage-wal-fsync-delay: 0s
 store: bolt
 testing-always-allow-setup: false
-tls-cert: "/etc/ssl/influxdb-selfsigned.crt"
-tls-key: "/etc/ssl/influxdb-selfsigned.key"
+# tls-cert: "/etc/ssl/influxdb-selfsigned.crt"
+# tls-key: "/etc/ssl/influxdb-selfsigned.key"
 tls-min-version: "1.2"
 tls-strict-ciphers: false
 tracing-type: ""

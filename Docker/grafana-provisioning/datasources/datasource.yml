@@ -1,16 +1,15 @@
 apiVersion: 1
 datasources:
-  - name: Local database (Influxdb2 QL)
+  - name: Local database (Influxdb2 Flux)
     type: influxdb
     access: proxy
-    url: https://influxdb:8086
-    # This database should be mapped to a bucket
-    database: Hive
+    url: http://influxdb:8086
+    secureJsonData:
+      token: l1kVqav1U4vTYrZCuv1crOMwHpUiQAKvzRYwy2V9Mag6xYRi_CjRmk5SZtOFuIzZDbGDbz7eKgB2_GzDkUeL-A==
     jsonData:
-      httpMode: GET
-      httpHeaderName1: 'Authorization'
+      version: Flux
+      organization: Builders
+      defaultBucket: Hive
       tlsSkipVerify: true
       isDefault: true
-    secureJsonData:
-      httpHeaderValue1: 'Token l1kVqav1U4vTYrZCuv1crOMwHpUiQAKvzRYwy2V9Mag6xYRi_CjRmk5SZtOFuIzZDbGDbz7eKgB2_GzDkUeL-A=='
     editable: true
