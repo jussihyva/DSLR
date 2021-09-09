@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:03:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 20:21:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 00:16:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static const char	*create_header(
 	header = ft_memalloc(sizeof(*header) * SEND_REC_BUF_MAX_SIZE);
 	sprintf(header,
 		"%s %s%s%sContent-Length: %ld\r\n\r\n",
-		"POST /api/v2/write?org=Builders&bucket=Hive&precision=s",
+		"POST /api/v2/write?org=Builders&bucket=Hive&precision=ms",
 		"HTTP/1.1\r\nHost: None\r\nAuthorization: Token ",
 		token, "\r\n", body_length);
 	return (header);

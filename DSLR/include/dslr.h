@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 20:25:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 09:53:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
-	"XPsT1o3pZQUWNsPqXoL4mCCdU-LBPzSpSnVyDYWDV9vi"
-	"YS0XHr9itzC-gDNQLb205Fe7IFcsljgP7eNSPyqUsw==",
+	"l1kVqav1U4vTYrZCuv1crOMwHpUiQAKvzRYwy2V9Mag6"
+	"xYRi_CjRmk5SZtOFuIzZDbGDbz7eKgB2_GzDkUeL-A==",
 	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
 	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
 };
+
+typedef struct timespec t_timespec;
 
 typedef struct s_file_params
 {
@@ -67,6 +69,12 @@ char			**ft_strsplit_ex(
 					char const *s,
 					const char c,
 					size_t *const num_of_words);
-void			dataset_value_array_remove(void *contnet, size_t size);
+void			dataset_value_array_remove(
+					void *contnet,
+					size_t size);
+time_t			ft_gettime(void);
+void			dataset_send_to_influxdb(
+					t_tls_connection *influxdb_connection,
+					const t_dataset *const dataset);
 
 #endif
