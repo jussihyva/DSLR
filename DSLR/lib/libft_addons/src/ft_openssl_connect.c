@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:42:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 18:04:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:51:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	sockaddr_initialize(
 	return ;
 }
 
-t_tls_connection	*ft_openssl_connect(
+t_tcp_connection	*ft_openssl_connect(
 									const char *const hostname,
 									const char *const port,
 									const int socket_fd,
@@ -32,26 +32,29 @@ t_tls_connection	*ft_openssl_connect(
 {
 	int					error;
 	struct sockaddr_in	sockaddr;
-	t_tls_connection	*tls_connection;
+	t_tcp_connection	*tcp_connection;
 
-	tls_connection = NULL;
+	tcp_connection = NULL;
 	sockaddr_initialize(&sockaddr, hostname, port);
 	error = connect(socket_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
 	if (error != -1)
 	{
-		tls_connection = ft_memalloc(sizeof(*tls_connection));
-		tls_connection->socket_fd = socket_fd;
-		tls_connection->ctx = ctx;
-		tls_connection->ssl_bio = SSL_new(tls_connection->ctx);
-		SSL_set_fd(tls_connection->ssl_bio, tls_connection->socket_fd);
-		error = SSL_connect(tls_connection->ssl_bio);
-		if (error == -1)
+		tcp_connection = ft_memalloc(sizeof(*tcp_connection));
+		tcp_connection->socket_fd = socket_fd;
+		if (ctx)
 		{
-			FT_LOG_WARN("SSL connection error: %d", error);
-			ft_openssl_rel_conn(&tls_connection);
+			tcp_connection->ctx = ctx;
+			tcp_connection->ssl_bio = SSL_new(tcp_connection->ctx);
+			SSL_set_fd(tcp_connection->ssl_bio, tcp_connection->socket_fd);
+			error = SSL_connect(tcp_connection->ssl_bio);
+			if (error == -1)
+			{
+				FT_LOG_WARN("SSL connection error: %d", error);
+				ft_openssl_rel_conn(&tcp_connection);
+			}
 		}
 	}
 	else
 		FT_LOG_WARN("Influxdb connection error: %d", error);
-	return (tls_connection);
+	return (tcp_connection);
 }

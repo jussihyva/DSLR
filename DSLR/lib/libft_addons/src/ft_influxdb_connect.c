@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 13:20:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/07 16:35:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:49:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,26 @@ static void	set_client_socket_params(const int socket_fd)
 	return ;
 }
 
-t_tls_connection	*ft_influxdb_connect(
-									const char *const host_name,
-									const char *const port_number)
+t_tcp_connection	*ft_influxdb_connect(
+					const char *const host_name,
+					const char *const port_number,
+					const t_connection_protocol influxdb_connection_protocol)
 {
 	SSL_CTX				*ctx;
 	int					socket_fd;
 	char				*cert_file;
 	char				*private_key_file;
-	t_tls_connection	*tls_connection;
+	t_tcp_connection	*tcp_connection;
 
 	ft_openssl_init();
 	cert_file = ft_file_create(ft_home_dir(), PEM_CERT_FILE);
 	FT_LOG_INFO("Cert: %s", cert_file);
 	private_key_file = ft_file_create(ft_home_dir(), PEM_PRIVTE_KEY_FILE);
 	FT_LOG_INFO("Private key: %s", private_key_file);
-	ctx = ft_openssl_init_client(cert_file, private_key_file, &socket_fd);
-	tls_connection = ft_openssl_connect(host_name, port_number, socket_fd, ctx);
-	if (tls_connection)
+	ctx = ft_openssl_init_client(cert_file, private_key_file, &socket_fd,
+			influxdb_connection_protocol);
+	tcp_connection = ft_openssl_connect(host_name, port_number, socket_fd, ctx);
+	if (tcp_connection)
 		set_client_socket_params(socket_fd);
 	else
 	{
@@ -52,5 +54,5 @@ t_tls_connection	*ft_influxdb_connect(
 	}
 	ft_strdel(&cert_file);
 	ft_strdel(&private_key_file);
-	return (tls_connection);
+	return (tcp_connection);
 }

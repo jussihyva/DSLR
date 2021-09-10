@@ -6,14 +6,14 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/09 00:57:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:53:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
 void	dataset_send_to_influxdb(
-							t_tls_connection *influxdb_connection,
+							t_tcp_connection *influxdb_connection,
 							const t_dataset *const dataset)
 {
 	time_t		utc_time_ms;

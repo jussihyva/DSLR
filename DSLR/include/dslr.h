@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/09 09:53:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:52:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "tensorflow/c/c_api.h"
 
 # define	NUMBER_OF_INFLUXDB_TOKENS		2
+# define	INFLUXDB_CONNECTION_PROTOCOL	E_TCP
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -74,7 +75,7 @@ void			dataset_value_array_remove(
 					size_t size);
 time_t			ft_gettime(void);
 void			dataset_send_to_influxdb(
-					t_tls_connection *influxdb_connection,
+					t_tcp_connection *influxdb_connection,
 					const t_dataset *const dataset);
 
 #endif
