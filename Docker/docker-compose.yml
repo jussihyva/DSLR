@@ -1,17 +1,15 @@
 version: '3'
 services:
   influxdb:
-    image: influxdb:2.0.8
+    image: influxdb:1.8.9
     container_name: influxdb
     env_file:
       - ./.env
     ports:
       - '8086:8086'
     volumes:
-      - influxdb-storage:/var/lib/influxdb2:rw
-      # - ./influxdb2:/home/influxdb/.influxdbv2:rw
-      - ./influxdb_config.yml:/etc/influxdb2/config.yml:rw
-      # - ./influx-configs:/etc/influxdb2/influx-configs:rw
+      - influxdb-storage:/var/lib/influxdb:rw
+      # - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - ./influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:ro
   chronograf:

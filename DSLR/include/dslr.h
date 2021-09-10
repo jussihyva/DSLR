@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/09 15:52:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/10 12:04:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "tensorflow/c/c_api.h"
 
 # define	NUMBER_OF_INFLUXDB_TOKENS		2
-# define	INFLUXDB_CONNECTION_PROTOCOL	E_TCP
+# define	INFLUXDB_CONNECTION_PROTOCOL	E_TLS
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
