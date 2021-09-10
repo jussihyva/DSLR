@@ -4,8 +4,8 @@ datasources:
     type: influxdb
     access: proxy
     database: Hive
-    url: http://influxdb:8086
+    url: https://influxdb:8086
     isDefault: true
-    editable: true
+    editable: false
     jsonData:
       tlsSkipVerify: true

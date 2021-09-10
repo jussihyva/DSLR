@@ -9,7 +9,7 @@ services:
       - '8086:8086'
     volumes:
       - influxdb-storage:/var/lib/influxdb:rw
-      # - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - ./influxdb-selfsigned.key:/etc/ssl/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/influxdb-selfsigned.crt:ro
   chronograf:

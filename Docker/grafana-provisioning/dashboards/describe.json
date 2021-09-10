@@ -21,11 +21,11 @@
 	"editable": true,
 	"gnetId": null,
 	"graphTooltip": 0,
-	"id": 1,
+	"id": 2,
 	"links": [],
 	"panels": [
 	  {
-		"datasource": "Local database (Influxdb2 Flux)",
+		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -50,72 +50,186 @@
 			  ]
 			}
 		  },
-		  "overrides": [
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "_value {_field=\"used_percent\", _start=\"2021-09-09 03:50:29 +0000 UTC\", _stop=\"2021-09-09 09:50:29 +0000 UTC\", index=\"1011\"}"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 374
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "_time"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 170
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "_value {_field=\"used_percent\", _start=\"2021-09-09 04:06:22 +0000 UTC\", _stop=\"2021-09-09 10:06:22 +0000 UTC\", index=\"100\"}"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 52
-				}
-			  ]
-			}
-		  ]
+		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 14,
-		  "w": 16,
+		  "h": 7,
+		  "w": 24,
 		  "x": 0,
 		  "y": 0
 		},
-		"id": 2,
+		"id": 4,
 		"options": {
-		  "frameIndex": 3,
 		  "showHeader": true,
 		  "sortBy": []
 		},
 		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"query": "from(bucket: \"Hive\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"dataset_train\" and r._field == \"used_percent\")\n  |> map(fn: (r) => ({r with moi: r.used_percent * 3}))\n//  |> pivot(\n//    rowKey:[\"_time\"],\n//    columnKey: [\"_field\"],\n//    valueColumn: \"_value\")\n",
-			"queryType": "randomWalk",
-			"refId": "A"
+			"groupBy": [
+			  {
+				"params": [
+				  "5m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "index"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"used_percent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"used_percent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"used_percent"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "sum"
+				}
+			  ]
+			],
+			"tags": []
 		  }
 		],
-		"timeFrom": null,
-		"timeShift": null,
-		"title": "Panel Title",
+		"title": "Data overview",
 		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "axisLabel": "",
+			  "axisPlacement": "auto",
+			  "barAlignment": 0,
+			  "drawStyle": "line",
+			  "fillOpacity": 0,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineInterpolation": "linear",
+			  "lineWidth": 1,
+			  "pointSize": 5,
+			  "scaleDistribution": {
+				"type": "linear"
+			  },
+			  "showPoints": "auto",
+			  "spanNulls": false,
+			  "stacking": {
+				"group": "A",
+				"mode": "none"
+			  },
+			  "thresholdsStyle": {
+				"mode": "off"
+			  }
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 12,
+		  "w": 24,
+		  "x": 0,
+		  "y": 7
+		},
+		"id": 2,
+		"options": {
+		  "legend": {
+			"calcs": [],
+			"displayMode": "list",
+			"placement": "bottom"
+		  },
+		  "tooltip": {
+			"mode": "single"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"used_percent"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"title": "Just to see a data",
+		"type": "timeseries"
 	  }
 	],
-	"refresh": "5s",
+	"refresh": "10s",
 	"schemaVersion": 30,
 	"style": "dark",
 	"tags": [],
@@ -123,13 +237,13 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-6h",
+	  "from": "now-5m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
-	"title": "Describe",
-	"uid": "oGPyUISnk",
-	"version": 1
+	"title": "Data overview",
+	"uid": "TuTqddSnz",
+	"version": 5
   }
   
