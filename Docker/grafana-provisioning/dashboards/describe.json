@@ -21,120 +21,8 @@
 	"editable": true,
 	"gnetId": null,
 	"graphTooltip": 0,
-	"id": 2,
 	"links": [],
 	"panels": [
-	  {
-		"datasource": null,
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "thresholds"
-			},
-			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
-				}
-			  ]
-			}
-		  },
-		  "overrides": []
-		},
-		"gridPos": {
-		  "h": 7,
-		  "w": 24,
-		  "x": 0,
-		  "y": 0
-		},
-		"id": 4,
-		"options": {
-		  "showHeader": true,
-		  "sortBy": []
-		},
-		"pluginVersion": "8.1.1",
-		"targets": [
-		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "5m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "index"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
-			"measurement": "dataset_train",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"refId": "A",
-			"resultFormat": "table",
-			"select": [
-			  [
-				{
-				  "params": [
-					"used_percent"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"used_percent"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"used_percent"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "sum"
-				}
-			  ]
-			],
-			"tags": []
-		  }
-		],
-		"title": "Data overview",
-		"type": "table"
-	  },
 	  {
 		"datasource": null,
 		"fieldConfig": {
@@ -191,7 +79,7 @@
 		  "h": 12,
 		  "w": 24,
 		  "x": 0,
-		  "y": 7
+		  "y": 0
 		},
 		"id": 2,
 		"options": {
@@ -216,7 +104,7 @@
 			  [
 				{
 				  "params": [
-					"used_percent"
+					"value"
 				  ],
 				  "type": "field"
 				}
@@ -225,8 +113,706 @@
 			"tags": []
 		  }
 		],
-		"title": "Just to see a data",
+		"title": "Just to see that a data is available",
 		"type": "timeseries"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": "auto",
+			  "displayMode": "auto"
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 15,
+		  "w": 24,
+		  "x": 0,
+		  "y": 12
+		},
+		"id": 5,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "8.1.1",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "180m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "hogwarts_subject"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "min"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "max"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				}
+			  ]
+			]
+		  }
+		],
+		"title": "Data overview (All Houses)",
+		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": "auto",
+			  "displayMode": "auto"
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 10,
+		  "w": 24,
+		  "x": 0,
+		  "y": 27
+		},
+		"id": 6,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "8.1.1",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "180m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "hogwarts_subject"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "min"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "max"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Hogwarts House",
+				"operator": "=",
+				"value": "Gryffindor"
+			  }
+			]
+		  }
+		],
+		"title": "Data overview (Gryffindor)",
+		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": "auto",
+			  "displayMode": "auto"
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 10,
+		  "w": 24,
+		  "x": 0,
+		  "y": 37
+		},
+		"id": 7,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "8.1.1",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "180m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "hogwarts_subject"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "min"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "max"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Hogwarts House",
+				"operator": "=",
+				"value": "Hufflepuff"
+			  }
+			]
+		  }
+		],
+		"title": "Data overview (Hufflepuff)",
+		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": "auto",
+			  "displayMode": "auto"
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 10,
+		  "w": 24,
+		  "x": 0,
+		  "y": 47
+		},
+		"id": 9,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "8.1.1",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "180m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "hogwarts_subject"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "min"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "max"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Hogwarts House",
+				"operator": "=",
+				"value": "Ravenclaw"
+			  }
+			]
+		  }
+		],
+		"title": "Data overview (Ravenclaw)",
+		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": "auto",
+			  "displayMode": "auto"
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 10,
+		  "w": 24,
+		  "x": 0,
+		  "y": 57
+		},
+		"id": 8,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "8.1.1",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "180m"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "hogwarts_subject"
+				],
+				"type": "tag"
+			  },
+			  {
+				"params": [
+				  "none"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "min"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "median"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "max"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "count"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Hogwarts House",
+				"operator": "=",
+				"value": "Slytherin"
+			  }
+			]
+		  }
+		],
+		"title": "Data overview (Slytherin)",
+		"type": "table"
 	  }
 	],
 	"refresh": "10s",
@@ -237,13 +823,13 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-5m",
+	  "from": "now-15m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "Data overview",
 	"uid": "TuTqddSnz",
-	"version": 5
+	"version": 2
   }
   
