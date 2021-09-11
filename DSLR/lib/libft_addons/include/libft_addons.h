@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/09 15:49:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/11 14:11:24 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ char					*ft_file_create(
 							const char *const folder,
 							const char *const file_name);
 const char				*ft_home_dir(void);
-void					ft_influxdb_write(
+t_bool					ft_influxdb_write(
 							const t_tcp_connection *const connection,
 							const char *const body,
 							const char **const influxdb_token_array,

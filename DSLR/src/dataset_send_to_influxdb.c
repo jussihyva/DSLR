@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/11 10:25:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/11 14:34:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ static void	influxdb_line_format_according_to_rules(char *const influxdb_line)
 	return ;
 }
 
+static t_bool	validate_input(const char *const value_string)
+{
+	t_bool		result;
+	const char	*ptr;
+
+	result = E_FALSE;
+	ptr = value_string;
+	while (*ptr && ft_isspace(*ptr))
+		ptr++;
+	if (*ptr)
+		result = E_TRUE;
+	return (result);
+}
+
 static const char	*influxdb_line_create(
 									const char *const hogwarts_house,
 									const char *const hogwarts_subject,
@@ -45,19 +59,29 @@ static const char	*influxdb_line_create(
 	const char	*fields;
 	char		*timestamp;
 
-	influxdb_line = ft_memalloc(sizeof(*influxdb_line) * SEND_REC_BUF_MAX_SIZE);
-	tags = ft_memalloc(sizeof(*tags) * SEND_REC_BUF_MAX_SIZE);
-	timestamp = ft_memalloc(sizeof(*timestamp) * SEND_REC_BUF_MAX_SIZE);
-	value = strtod(value_string, &endptr);
-	utc_time_ms = ft_gettime();
-	measurement = ft_strdup("dataset_train");
-	ft_sprintf(tags, "hogwarts_subject=%s,Hogwarts\\ House=%s",
-		hogwarts_subject, hogwarts_house);
-	influxdb_line_format_according_to_rules(tags);
-	fields = ft_strjoin("value=", value_string);
-	ft_sprintf(timestamp, "%ld", utc_time_ms);
-	ft_sprintf(influxdb_line, "%s,%s %s %s", measurement, tags, fields,
-		timestamp);
+	if(validate_input(value_string))
+	{
+		influxdb_line = ft_memalloc(sizeof(*influxdb_line)
+				* SEND_REC_BUF_MAX_SIZE);
+		tags = ft_memalloc(sizeof(*tags) * SEND_REC_BUF_MAX_SIZE);
+		timestamp = ft_memalloc(sizeof(*timestamp) * SEND_REC_BUF_MAX_SIZE);
+		value = strtod(value_string, &endptr);
+		utc_time_ms = ft_gettime();
+		measurement = ft_strdup("dataset_train");
+		ft_sprintf(tags, "hogwarts_subject=%s,Hogwarts House=%s",
+			hogwarts_subject, hogwarts_house);
+		influxdb_line_format_according_to_rules(tags);
+		fields = ft_strjoin("value=", value_string);
+		ft_sprintf(timestamp, "%ld", utc_time_ms);
+		ft_sprintf(influxdb_line, "%s,%s %s %s", measurement, tags, fields,
+			timestamp);
+		ft_strdel((char **)&measurement);
+		ft_strdel(&tags);
+		ft_strdel((char **)&fields);
+		ft_strdel(&timestamp);
+	}
+	else
+		influxdb_line = NULL;
 	return (influxdb_line);
 }
 
@@ -73,6 +97,7 @@ void	dataset_send_to_influxdb(
 	const char	*hogwarts_subject;
 	const char	*hogwarts_house;
 	size_t		i;
+	t_bool		result;
 
 	elem = dataset->value_array_lst;
 	while (elem)
@@ -88,9 +113,17 @@ void	dataset_send_to_influxdb(
 			hogwarts_subject = dataset->column_name_array[i];
 			influxdb_line = influxdb_line_create(hogwarts_house,
 					hogwarts_subject, value_array[i]);
-			ft_influxdb_write(influxdb_connection, influxdb_line,
-				g_influxdb_token_array, NUMBER_OF_INFLUXDB_TOKENS);
-			ft_strdel((char **)&influxdb_line);
+			if (influxdb_line)
+			{
+				result = ft_influxdb_write(influxdb_connection, influxdb_line,
+						g_influxdb_token_array, NUMBER_OF_INFLUXDB_TOKENS);
+				if (!result)
+					FT_LOG_ERROR("Sending of data to an influxdb failed!");
+				ft_strdel((char **)&influxdb_line);
+			}
+			else
+				FT_LOG_WARN("Value is empty for %s (check line %lu)",
+					hogwarts_subject, index);
 		}
 		elem = elem->next;
 	}

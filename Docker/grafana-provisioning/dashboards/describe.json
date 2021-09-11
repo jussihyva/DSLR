@@ -279,7 +279,7 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
+		  "h": 15,
 		  "w": 24,
 		  "x": 0,
 		  "y": 27
@@ -420,10 +420,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
+		  "h": 15,
 		  "w": 24,
 		  "x": 0,
-		  "y": 37
+		  "y": 42
 		},
 		"id": 7,
 		"options": {
@@ -561,10 +561,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
+		  "h": 15,
 		  "w": 24,
 		  "x": 0,
-		  "y": 47
+		  "y": 57
 		},
 		"id": 9,
 		"options": {
@@ -702,10 +702,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
+		  "h": 15,
 		  "w": 24,
 		  "x": 0,
-		  "y": 57
+		  "y": 72
 		},
 		"id": 8,
 		"options": {
@@ -830,6 +830,6 @@
 	"timezone": "",
 	"title": "Data overview",
 	"uid": "TuTqddSnz",
-	"version": 2
+	"version": 6
   }
   

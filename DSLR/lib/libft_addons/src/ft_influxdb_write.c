@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:03:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/10 12:56:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/11 14:10:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ static const char	*header_influxdb1_create(
 	return (header);
 }
 
-void	ft_influxdb_write(
-						const t_tcp_connection *const connection,
-						const char *const body,
-						const char **const influxdb_token_array,
-						const size_t number_of_influxdb_tokens)
+t_bool	ft_influxdb_write(
+					const t_tcp_connection *const connection,
+					const char *const body,
+					const char **const influxdb_token_array,
+					const size_t number_of_influxdb_tokens)
 {
 	const char	*header;
 	t_bool		validation_result;
@@ -92,10 +92,10 @@ void	ft_influxdb_write(
 	const char	*token;
 	size_t		body_length;
 
+	validation_result = E_FALSE;
 	body_length = ft_strlen(body);
 	if (connection)
 	{
-		validation_result = E_FALSE;
 		i = -1;
 		while (!validation_result && ++i < number_of_influxdb_tokens)
 		{
@@ -115,5 +115,5 @@ void	ft_influxdb_write(
 			validation_result = response_validate(connection);
 		}
 	}
-	return ;
+	return (validation_result);
 }
