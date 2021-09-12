@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/12 08:35:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 00:59:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	dataset_save_record(
 	return ;
 }
 
-const t_dataset	*dataset_read_file(
+static const t_dataset	*dataset_read_file(
 								const char *const file_path)
 {
 	t_dataset		*dataset;

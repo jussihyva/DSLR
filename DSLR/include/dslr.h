@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/10 12:04:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 00:38:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 # include "ft_printf.h"
 # include "libft_addons.h"
 # include <stdio.h>
-# include "tensorflow/c/c_api.h"
+// # include "tensorflow/c/c_api.h"
 
-# define	NUMBER_OF_INFLUXDB_TOKENS		2
-# define	INFLUXDB_CONNECTION_PROTOCOL	E_TLS
+# define	NUMBER_OF_INFLUXDB_TOKENS			2
+# define	INFLUXDB_CONNECTION_PROTOCOL		E_TLS
+# define	NUMBER_OF_INFLUXDB_LINE_ELEMENTS	4
+# define	SPECIAL_CHARS_INFLUXDB_MEASUREMENT	", "
+# define	SPECIAL_CHARS_INFLUXDB_TAGS			", ="
+# define	SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -36,6 +40,20 @@ typedef struct s_file_params
 	int		fd;
 	char	*line;
 }				t_file_params;
+
+typedef enum e_influxdb_line_element_type
+{
+	E_MEASUREMENT,
+	E_TAGS,
+	E_FIELDS,
+	E_TIMESTAMP
+}				t_influxdb_line_element_type;
+
+typedef struct s_influxdb_line_element
+{
+	char		*string;
+	size_t		string_length;
+}				t_influxdb_line_element;
 
 typedef struct s_dataset
 {
@@ -77,5 +95,18 @@ time_t			ft_gettime(void);
 void			dataset_send_to_influxdb(
 					t_tcp_connection *influxdb_connection,
 					const t_dataset *const dataset);
+void			influxdb_line_measurement_create(
+					t_influxdb_line_element *measurement_element,
+					const char *const measurement);
+void			influxdb_line_tags_create(
+					t_influxdb_line_element *tags_element,
+					const char *const hogwarts_subject,
+					const char *const hogwarts_house);
+void			influxdb_line_fields_create(
+					t_influxdb_line_element *fields_element,
+					const char *const value);
+void			influxdb_line_timestamp_create(
+					t_influxdb_line_element *timestamp_element,
+					const size_t utc_time_ms);
 
 #endif
