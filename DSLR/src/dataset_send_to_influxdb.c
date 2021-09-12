@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/11 14:34:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/12 09:49:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	influxdb_line_format_according_to_rules(char *const influxdb_line)
 	i = 0;
 	while (*ptr)
 	{
-		if (ft_isspace(*ptr))
+		if (*ptr == ' ')
 			influxdb_line[i++] = '\\';
 		influxdb_line[i++] = *ptr;
 		ptr++;
@@ -85,6 +85,22 @@ static const char	*influxdb_line_create(
 	return (influxdb_line);
 }
 
+static const char	*field_string_create(
+									const char *const field_name,
+									const char *const value)
+{
+	char	*field_string;
+
+	field_string = ft_memalloc(sizeof(*field_string)
+			* 2 * (ft_strlen(field_name) + ft_strlen(value) + 2));
+	ft_strcat(field_string, field_name);
+	ft_strcat(field_string, "=");
+	ft_strcat(field_string, value);
+	influxdb_line_format_according_to_rules(field_string);
+	FT_LOG_WARN("Field string: %s", field_string);
+	return (field_string);
+}
+
 void	dataset_send_to_influxdb(
 							t_tcp_connection *influxdb_connection,
 							const t_dataset *const dataset)
@@ -98,7 +114,10 @@ void	dataset_send_to_influxdb(
 	const char	*hogwarts_house;
 	size_t		i;
 	t_bool		result;
+	const char	*field_string;
+	t_queue		*field_queue;
 
+	field_queue = ft_queue_init();
 	elem = dataset->value_array_lst;
 	while (elem)
 	{
@@ -110,6 +129,9 @@ void	dataset_send_to_influxdb(
 		i = 5;
 		while (++i < 19)
 		{
+			field_string = field_string_create(dataset->column_name_array[i],
+					value_array[i]);
+			ft_enqueue(field_queue, (void *)field_string);
 			hogwarts_subject = dataset->column_name_array[i];
 			influxdb_line = influxdb_line_create(hogwarts_house,
 					hogwarts_subject, value_array[i]);
@@ -122,8 +144,8 @@ void	dataset_send_to_influxdb(
 				ft_strdel((char **)&influxdb_line);
 			}
 			else
-				FT_LOG_WARN("Value is empty for %s (check line %lu)",
-					hogwarts_subject, index);
+				FT_LOG_WARN("%s %s (check line (dataset file) %lu)",
+					"Value is empty for", hogwarts_subject, index);
 		}
 		elem = elem->next;
 	}

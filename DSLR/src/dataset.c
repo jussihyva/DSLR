@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 16:09:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/12 08:35:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ static void	create_column_arrays(
 	return ;
 }
 
+static void	trim_values(
+					const char **value_array)
+{
+	const char	*value;
+	const char	*new_value;
+
+	while (*value_array)
+	{
+		value = *value_array;
+		new_value = ft_strtrim(value);
+		ft_strdel((char **)&value);
+		*value_array = new_value;
+		value_array++;
+	}
+	return ;
+}
+
 static void	dataset_save_record(
 							const char *const line,
 							t_list **const value_array_lst,
@@ -60,6 +77,7 @@ static void	dataset_save_record(
 	const t_list	*new_elem;
 
 	value_array = (const char **)ft_strsplit_ex(line, ',', &number_of_values);
+	trim_values(value_array);
 	if (number_of_values != number_of_columns)
 	{
 		array_print(value_array, number_of_values);
