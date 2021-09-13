@@ -31,97 +31,6 @@
 			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "fillOpacity": 80,
-			  "gradientMode": "none",
-			  "hideFrom": {
-				"legend": false,
-				"tooltip": false,
-				"viz": false
-			  },
-			  "lineWidth": 1
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
-				}
-			  ]
-			}
-		  },
-		  "overrides": []
-		},
-		"gridPos": {
-		  "h": 13,
-		  "w": 24,
-		  "x": 0,
-		  "y": 0
-		},
-		"id": 11,
-		"options": {
-		  "bucketOffset": 0,
-		  "legend": {
-			"calcs": [
-			  "min",
-			  "max",
-			  "count",
-			  "mean"
-			],
-			"displayMode": "list",
-			"placement": "bottom"
-		  }
-		},
-		"targets": [
-		  {
-			"groupBy": [],
-			"measurement": "dataset_train",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"refId": "A",
-			"resultFormat": "table",
-			"select": [
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				}
-			  ]
-			],
-			"tags": [
-			  {
-				"condition": "AND",
-				"key": "hogwarts_subject",
-				"operator": "=",
-				"value": "Arithmancy"
-			  },
-			  {
-				"condition": "AND",
-				"key": "Hogwarts House",
-				"operator": "=",
-				"value": "Slytherin"
-			  }
-			]
-		  }
-		],
-		"title": "Panel Title",
-		"type": "histogram"
-	  },
-	  {
-		"datasource": null,
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "palette-classic"
-			},
-			"custom": {
 			  "axisLabel": "",
 			  "axisPlacement": "auto",
 			  "barAlignment": 0,
@@ -295,6 +204,26 @@
 				  "type": "field"
 				},
 				{
+				  "params": [
+					"25"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"25%"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
 				  "params": [],
 				  "type": "median"
 				}
@@ -309,6 +238,26 @@
 				{
 				  "params": [],
 				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"75"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"75%"
+				  ],
+				  "type": "alias"
 				}
 			  ],
 			  [
@@ -335,7 +284,8 @@
 				  "type": "count"
 				}
 			  ]
-			]
+			],
+			"tags": []
 		  }
 		],
 		"title": "Data overview (All Houses)",
@@ -429,6 +379,26 @@
 				  "type": "field"
 				},
 				{
+				  "params": [
+					"25"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"25%"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
 				  "params": [],
 				  "type": "median"
 				}
@@ -443,6 +413,26 @@
 				{
 				  "params": [],
 				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"75"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"75%"
+				  ],
+				  "type": "alias"
 				}
 			  ],
 			  [
@@ -570,6 +560,26 @@
 				  "type": "field"
 				},
 				{
+				  "params": [
+					"25"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"25%"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
 				  "params": [],
 				  "type": "median"
 				}
@@ -584,6 +594,26 @@
 				{
 				  "params": [],
 				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"75"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"75%"
+				  ],
+				  "type": "alias"
 				}
 			  ],
 			  [
@@ -711,6 +741,26 @@
 				  "type": "field"
 				},
 				{
+				  "params": [
+					"25"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"25%"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
 				  "params": [],
 				  "type": "median"
 				}
@@ -725,6 +775,26 @@
 				{
 				  "params": [],
 				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"75"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"75%"
+				  ],
+				  "type": "alias"
 				}
 			  ],
 			  [
@@ -852,6 +922,26 @@
 				  "type": "field"
 				},
 				{
+				  "params": [
+					"25"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"25%"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
 				  "params": [],
 				  "type": "median"
 				}
@@ -866,6 +956,26 @@
 				{
 				  "params": [],
 				  "type": "mean"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [
+					"75"
+				  ],
+				  "type": "percentile"
+				},
+				{
+				  "params": [
+					"75%"
+				  ],
+				  "type": "alias"
 				}
 			  ],
 			  [
@@ -919,7 +1029,7 @@
 	},
 	"timepicker": {},
 	"timezone": "",
-	"title": "Histogram",
-	"uid": "Histogram_1",
+	"title": "Data overview",
+	"uid": "Describe_2",
 	"version": 1
   }
