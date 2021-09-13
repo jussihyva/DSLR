@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 23:45:39 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/09 00:02:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 11:31:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static time_t	convert_timespec_to_ms(t_timespec *utc_timespec)
+static time_t	convert_timespec_to_ms(struct timespec *utc_timespec)
 {
 	time_t		utc_time_ms;
 	double		ms;
@@ -31,8 +31,8 @@ static time_t	convert_timespec_to_ms(t_timespec *utc_timespec)
 #if DARWIN
 time_t	ft_gettime(void)
 {
-	t_timespec	utc_timespec;
-	time_t		utc_time_ms;
+	struct timespec		utc_timespec;
+	time_t				utc_time_ms;
 
 	clock_gettime(CLOCK_REALTIME, &utc_timespec);
 	utc_time_ms = convert_timespec_to_ms(&utc_timespec);
@@ -42,8 +42,8 @@ time_t	ft_gettime(void)
 
 time_t	ft_gettime(void)
 {
-	t_timespec	utc_timespec;
-	time_t		utc_time_ms;
+	struct timespec		utc_timespec;
+	time_t				utc_time_ms;
 
 	clock_gettime(_POSIX_MONOTONIC_CLOCK, &utc_timespec);
 	utc_time_ms = convert_timespec_to_ms(&utc_timespec);

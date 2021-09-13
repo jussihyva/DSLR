@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 01:30:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 09:53:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static const char	*influxdb_line_create(
 }
 
 void	dataset_send_to_influxdb(
-							t_tcp_connection *influxdb_connection,
+							const t_tcp_connection *const influxdb_connection,
 							const t_dataset *const dataset)
 {
 	char			*endptr;

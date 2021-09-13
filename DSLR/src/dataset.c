@@ -6,23 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 00:59:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 12:17:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
-
-static void	array_print(
-					const char **const array,
-					const size_t number_of_values)
-{
-	size_t		i;
-
-	i = -1;
-	while (++i < number_of_values)
-		FT_LOG_TRACE("  %s", array[i]);
-	return ;
-}
 
 static void	create_column_arrays(
 						const char *const line,
@@ -50,23 +38,6 @@ static void	create_column_arrays(
 	return ;
 }
 
-static void	trim_values(
-					const char **value_array)
-{
-	const char	*value;
-	const char	*new_value;
-
-	while (*value_array)
-	{
-		value = *value_array;
-		new_value = ft_strtrim(value);
-		ft_strdel((char **)&value);
-		*value_array = new_value;
-		value_array++;
-	}
-	return ;
-}
-
 static void	dataset_save_record(
 							const char *const line,
 							t_list **const value_array_lst,
@@ -77,17 +48,19 @@ static void	dataset_save_record(
 	const t_list	*new_elem;
 
 	value_array = (const char **)ft_strsplit_ex(line, ',', &number_of_values);
-	trim_values(value_array);
+	ft_strarray_trim(value_array);
 	if (number_of_values != number_of_columns)
 	{
-		array_print(value_array, number_of_values);
+		if (ft_log_get_level() <= LOG_TRACE)
+			ft_strarray_print(value_array);
 		ft_printf("%s\n", line);
 		FT_LOG_FATAL("FATAL: %u\n", number_of_values);
 	}
 	new_elem = ft_lstnew(&value_array, sizeof(value_array));
 	ft_lstadd(value_array_lst, (t_list *)new_elem);
 	FT_LOG_DEBUG("%s\n", line);
-	array_print(value_array, number_of_columns);
+	if (ft_log_get_level() <= LOG_TRACE)
+		ft_strarray_print(value_array);
 	return ;
 }
 

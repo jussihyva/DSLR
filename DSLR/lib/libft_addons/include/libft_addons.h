@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/11 14:11:24 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 12:16:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void					ft_log_set_lock(
 							t_logging_lock_function fn,
 							void *udata);
 void					ft_log_set_level(int level);
+t_logging_level			ft_log_get_level();
 /*
 ** void			log_set_quiet(int enable);
 */
@@ -294,5 +295,8 @@ t_bool					ft_influxdb_write(
 							const char *const body,
 							const char **const influxdb_token_array,
 							const size_t number_of_influxdb_tokens);
+void					ft_strarray_print(
+							const char **const array);
+void					ft_strarray_trim(const char **const value_array);
 
 #endif

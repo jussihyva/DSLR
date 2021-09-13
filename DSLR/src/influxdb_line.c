@@ -6,15 +6,15 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 00:03:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 12:30:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static size_t	length_calculate(
-							const char *special_chars,
-							const char *const string)
+size_t	length_calculate(
+					const char *special_chars,
+					const char *const string)
 {
 	const char	*ptr;
 	size_t		length;
@@ -30,10 +30,10 @@ static size_t	length_calculate(
 	return (length);
 }
 
-static char	*string_create(
-							const char *const special_chars,
-							const char *const string,
-							size_t string_length)
+char	*string_create(
+					const char *const special_chars,
+					const char *const string,
+					size_t string_length)
 {
 	char			*new_string;
 	const char		*ptr;
@@ -50,18 +50,6 @@ static char	*string_create(
 		ptr++;
 	}
 	return (new_string);
-}
-
-void	influxdb_line_measurement_create(
-								t_influxdb_line_element *measurement_element,
-								const char *const measurement)
-{
-	measurement_element->string_length
-		= length_calculate(SPECIAL_CHARS_INFLUXDB_MEASUREMENT, measurement);
-	measurement_element->string
-		= string_create(SPECIAL_CHARS_INFLUXDB_MEASUREMENT, measurement,
-			measurement_element->string_length);
-	return ;
 }
 
 void	influxdb_line_tags_create(
@@ -94,7 +82,6 @@ void	influxdb_line_tags_create(
 	ft_strdel((char **)&string[0]);
 	ft_strdel((char **)&string[1]);
 	return ;
-
 }
 
 void	influxdb_line_fields_create(
@@ -105,8 +92,8 @@ void	influxdb_line_fields_create(
 	size_t				length;
 	char				*string;
 
-	length = length_calculate(SPECIAL_CHARS_INFLUXDB_TAGS, value);
-	string = string_create(SPECIAL_CHARS_INFLUXDB_TAGS, value, length);
+	length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
+	string = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, value, length);
 	fields_element->string_length = ft_strlen(tag_key);
 	fields_element->string_length++;
 	fields_element->string_length += length;

@@ -6,11 +6,37 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:03:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/11 14:10:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 11:33:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_addons.h"
+
+static int	influxdb_read(
+					const t_tcp_connection *const connection,
+					char *const read_buf)
+{
+	int		chars;
+
+	if (connection->ssl_bio)
+		chars = SSL_read(connection->ssl_bio, read_buf,
+				SEND_REC_BUF_MAX_SIZE);
+	else
+		chars = read(connection->socket_fd, read_buf,
+				SEND_REC_BUF_MAX_SIZE);
+	return (chars);
+}
+
+static void	influxdb_write(
+					const t_tcp_connection *const connection,
+					const char *const string)
+{
+	if (connection->ssl_bio)
+		SSL_write(connection->ssl_bio, string, strlen(string));
+	else
+		write(connection->socket_fd, string, strlen(string));
+	return ;
+}
 
 static t_bool	response_validate(const t_tcp_connection *const connection)
 {
@@ -22,14 +48,7 @@ static t_bool	response_validate(const t_tcp_connection *const connection)
 	read_buf = (char *)ft_memalloc(sizeof(*read_buf) * SEND_REC_BUF_MAX_SIZE);
 	chars = -1;
 	while (chars <= 0)
-	{
-		if (connection->ssl_bio)
-			chars = SSL_read(connection->ssl_bio, read_buf,
-					SEND_REC_BUF_MAX_SIZE);
-		else
-			chars = read(connection->socket_fd, read_buf,
-					SEND_REC_BUF_MAX_SIZE);
-	}
+		chars = influxdb_read(connection, read_buf);
 	if (chars == -1)
 		FT_LOG_ERROR("%s", "Reading of influxdb response failed!");
 	else
@@ -39,12 +58,7 @@ static t_bool	response_validate(const t_tcp_connection *const connection)
 			FT_LOG_TRACE("CHARS: %s", read_buf);
 			if (!ft_strncmp(read_buf, "HTTP/1.1 204", 12))
 				validation_result = E_TRUE;
-			if (connection->ssl_bio)
-				chars = SSL_read(connection->ssl_bio, read_buf,
-						SEND_REC_BUF_MAX_SIZE);
-			else
-				chars = read(connection->socket_fd, read_buf,
-						SEND_REC_BUF_MAX_SIZE);
+			chars = influxdb_read(connection, read_buf);
 		}
 	}
 	ft_strdel(&read_buf);
@@ -101,16 +115,10 @@ t_bool	ft_influxdb_write(
 		{
 			token = influxdb_token_array[i];
 			header = header_influxdb1_create(token, body_length);
-			if (connection->ssl_bio)
-				SSL_write(connection->ssl_bio, header, strlen(header));
-			else
-				write(connection->socket_fd, header, strlen(header));
+			influxdb_write(connection, header);
 			FT_LOG_TRACE("HEADER: %s", header);
 			FT_LOG_TRACE("BODY: %s", body);
-			if (connection->ssl_bio)
-				SSL_write(connection->ssl_bio, body, strlen(body));
-			else
-				write(connection->socket_fd, body, strlen(body));
+			influxdb_write(connection, body);
 			ft_strdel((char **)&header);
 			validation_result = response_validate(connection);
 		}

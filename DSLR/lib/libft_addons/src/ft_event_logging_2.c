@@ -6,17 +6,17 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 08:21:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 10:23:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 12:14:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_addons.h"
 
-static t_logging_params	*g_loging_params;
+static t_logging_params	*g_logging_params;
 
 void	logging_params_2_set(t_logging_params *loging_params)
 {
-	g_loging_params = loging_params;
+	g_logging_params = loging_params;
 	return ;
 }
 
@@ -28,9 +28,9 @@ void	execute_logging_extensions(t_log_event *event, const char *fmt, ...)
 	i = -1;
 	while (++i < MAX_LOGGING_EXTENSIONS)
 	{
-		if (g_loging_params->logging_extensions[i])
+		if (g_logging_params->logging_extensions[i])
 		{
-			logging_extension = g_loging_params->logging_extensions[i];
+			logging_extension = g_logging_params->logging_extensions[i];
 			if (event->level >= logging_extension->level)
 			{
 				event->additional_event_data
@@ -54,7 +54,7 @@ void	ft_log_error(const char *file, const int line, const char *fmt, ...)
 	event.level = LOG_ERROR;
 	gettimeofday(&event.tv, NULL);
 	lock();
-	if (!g_loging_params->quiet && event.level >= g_loging_params->level)
+	if (!g_logging_params->quiet && event.level >= g_logging_params->level)
 	{
 		va_start(event.ap, fmt);
 		stdout_callback(&event);
@@ -81,4 +81,9 @@ t_logging_level	ft_logging_level_param_validate(const char *level_str)
 		exit(42);
 	}
 	return (event_logging_level);
+}
+
+t_logging_level	ft_log_get_level(void)
+{
+	return (g_logging_params->level);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 00:38:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 12:31:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ft_printf.h"
 # include "libft_addons.h"
 # include <stdio.h>
-// # include "tensorflow/c/c_api.h"
+# include "tensorflow/c/c_api.h"
 
 # define	NUMBER_OF_INFLUXDB_TOKENS			2
 # define	INFLUXDB_CONNECTION_PROTOCOL		E_TLS
@@ -32,8 +32,6 @@ static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
 	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
 };
-
-typedef struct timespec t_timespec;
 
 typedef struct s_file_params
 {
@@ -93,7 +91,7 @@ void			dataset_value_array_remove(
 					size_t size);
 time_t			ft_gettime(void);
 void			dataset_send_to_influxdb(
-					t_tcp_connection *influxdb_connection,
+					const t_tcp_connection *const influxdb_connection,
 					const t_dataset *const dataset);
 void			influxdb_line_measurement_create(
 					t_influxdb_line_element *measurement_element,
@@ -108,5 +106,12 @@ void			influxdb_line_fields_create(
 void			influxdb_line_timestamp_create(
 					t_influxdb_line_element *timestamp_element,
 					const size_t utc_time_ms);
+size_t			length_calculate(
+					const char *special_chars,
+					const char *const string);
+char			*string_create(
+					const char *const special_chars,
+					const char *const string,
+					size_t string_length);
 
 #endif

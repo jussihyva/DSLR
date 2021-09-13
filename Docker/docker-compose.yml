@@ -31,7 +31,7 @@ services:
       - ./grafana-provisioning/:/etc/grafana/provisioning:ro
       - ./influxdb-selfsigned.key:/etc/ssl/private/influxdb-selfsigned.key:ro
       - ./influxdb-selfsigned.crt:/etc/ssl/certs/influxdb-selfsigned.crt:ro
-      - ./grafana_custom.ini:/etc/grafana/custom.ini:ro
+      - ./grafana_custom.ini:/etc/grafana/grafana.ini:ro
       - ./plugins:/var/lib/grafana/plugins:ro
     depends_on:
       - influxdb
