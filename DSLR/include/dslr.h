@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 12:31:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 14:52:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,9 @@ char			*string_create(
 					const char *const special_chars,
 					const char *const string,
 					size_t string_length);
+const char		*influxdb_line_group_create(
+					const char *const hogwarts_house,
+					const char **const column_name_array,
+					const char **const value_array);
 
 #endif
