@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 09:53:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/13 13:00:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,56 @@ static t_bool	validate_input(const char *const value_string)
 	return (result);
 }
 
+size_t	influxdb_line_length_calculate(
+								t_influxdb_line_element *influxdb_line_element)
+{
+	size_t		length;
+
+	length = 0;
+	length += influxdb_line_element[E_MEASUREMENT].string_length;
+	length++;
+	length += influxdb_line_element[E_TAGS].string_length;
+	length++;
+	length += influxdb_line_element[E_FIELDS].string_length;
+	length++;
+	length += influxdb_line_element[E_TIMESTAMP].string_length;
+	return (length);
+}
+
+static const char	*elements_merge(
+					t_influxdb_line_element *const influxdb_line_element,
+					const size_t length)
+{
+	char		*influxdb_line;
+
+	influxdb_line = ft_strnew(sizeof(*influxdb_line) * length);
+	ft_sprintf(influxdb_line, "%s,%s %s %s",
+		influxdb_line_element[E_MEASUREMENT].string,
+		influxdb_line_element[E_TAGS].string,
+		influxdb_line_element[E_FIELDS].string,
+		influxdb_line_element[E_TIMESTAMP].string);
+	ft_strdel(&influxdb_line_element[E_MEASUREMENT].string);
+	ft_strdel(&influxdb_line_element[E_TAGS].string);
+	ft_strdel(&influxdb_line_element[E_FIELDS].string);
+	ft_strdel(&influxdb_line_element[E_TIMESTAMP].string);
+	if (ft_strlen(influxdb_line) != length)
+		FT_LOG_WARN("Influxdb line: %lu <--> %lu", ft_strlen(influxdb_line),
+			length);
+	return (influxdb_line);
+}
+
 static const char	*influxdb_line_create(
 									const char *const hogwarts_house,
 									const char *const hogwarts_subject,
 									const char *const value,
 									const size_t index)
 {
-	char						*influxdb_line;
+	const char					*influxdb_line;
 	size_t						length;
 	t_influxdb_line_element		influxdb_line_element
 											[NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
 
+	influxdb_line = NULL;
 	if (validate_input(value))
 	{
 		ft_bzero(influxdb_line_element, sizeof(*influxdb_line_element)
@@ -48,32 +87,12 @@ static const char	*influxdb_line_create(
 		influxdb_line_fields_create(&influxdb_line_element[E_FIELDS], value);
 		influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP],
 			ft_gettime());
-		length = influxdb_line_element[E_MEASUREMENT].string_length;
-		length++;
-		length += influxdb_line_element[E_TAGS].string_length;
-		length++;
-		length += influxdb_line_element[E_FIELDS].string_length;
-		length++;
-		length += influxdb_line_element[E_TIMESTAMP].string_length;
-		FT_LOG_WARN("LENGTH=%lu", length);
-		influxdb_line = ft_strnew(sizeof(*influxdb_line) * length);
-		ft_sprintf(influxdb_line, "%s,%s %s %s",
-			influxdb_line_element[E_MEASUREMENT].string,
-			influxdb_line_element[E_TAGS].string,
-			influxdb_line_element[E_FIELDS].string,
-			influxdb_line_element[E_TIMESTAMP].string);
-		ft_strdel(&influxdb_line_element[E_MEASUREMENT].string);
-		ft_strdel(&influxdb_line_element[E_TAGS].string);
-		ft_strdel(&influxdb_line_element[E_FIELDS].string);
-		ft_strdel(&influxdb_line_element[E_TIMESTAMP].string);
-		FT_LOG_WARN("Influxdb line: %s", influxdb_line);
+		length = influxdb_line_length_calculate(influxdb_line_element);
+		influxdb_line = elements_merge(influxdb_line_element, length);
 	}
 	else
-	{
-		influxdb_line = NULL;
-		FT_LOG_WARN("%s %s (check line (dataset file) %lu)",
+		FT_LOG_DEBUG("%s %s (check line (dataset file) %lu)",
 			"Value is empty for", hogwarts_subject, index);
-	}
 	return (influxdb_line);
 }
 
