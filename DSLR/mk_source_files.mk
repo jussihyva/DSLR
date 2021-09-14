@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/14 06:38:11 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/14 11:10:48 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_strarray_print.c ft_strarray_trim.c \
 							dataset_send_to_influxdb.c \
 							influxdb_line.c influxdb_line_measurement_create.c \
-							influxdb_line_group_create.c
+							influxdb_line_group_create.c \
+							train.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
 GLOBAL_LIBS				=	libssl.a libcrypto.a libtensorflow.a

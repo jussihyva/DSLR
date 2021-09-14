@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/14 07:42:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/14 12:02:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ int	main(
 	number = TF_max(23, 822);
 	FT_LOG_INFO("Number: %u", number);
 	// TF_AllocateTensor(TF_STRING);
-	// number = TF_StringEncodedSize(1);
+	// number = TF_StringInit(TF_TString);
 	TF_NewBufferFromString(arg_parser, 45);
 	TF_NewGraph();
+	main_train();
 	main_remove(&arg_parser, &input_params, &influxdb_connection);
 	return (0);
 }
