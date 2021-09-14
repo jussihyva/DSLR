@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/06 16:14:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/14 07:05:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	input_param_save_short(
 			= ft_logging_level_param_validate(arg);
 		ft_log_set_level(input_params->logging_level);
 	}
+	else if (opt == 'I')
+		input_params->is_influxdb = E_TRUE;
 	else if (opt == 'l')
 		input_params->print_leaks = E_TRUE;
 	else if (opt == 'h')

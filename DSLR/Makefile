@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/07 14:53:30 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/14 07:33:20 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ PURPLE			=	\033[0;35m
 END				=	\033[0m
 
 # Input parameters
+
+INCLUDE_FILES	=	mk_system.mk mk_cmd_variables.mk mk_source_files.mk
 
 include		mk_system.mk
 include		mk_cmd_variables.mk
@@ -69,11 +71,11 @@ LD_FLAGS			+=	$(D_ATTRIBUTES)
 .PHONY: all
 all: $(FOLDERS) $(H_FILES) $(APP_C_FILES) $(C_FILES) libraries $(APP_FILES)
 
-$(APP_FILES): $(BIN)/%: $(SRC)/%.c $(H_FILES) $(O_FILES) Makefile
+$(APP_FILES): $(BIN)/%: $(SRC)/%.c $(H_FILES) $(O_FILES)
 	@$(CC) -o $@ $< $(O_FILES) $(LD_FLAGS) $(C_FLAGS)
 	@echo "Program $(GREEN)$@$(END) created!"
 
-$(O_FILES): $(OBJ)/%.o: $(SRC)/%.c $(H_FILES) Makefile $(LOCAL_LIB_FILES)
+$(O_FILES): $(OBJ)/%.o: $(SRC)/%.c $(H_FILES) Makefile $(INCLUDE_FILES) $(LOCAL_LIB_FILES)
 	@$(CC) -c -o $@ $< $(C_FLAGS) $(D_ATTRIBUTES)
 	@echo "File $(YELLOW)$<$(END) -> $(GREEN)$@$(END) compiled!"
 

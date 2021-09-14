@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 14:52:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/14 07:05:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_input_params
 	const t_logging_data	*logging_data;
 	t_logging_level			logging_level;
 	t_bool					print_leaks;
+	t_bool					is_influxdb;
 	const t_dataset			*dataset;
 }				t_input_params;
 

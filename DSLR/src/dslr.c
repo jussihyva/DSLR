@@ -6,11 +6,20 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 09:53:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/14 07:42:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
+
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <tensorflow/c/c_api.h>
 
 static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 {
@@ -22,7 +31,7 @@ static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 	arg_parser->fn_input_params_initialize = (void *)input_params_initialize;
 	arg_parser->fn_input_param_save = input_param_save;
 	arg_parser->fn_usage_print = usage_print;
-	arg_parser->options = ft_strdup("L:hl");
+	arg_parser->options = ft_strdup("L:hlI");
 	return (arg_parser);
 }
 
@@ -69,17 +78,22 @@ int	main(
 	t_arg_parser				*arg_parser;
 	const t_input_params		*input_params;
 	const t_tcp_connection		*influxdb_connection;
-	// size_t					number;
+	size_t						number;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
 	influxdb_connection = ft_influxdb_connect("127.0.0.1", "8086",
 			INFLUXDB_CONNECTION_PROTOCOL);
-	if (influxdb_connection && input_params->dataset)
+	if (input_params->is_influxdb && influxdb_connection
+		&& input_params->dataset)
 		dataset_send_to_influxdb(influxdb_connection, input_params->dataset);
-	// ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
-	// number = TF_max(23, 822);
-	// FT_LOG_INFO("Number: %u", number);
+	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
+	number = TF_max(23, 822);
+	FT_LOG_INFO("Number: %u", number);
+	// TF_AllocateTensor(TF_STRING);
+	// number = TF_StringEncodedSize(1);
+	TF_NewBufferFromString(arg_parser, 45);
+	TF_NewGraph();
 	main_remove(&arg_parser, &input_params, &influxdb_connection);
 	return (0);
 }
