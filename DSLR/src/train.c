@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 11:11:47 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/14 12:03:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/14 17:50:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <unistd.h>
 
 #include <tensorflow/c/c_api.h>
+#include <tensorflow/core/platform/ctstring.h>
 
 typedef struct model_t {
   TF_Graph* graph;
