@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 12:30:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/15 19:10:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,28 @@ void	influxdb_line_tags_create(
 
 void	influxdb_line_fields_create(
 							t_influxdb_line_element *fields_element,
+							const char *const index,
 							const char *const value)
 {
-	static const char	tag_key[] = "value";
+	static const char	tag_key1[] = "Index";
+	static const char	tag_key2[] = "value";
 	size_t				length;
 	char				*string;
 
 	length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
 	string = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, value, length);
-	fields_element->string_length = ft_strlen(tag_key);
+	fields_element->string_length = 0;
+	fields_element->string_length += ft_strlen(tag_key1);
+	fields_element->string_length++;
+	fields_element->string_length += ft_strlen(index);
+	fields_element->string_length++;
+	fields_element->string_length += ft_strlen(tag_key2);
 	fields_element->string_length++;
 	fields_element->string_length += length;
 	fields_element->string = ft_memalloc(sizeof(*fields_element->string)
 			* (fields_element->string_length + 1));
-	ft_sprintf(fields_element->string, "%s=%s", tag_key, string);
+	ft_sprintf(fields_element->string, "%s=%s,%s=%s", tag_key1, index, tag_key2,
+		string);
 	ft_strdel((char **)&string);
 	return ;
 }

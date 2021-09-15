@@ -1,3 +1,4 @@
 *.dSYM
 Docker/influxdb2/engine/Data
 Docker/influxdb2/engine/wal
+.~lock.dataset_train.ods#

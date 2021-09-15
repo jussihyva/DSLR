@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/15 18:56:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/15 19:04:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void			influxdb_line_tags_create(
 					const char *const hogwarts_house);
 void			influxdb_line_fields_create(
 					t_influxdb_line_element *fields_element,
+					const char *const index,
 					const char *const value);
 void			influxdb_line_timestamp_create(
 					t_influxdb_line_element *timestamp_element,
