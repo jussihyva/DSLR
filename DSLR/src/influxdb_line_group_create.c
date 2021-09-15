@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 14:51:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 14:54:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:39:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,20 @@ static const char	*elements_merge(
 }
 
 static const char	*influxdb_line_create(
-									const char *const hogwarts_house,
-									const char *const hogwarts_subject,
-									const char *const value)
+									const char **const value_array,
+									const char **const column_name_array,
+									const size_t i,
+									const size_t utc_time_ms)
 {
 	const char					*influxdb_line;
 	size_t						length;
+	const char					*hogwarts_house;
+	const char					*hogwarts_subject;
 	t_influxdb_line_element		influxdb_line_element
 											[NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
 
+	hogwarts_house = value_array[1];
+	hogwarts_subject = column_name_array[i];
 	influxdb_line = NULL;
 	ft_bzero(influxdb_line_element, sizeof(*influxdb_line_element)
 		* NUMBER_OF_INFLUXDB_LINE_ELEMENTS);
@@ -67,9 +72,10 @@ static const char	*influxdb_line_create(
 		"dataset_train");
 	influxdb_line_tags_create(&influxdb_line_element[E_TAGS],
 		hogwarts_subject, hogwarts_house);
-	influxdb_line_fields_create(&influxdb_line_element[E_FIELDS], value);
+	influxdb_line_fields_create(&influxdb_line_element[E_FIELDS],
+		value_array[i]);
 	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP],
-		ft_gettime());
+		utc_time_ms);
 	length = influxdb_line_length_calculate(influxdb_line_element);
 	influxdb_line = elements_merge(influxdb_line_element, length);
 	return (influxdb_line);
@@ -78,38 +84,36 @@ static const char	*influxdb_line_create(
 static size_t	influxdb_line_lines_create(
 									t_queue *influxdb_line_queue,
 									const char **const column_name_array,
-									const char **const value_array,
-									const char *const hogwarts_house)
+									const char **const value_array)
 {
 	size_t			field_string_length_total;
 	const char		*influxdb_line;
 	size_t			i;
-	size_t			index;
 	char			*endptr;
+	size_t			utc_time_ms;
 
-	index = ft_strtoi(value_array[0], &endptr, 10);
-	if (!(index % 20))
-		FT_LOG_INFO("%lu", index);
+	if (!(ft_strtoi(value_array[0], &endptr, 10) % 20))
+		FT_LOG_INFO("%s", value_array[0]);
 	i = 5;
 	field_string_length_total = -1;
+	utc_time_ms = ft_gettime();
 	while (++i < 19)
 	{
 		if (*value_array[i])
 		{
-			influxdb_line = influxdb_line_create(hogwarts_house,
-					column_name_array[i], value_array[i]);
+			influxdb_line = influxdb_line_create(value_array,
+					column_name_array, i, utc_time_ms);
 			ft_enqueue(influxdb_line_queue, (void *)influxdb_line);
 			field_string_length_total += ft_strlen(influxdb_line) + 1;
 		}
 		else
-			FT_LOG_DEBUG("%s %s (check line (dataset file) %lu)",
-				"Value is empty for", column_name_array[i], index);
+			FT_LOG_DEBUG("Value of %s %s Check line (dataset file) %s",
+				column_name_array[i], "course is empty.", value_array[0]);
 	}
 	return (field_string_length_total);
 }
 
 const char	*influxdb_line_group_create(
-					const char *const hogwarts_house,
 					const char **const column_name_array,
 					const char **const value_array)
 {
@@ -120,7 +124,7 @@ const char	*influxdb_line_group_create(
 
 	influxdb_line_queue = ft_queue_init();
 	field_string_length_total = influxdb_line_lines_create(influxdb_line_queue,
-			column_name_array, value_array, hogwarts_house);
+			column_name_array, value_array);
 	influxdb_lines = ft_strnew(field_string_length_total);
 	while (!ft_is_queue_empty(influxdb_line_queue))
 	{

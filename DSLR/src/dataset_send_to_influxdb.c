@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 14:53:56 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:40:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ void	dataset_send_to_influxdb(
 	const char		*influxdb_lines;
 	t_list			*elem;
 	const char		**value_array;
-	const char		*hogwarts_house;
 	t_bool			result;
 
 	elem = dataset->value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
-		hogwarts_house = value_array[1];
-		influxdb_lines = influxdb_line_group_create(hogwarts_house,
-				dataset->column_name_array, value_array);
+		influxdb_lines = influxdb_line_group_create(dataset->column_name_array,
+				value_array);
 		if (influxdb_lines)
 		{
 			result = ft_influxdb_write(influxdb_connection, influxdb_lines,
