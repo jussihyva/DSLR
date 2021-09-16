@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/16 18:23:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 00:27:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define	SPECIAL_CHARS_INFLUXDB_MEASUREMENT	", "
 # define	SPECIAL_CHARS_INFLUXDB_TAGS			", ="
 # define	SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
+# define	NUMBER_OF_HOGWARTS_COURSES			13
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -89,6 +90,10 @@ typedef struct s_input_params
 
 typedef struct s_gradient_descent
 {
+	const t_vector	*observerved_results;
+	const t_matrix	*input_values;
+	t_vector		*weigth_values;
+	int				b;
 }				t_gradient_descent;
 
 t_input_params				*input_params_initialize(
@@ -141,5 +146,20 @@ int							main_train(void);
 const t_gradient_descent	*gradient_descent_initialize(
 								t_regression_type regression_type,
 								const t_dataset *const dataset);
+t_matrix					*ft_matrix_create(
+								size_t size,
+								const size_t number_fo_rows,
+								const size_t number_of_columns);
+t_vector					*ft_vector_create(size_t size, size_t length);
+void						gradient_descent_iteration(
+								const t_regression_type regression_type,
+								const t_gradient_descent
+								*const gradient_descent);
+void						ft_matrix_dot_vector_double(
+								const t_matrix *const matrix,
+								const t_vector *const vector,
+								t_vector *const new_vector);
+t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
+t_vector					*ft_vector_transpose(const t_vector *const vector);
 
 #endif

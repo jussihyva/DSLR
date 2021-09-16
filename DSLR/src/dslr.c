@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/16 18:20:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/16 22:45:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(
 		dataset_send_to_influxdb(connection, input_params->dataset);
 	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
 			input_params->dataset);
+	gradient_descent_iteration(E_LOGISTIC, gradient_descent);
 	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	number = TF_max(23, 822);
 	FT_LOG_INFO("Number: %u", number);

@@ -6,39 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/16 21:05:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/16 22:54:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
-
-static t_matrix	*ft_matrix_create(
-							size_t size,
-							const size_t number_fo_rows,
-							const size_t number_of_columns)
-{
-	t_matrix		*matrix;
-	size_t			i;
-
-	matrix = ft_memalloc(sizeof(*matrix));
-	matrix->values = (void **)ft_memalloc(sizeof(*matrix->values)
-			* number_fo_rows);
-	i = -1;
-	while (++i < number_fo_rows)
-		matrix->values[i] = (void *)ft_memalloc(size * number_of_columns);
-	matrix->size.rows = number_fo_rows;
-	matrix->size.columns = number_of_columns;
-	return (matrix);
-}
-
-static t_vector	*ft_vector_create(size_t size, size_t number_of_columns)
-{
-	static size_t	number_of_rows = 1;
-	t_vector		*vector;
-
-	vector = ft_matrix_create(size, number_of_rows, number_of_columns);
-	return (vector);
-}
 
 static const t_vector	*output_vector_create(
 									const size_t length,
@@ -121,16 +93,20 @@ const t_gradient_descent	*gradient_descent_initialize(
 	const t_vector			*is_gryffindor_house;
 	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
+	t_vector				*weigth_vector;
 
-	is_gryffindor_house = output_vector_create(dataset->number_of_rows,
-			dataset->value_array_lst);
-	hogwarts_course_values = input_matrix_create(dataset->number_of_rows, 13,
-			dataset->value_array_lst);
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
 	{
-		FT_LOG_WARN("Implementation of logistic regression"
-			" function is ongoing %f", E_TRUE - 2.5);
+		is_gryffindor_house = output_vector_create(dataset->number_of_rows,
+				dataset->value_array_lst);
+		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
+				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
+		weigth_vector = ft_vector_create(sizeof(double),
+				NUMBER_OF_HOGWARTS_COURSES);
+		gradient_descent->observerved_results = is_gryffindor_house;
+		gradient_descent->input_values = hogwarts_course_values;
+		gradient_descent->weigth_values = weigth_vector;
 	}
 	return (gradient_descent);
 }
