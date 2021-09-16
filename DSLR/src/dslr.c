@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/14 12:02:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/16 18:20:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,18 @@ int	main(
 {
 	t_arg_parser				*arg_parser;
 	const t_input_params		*input_params;
-	const t_tcp_connection		*influxdb_connection;
+	const t_tcp_connection		*connection;
 	size_t						number;
+	const t_gradient_descent	*gradient_descent;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
-	influxdb_connection = ft_influxdb_connect("127.0.0.1", "8086",
+	connection = ft_influxdb_connect("127.0.0.1", "8086",
 			INFLUXDB_CONNECTION_PROTOCOL);
-	if (input_params->is_influxdb && influxdb_connection
-		&& input_params->dataset)
-		dataset_send_to_influxdb(influxdb_connection, input_params->dataset);
+	if (input_params->is_influxdb && connection && input_params->dataset)
+		dataset_send_to_influxdb(connection, input_params->dataset);
+	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
+			input_params->dataset);
 	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	number = TF_max(23, 822);
 	FT_LOG_INFO("Number: %u", number);
@@ -95,6 +97,6 @@ int	main(
 	TF_NewBufferFromString(arg_parser, 45);
 	TF_NewGraph();
 	main_train();
-	main_remove(&arg_parser, &input_params, &influxdb_connection);
+	main_remove(&arg_parser, &input_params, &connection);
 	return (0);
 }

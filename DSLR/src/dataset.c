@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 12:17:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:08:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,15 @@ static const t_dataset	*dataset_read_file(
 {
 	t_dataset		*dataset;
 	t_file_params	file_params;
-	size_t			line_cnt;
 
 	dataset = ft_memalloc(sizeof(*dataset));
 	dataset->file_path = file_path;
 	file_params.fd = ft_open_fd(file_path);
 	file_params.line = NULL;
-	line_cnt = 0;
 	while (ft_get_next_line(file_params.fd, &file_params.line) > 0)
 	{
-		line_cnt++;
-		if (line_cnt == 1)
+		dataset->number_of_rows++;
+		if (dataset->number_of_rows == 1)
 			create_column_arrays(file_params.line, dataset);
 		else
 			dataset_save_record(file_params.line, &dataset->value_array_lst,

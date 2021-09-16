@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/15 19:04:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/16 18:23:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct s_file_params
 	char	*line;
 }				t_file_params;
 
+typedef enum e_regression_type
+{
+	E_LINEAR,
+	E_LOGISTIC
+}				t_regression_type;
+
 typedef enum e_influxdb_line_element_type
 {
 	E_MEASUREMENT,
@@ -46,6 +52,14 @@ typedef enum e_influxdb_line_element_type
 	E_FIELDS,
 	E_TIMESTAMP
 }				t_influxdb_line_element_type;
+
+typedef struct s_matrix
+{
+	t_matrix_size	size;
+	void			**values;
+}				t_matrix;
+
+typedef t_matrix	t_vector;
 
 typedef struct s_influxdb_line_element
 {
@@ -59,6 +73,7 @@ typedef struct s_dataset
 	const char		**column_name_array;
 	size_t			*column_length_array;
 	size_t			number_of_columns;
+	size_t			number_of_rows;
 	t_list			*value_array_lst;
 }				t_dataset;
 
@@ -72,52 +87,59 @@ typedef struct s_input_params
 	const t_dataset			*dataset;
 }				t_input_params;
 
-t_input_params	*input_params_initialize(
-					t_argc_argv *argc_argv);
-void			input_param_save(
-					void *const input_params,
-					char opt, t_argc_argv *argc_argv,
-					t_cmd_param_type cmd_param_type);
-void			usage_print(void);
-void			input_params_remove(
-					const t_input_params **input_params);
-const t_dataset	*dataset_initialize(
-					const char *const dataset_file_path);
-char			**ft_strsplit_ex(
-					char const *s,
-					const char c,
-					size_t *const num_of_words);
-void			dataset_value_array_remove(
-					void *contnet,
-					size_t size);
-time_t			ft_gettime(void);
-void			dataset_send_to_influxdb(
-					const t_tcp_connection *const influxdb_connection,
-					const t_dataset *const dataset);
-void			influxdb_line_measurement_create(
-					t_influxdb_line_element *measurement_element,
-					const char *const measurement);
-void			influxdb_line_tags_create(
-					t_influxdb_line_element *tags_element,
-					const char *const hogwarts_subject,
-					const char *const hogwarts_house);
-void			influxdb_line_fields_create(
-					t_influxdb_line_element *fields_element,
-					const char *const index,
-					const char *const value);
-void			influxdb_line_timestamp_create(
-					t_influxdb_line_element *timestamp_element,
-					const size_t utc_time_ms);
-size_t			length_calculate(
-					const char *special_chars,
-					const char *const string);
-char			*string_create(
-					const char *const special_chars,
-					const char *const string,
-					size_t string_length);
-const char		*influxdb_line_group_create(
-					const char **const column_name_array,
-					const char **const value_array);
-int				main_train(void);
+typedef struct s_gradient_descent
+{
+}				t_gradient_descent;
+
+t_input_params				*input_params_initialize(
+								t_argc_argv *argc_argv);
+void						input_param_save(
+								void *const input_params,
+								char opt, t_argc_argv *argc_argv,
+								t_cmd_param_type cmd_param_type);
+void						usage_print(void);
+void						input_params_remove(
+								const t_input_params **input_params);
+const t_dataset				*dataset_initialize(
+								const char *const dataset_file_path);
+char						**ft_strsplit_ex(
+								char const *s,
+								const char c,
+								size_t *const num_of_words);
+void						dataset_value_array_remove(
+								void *contnet,
+								size_t size);
+time_t						ft_gettime(void);
+void						dataset_send_to_influxdb(
+								const t_tcp_connection *const connection,
+								const t_dataset *const dataset);
+void						influxdb_line_measurement_create(
+								t_influxdb_line_element *measurement_element,
+								const char *const measurement);
+void						influxdb_line_tags_create(
+								t_influxdb_line_element *tags_element,
+								const char *const hogwarts_subject,
+								const char *const hogwarts_house);
+void						influxdb_line_fields_create(
+								t_influxdb_line_element *fields_element,
+								const char *const index,
+								const char *const value);
+void						influxdb_line_timestamp_create(
+								t_influxdb_line_element *timestamp_element,
+								const size_t utc_time_ms);
+size_t						length_calculate(
+								const char *special_chars,
+								const char *const string);
+char						*string_create(
+								const char *const special_chars,
+								const char *const string,
+								size_t string_length);
+const char					*influxdb_line_group_create(
+								const char **const column_name_array,
+								const char **const value_array);
+int							main_train(void);
+const t_gradient_descent	*gradient_descent_initialize(
+								t_regression_type regression_type,
+								const t_dataset *const dataset);
 
 #endif
