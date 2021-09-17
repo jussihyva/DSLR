@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 23:12:40 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/16 23:50:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 15:21:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ void	ft_matrix_dot_vector_double(
 							const t_vector *const vector,
 							t_vector *const new_vector)
 {
-	size_t			i;
+	size_t		i;
 
 	i = -1;
-	if (matrix->size.columns == vector->size.rows)
+	if (matrix->size.columns == vector->size.rows
+		&& matrix->size.rows == new_vector->size.rows)
 	{
 		while (++i < matrix->size.rows)
 		{

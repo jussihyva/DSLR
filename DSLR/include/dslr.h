@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 07:53:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 16:09:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,7 @@ void						ft_vector_add_double(
 								double value,
 								t_matrix *new_vector);
 void						ft_vector_exp_double(
-								t_matrix *vector,
-								double value,
-								t_matrix *new_vector);
+								const t_matrix *const vector,
+								t_matrix *const new_vector);
 
 #endif

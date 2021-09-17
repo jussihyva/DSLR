@@ -6,21 +6,21 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 07:50:49 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 07:53:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 16:09:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
 void	ft_vector_exp_double(
-						t_matrix *vector,
-						double value,
-						t_matrix *new_vector)
+						const t_matrix *const vector,
+						t_matrix *const new_vector)
 {
 	size_t			i;
 
 	i = -1;
 	while (++i < vector->size.rows)
-		((double **)new_vector->values)[i][0] = exp(value);
+		((double **)new_vector->values)[i][0]
+			= exp(((double **)vector->values)[i][0]);
 	return ;
 }

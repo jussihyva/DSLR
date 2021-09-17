@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/16 22:54:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 15:34:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static const t_vector	*output_vector_create(
 		house = value_array[1];
 		if (ft_strequ(house, "Gryffindor"))
 		{
-			((t_bool **)vector->values)[0][i] = E_TRUE;
+			((t_bool **)vector->values)[i][0] = E_TRUE;
 			FT_LOG_TRACE("House: %s", value_array[1]);
 		}
 		else
-			((t_bool **)vector->values)[0][i] = E_FALSE;
+			((t_bool **)vector->values)[i][0] = E_FALSE;
 		i++;
 		elem = elem->next;
 	}
