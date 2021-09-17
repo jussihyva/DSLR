@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 16:09:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 19:30:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
 	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
 };
+
+typedef enum e_content_type
+{
+	E_INT,
+	E_DOUBLE
+}				t_content_type;
 
 typedef struct s_file_params
 {
@@ -168,5 +174,17 @@ void						ft_vector_add_double(
 void						ft_vector_exp_double(
 								const t_matrix *const vector,
 								t_matrix *const new_vector);
+void						ft_vector_div_double(
+								t_matrix *vector,
+								double value,
+								t_matrix *new_vector);
+void						ft_matrix_print(
+								const char *const matrix_name,
+								const t_matrix *const matrix,
+								const t_content_type content_type);
+void						ft_vector_print(
+								const char *const vectior_name,
+								const t_vector *const vector,
+								const t_content_type content_type);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/17 07:50:29 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/17 19:23:32 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							gradient_descent.c gradient_descent_iteration.c \
 							ft_matrix_create.c ft_vector_create.c \
 							ft_matrix_dot_vector_double.c \
-							ft_matrix_transpose.c \
-							ft_vector_transpose.c \
-							ft_vector_add_double.c \
-							ft_vector_exp_double.c \
+							ft_matrix_transpose.c ft_vector_transpose.c \
+							ft_vector_add_double.c ft_vector_exp_double.c \
+							ft_vector_div_double.c \
+							ft_matrix_print.c ft_vector_print.c \
 							train.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a

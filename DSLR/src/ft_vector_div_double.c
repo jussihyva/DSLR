@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector_add_double.c                             :+:      :+:    :+:   */
+/*   ft_vector_div_double.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 07:42:54 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 19:14:37 by jkauppi          ###   ########.fr       */
+/*   Created: 2021/09/17 19:13:56 by jkauppi           #+#    #+#             */
+/*   Updated: 2021/09/17 19:17:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-void	ft_vector_add_double(
+void	ft_vector_div_double(
 						t_matrix *vector,
 						double value,
 						t_matrix *new_vector)
@@ -23,7 +23,7 @@ void	ft_vector_add_double(
 	while (++i < vector->size.rows)
 	{
 		((double **)new_vector->values)[i][0]
-			= ((double **)vector->values)[i][0] + value;
+			= value / ((double **)vector->values)[i][0];
 	}
 	return ;
 }
