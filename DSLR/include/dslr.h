@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 00:27:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 07:53:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,13 @@ void						ft_matrix_dot_vector_double(
 								t_vector *const new_vector);
 t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
 t_vector					*ft_vector_transpose(const t_vector *const vector);
+void						ft_vector_add_double(
+								t_matrix *vector,
+								double value,
+								t_matrix *new_vector);
+void						ft_vector_exp_double(
+								t_matrix *vector,
+								double value,
+								t_matrix *new_vector);
 
 #endif
