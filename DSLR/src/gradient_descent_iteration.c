@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 20:25:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/19 08:04:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,65 @@
 
 static const t_vector	*ft_sigmoid(const t_vector *const input_vector)
 {
-	t_vector	*prediction_exp;
-	t_vector	*prediction_add;
-	t_vector	*prediction_div;
+	t_vector	*predicted_exp;
+	t_vector	*predicted_add;
+	t_vector	*predicted_div;
 
-	prediction_exp = ft_vector_create(sizeof(double), input_vector->size.rows);
-	prediction_add = ft_vector_create(sizeof(double), input_vector->size.rows);
-	prediction_div = ft_vector_create(sizeof(double), input_vector->size.rows);
-	ft_vector_exp_double(input_vector, prediction_exp);
-	ft_vector_add_double(prediction_exp, 1, prediction_add);
-	ft_vector_div_double(prediction_add, 1, prediction_div);
+	predicted_exp = ft_vector_create(sizeof(double), input_vector->size.rows);
+	predicted_add = ft_vector_create(sizeof(double), input_vector->size.rows);
+	predicted_div = ft_vector_create(sizeof(double), input_vector->size.rows);
+	ft_vector_exp_double(input_vector, predicted_exp);
+	ft_vector_add_double(predicted_exp, 1, predicted_add);
+	ft_vector_div_double(predicted_add, 1, predicted_div);
 	// ft_vector_print("Input vector", input_vector, E_DOUBLE);
-	// ft_vector_print("Sigmod vector", prediction_div, E_DOUBLE);
-	return (prediction_div);
+	// ft_vector_print("Sigmod vector", predicted_div, E_DOUBLE);
+	return (predicted_div);
 }
 
 static const t_vector	*predict(
 							t_regression_type regression_type,
 							const t_matrix *const matrix,
-							const double b,
-							const t_vector *const vector)
+							const double bias,
+							const t_vector *const weigth)
 {
-	t_vector	*prediction_prel;
-	t_vector	*prediction_add;
-	t_vector	*prediction;
+	t_vector		*predicted_prel;
+	t_vector		*predicted_add;
+	const t_vector	*predicted;
 
-	prediction_prel = ft_vector_create(sizeof(double), matrix->size.rows);
-	prediction_add = ft_vector_create(sizeof(double), matrix->size.rows);
-	prediction = ft_vector_create(sizeof(double), matrix->size.rows);
+	predicted_prel = ft_vector_create(sizeof(double), matrix->size.rows);
+	predicted_add = ft_vector_create(sizeof(double), matrix->size.rows);
+	predicted = ft_vector_create(sizeof(double), matrix->size.rows);
 	if (regression_type == E_LOGISTIC)
 	{
-		ft_matrix_dot_vector_double(matrix, vector, prediction_prel);
-		ft_vector_add_double(prediction_prel, b, prediction_add);
-		ft_sigmoid(prediction_add);
+		ft_matrix_dot_vector_double(matrix, weigth, predicted_prel);
+		ft_vector_add_double(predicted_prel, bias, predicted_add);
+		predicted = ft_sigmoid(predicted_add);
 	}
-	return (prediction);
+	return (predicted);
 }
 
 void	gradient_descent_iteration(
 							const t_regression_type regression_type,
 							const t_gradient_descent *const gradient_descent)
 {
-	const t_vector	*prediction;
-	// t_vector		*residual;
-	// t_vector	*cost;
+	const t_vector	*predicted;
+	const t_vector	*residual;
+	t_vector		*residual_abs;
+	double			cost;
 
 	if (regression_type == E_LOGISTIC)
 	{
-		prediction = predict(regression_type,
-				gradient_descent->input_values, gradient_descent->b,
-				gradient_descent->weigth_values);
+		predicted = predict(regression_type,
+				gradient_descent->input_values, gradient_descent->bias,
+				gradient_descent->weigth);
+		residual = residual_calculate(gradient_descent->observed, predicted);
+		residual_abs = ft_vector_create(sizeof(double), residual->size.rows);
+		ft_vector_abs_double(residual, residual_abs);
+		cost = ft_vector_sum(residual_abs) / residual->size.rows;
+		// ft_vector_print("Observed", gradient_descent->observed, E_DOUBLE);
+		// ft_vector_print("Predicted", predicted, E_DOUBLE);
+		ft_vector_print("Residual", residual_abs, E_DOUBLE);
+		ft_printf("COST: %f\n", cost);
 		FT_LOG_WARN("Implementation of logistic regression"
 			" function is ongoing %f", E_TRUE - 2.5);
 	}

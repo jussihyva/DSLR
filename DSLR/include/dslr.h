@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 19:30:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/19 07:44:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define	SPECIAL_CHARS_INFLUXDB_TAGS			", ="
 # define	SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
 # define	NUMBER_OF_HOGWARTS_COURSES			13
+# define	LEARNING_RATE						0.1
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -96,10 +97,10 @@ typedef struct s_input_params
 
 typedef struct s_gradient_descent
 {
-	const t_vector	*observerved_results;
+	const t_vector	*observed;
 	const t_matrix	*input_values;
-	t_vector		*weigth_values;
-	int				b;
+	t_vector		*weigth;
+	double			bias;
 }				t_gradient_descent;
 
 t_input_params				*input_params_initialize(
@@ -168,16 +169,16 @@ void						ft_matrix_dot_vector_double(
 t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
 t_vector					*ft_vector_transpose(const t_vector *const vector);
 void						ft_vector_add_double(
-								t_matrix *vector,
+								t_vector *vector,
 								double value,
-								t_matrix *new_vector);
+								t_vector *new_vector);
 void						ft_vector_exp_double(
-								const t_matrix *const vector,
-								t_matrix *const new_vector);
+								const t_vector *const vector,
+								t_vector *const new_vector);
 void						ft_vector_div_double(
-								t_matrix *vector,
+								t_vector *vector,
 								double value,
-								t_matrix *new_vector);
+								t_vector *new_vector);
 void						ft_matrix_print(
 								const char *const matrix_name,
 								const t_matrix *const matrix,
@@ -186,5 +187,16 @@ void						ft_vector_print(
 								const char *const vectior_name,
 								const t_vector *const vector,
 								const t_content_type content_type);
+const t_vector				*residual_calculate(
+								const t_vector *const observed,
+								const t_vector *const predicted);
+void						ft_vector_subtract_vector_double(
+								const t_vector *const vector1,
+								const t_vector *const vector2,
+								t_vector *const new_vector);
+double						ft_vector_sum(const t_vector *const vector);
+void						ft_vector_abs_double(
+								const t_vector *const vector,
+								t_vector *const new_vector);
 
 #endif

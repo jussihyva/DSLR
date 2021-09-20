@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 15:28:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/17 20:33:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(
 	t_arg_parser				*arg_parser;
 	const t_input_params		*input_params;
 	const t_tcp_connection		*connection;
-	size_t						number;
+	// size_t						number;
 	const t_gradient_descent	*gradient_descent;
 
 	arg_parser = arg_parser_init(&argc, &argv);
@@ -90,14 +90,14 @@ int	main(
 	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
 			input_params->dataset);
 	gradient_descent_iteration(E_LOGISTIC, gradient_descent);
-	ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
-	number = TF_max(23, 822);
-	FT_LOG_INFO("Number: %u", number);
+	// ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
+	// number = TF_max(23, 822);
+	// FT_LOG_INFO("Number: %u", number);
 	// TF_AllocateTensor(TF_STRING);
 	// number = TF_StringInit(TF_TString);
-	TF_NewBufferFromString(arg_parser, 45);
-	TF_NewGraph();
-	main_train();
+	// TF_NewBufferFromString(arg_parser, 45);
+	// TF_NewGraph();
+	// main_train();
 	main_remove(&arg_parser, &input_params, &connection);
 	return (0);
 }

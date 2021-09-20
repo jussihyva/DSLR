@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/17 19:23:32 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/19 07:19:24 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,13 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_vector_add_double.c ft_vector_exp_double.c \
 							ft_vector_div_double.c \
 							ft_matrix_print.c ft_vector_print.c \
-							train.c
+							residual.c ft_vector_subtract_vector_double.c \
+							ft_vector_sum.c ft_vector_abs_double.c
+							# train.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
-GLOBAL_LIBS				=	libssl.a libcrypto.a libtensorflow.a
-# GLOBAL_LIBS				=	libssl.a libcrypto.a
+# GLOBAL_LIBS				=	libssl.a libcrypto.a libtensorflow.a
+GLOBAL_LIBS				=	libssl.a libcrypto.a
 GLOBAL_LIB_FOLDERS		=	
 ifeq ($(OS), Darwin)
 	GLOBAL_LIBS			+=	
