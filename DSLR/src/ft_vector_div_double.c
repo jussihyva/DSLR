@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 19:13:56 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 11:33:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:09:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_vector_div_double(
 	i.rows = -1;
 	while (++i.rows < vector->size.rows)
 	{
+		i.columns = -1;
 		while (++i.columns < vector->size.columns)
 		{
 			((double **)new_vector->values)[i.rows][i.columns]

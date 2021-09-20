@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 19:23:56 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 06:51:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:43:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_matrix_print(
 				ft_printf("       %d ", ((int **)matrix->values)[i][j]);
 			else if (content_type == E_DOUBLE)
 				ft_printf("       %f ", ((double **)matrix->values)[i][j]);
+			ft_printf("\n");
 		}
-		ft_printf("\n");
 	}
 	return ;
 }

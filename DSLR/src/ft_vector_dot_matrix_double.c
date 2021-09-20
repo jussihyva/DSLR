@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 23:12:40 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 12:09:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:16:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	ft_vector_dot_matrix_double(
 		i.columns = -1;
 		while (++i.columns < matrix->size.columns)
 		{
-			((double **)new_vector->values)[i.columns][0]
-				= matrix_row_multiple_vector_values(vector->size.rows,
+			((double **)new_vector->values)[0][i.columns]
+				= matrix_row_multiple_vector_values(matrix->size.rows,
 					((double **)matrix->values), i.columns,
 					((double **)vector->values)[0]);
 		}

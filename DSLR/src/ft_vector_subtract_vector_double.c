@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 17:35:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/18 17:46:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:18:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	ft_vector_subtract_vector_double(
 {
 	size_t			i;
 
-	if (vector1->size.rows == vector2->size.rows
-		&& vector1->size.rows == new_vector->size.rows)
+	if (vector1->size.columns == vector2->size.columns
+		&& vector1->size.columns == new_vector->size.columns)
 	{
 		i = -1;
-		while (++i < vector1->size.rows)
+		while (++i < vector1->size.columns)
 		{
-			((double **)new_vector->values)[i][0]
-				= ((double **)vector1->values)[i][0]
-				- ((double **)vector2->values)[i][0];
+			((double **)new_vector->values)[0][i]
+				= ((double **)vector1->values)[0][i]
+				- ((double **)vector2->values)[0][i];
 		}
 	}
 	else

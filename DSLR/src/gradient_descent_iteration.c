@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 11:51:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:49:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@ static const t_vector	*predict(
 							const double bias,
 							const t_vector *const weigth)
 {
-	t_vector		*predicted_prel;
-	t_vector		*predicted_add;
-	const t_vector	*predicted;
+	t_vector			*predicted_prel;
+	t_vector			*predicted_add;
+	const t_vector		*weigth_transposed;
+	const t_vector		*predicted;
 
 	predicted_prel = ft_vector_create(sizeof(double), matrix->size.columns);
 	predicted_add = ft_vector_create(sizeof(double), matrix->size.columns);
 	predicted = ft_vector_create(sizeof(double), matrix->size.columns);
 	if (regression_type == E_LOGISTIC)
 	{
-		ft_vector_dot_matrix_double(matrix, weigth, predicted_prel);
+		weigth_transposed = ft_vector_transpose(weigth);
+		ft_vector_dot_matrix_double(weigth_transposed, matrix, predicted_prel);
 		ft_vector_add_double(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 	}
@@ -66,7 +68,7 @@ void	gradient_descent_iteration(
 				gradient_descent->input_values, gradient_descent->bias,
 				gradient_descent->weigth);
 		residual = residual_calculate(gradient_descent->observed, predicted);
-		residual_abs = ft_vector_create(sizeof(double), residual->size.rows);
+		residual_abs = ft_vector_create(sizeof(double), residual->size.columns);
 		ft_vector_abs_double(residual, residual_abs);
 		cost = ft_vector_sum(residual_abs) / residual->size.rows;
 		// ft_vector_print("Observed", gradient_descent->observed, E_DOUBLE);

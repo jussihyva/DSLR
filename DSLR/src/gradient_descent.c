@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/19 07:45:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 18:58:24 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static const t_vector	*output_vector_create(
 		house = value_array[1];
 		if (ft_strequ(house, "Gryffindor"))
 		{
-			((double **)vector->values)[i][0] = E_TRUE;
+			((double **)vector->values)[0][i] = E_TRUE;
 			FT_LOG_TRACE("House: %s", value_array[1]);
 		}
 		else
-			((double **)vector->values)[i][0] = E_FALSE;
+			((double **)vector->values)[0][i] = E_FALSE;
 		i++;
 		elem = elem->next;
 	}
@@ -43,7 +43,8 @@ static const t_vector	*output_vector_create(
 }
 
 static void	course_values_add(
-						double *const course_values,
+						double **const course_values,
+						const size_t column,
 						const char **const value_array)
 {
 	size_t		i;
@@ -56,7 +57,7 @@ static void	course_values_add(
 	while (++i < 19)
 	{
 		value = strtod(value_array[i], &endptr);
-		ft_memcpy(&course_values[j], &value, sizeof(value));
+		course_values[j][column] = value;
 		j++;
 	}
 	return ;
@@ -72,14 +73,14 @@ static const t_matrix	*input_matrix_create(
 	const char		**value_array;
 	size_t			i;
 
-	matrix = ft_matrix_create(sizeof(double), number_of_rows,
-			number_of_columns);
+	matrix = ft_matrix_create(sizeof(double), number_of_columns,
+			number_of_rows);
 	i = 0;
 	elem = value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
-		course_values_add(((double **const)matrix->values)[i], value_array);
+		course_values_add((double **const)matrix->values, i, value_array);
 		i++;
 		elem = elem->next;
 	}
@@ -93,7 +94,7 @@ const t_gradient_descent	*gradient_descent_initialize(
 	const t_vector			*is_gryffindor_house;
 	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
-	t_vector				*weigth;
+	t_vector				*weigth_prel;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
@@ -102,10 +103,11 @@ const t_gradient_descent	*gradient_descent_initialize(
 				dataset->value_array_lst);
 		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
 				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
-		weigth = ft_vector_create(sizeof(double), NUMBER_OF_HOGWARTS_COURSES);
+		weigth_prel = ft_vector_create(sizeof(double),
+				NUMBER_OF_HOGWARTS_COURSES);
 		gradient_descent->observed = is_gryffindor_house;
 		gradient_descent->input_values = hogwarts_course_values;
-		gradient_descent->weigth = weigth;
+		gradient_descent->weigth = ft_vector_transpose(weigth_prel);
 	}
 	return (gradient_descent);
 }
