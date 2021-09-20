@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/19 07:44:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:52:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef enum e_content_type
 	E_INT,
 	E_DOUBLE
 }				t_content_type;
+
+typedef enum e_sign
+{
+	E_MINUS,
+	E_PLUS
+}				t_sign;
 
 typedef struct s_file_params
 {
@@ -162,23 +168,28 @@ void						gradient_descent_iteration(
 								const t_regression_type regression_type,
 								const t_gradient_descent
 								*const gradient_descent);
-void						ft_matrix_dot_vector_double(
-								const t_matrix *const matrix,
+void						ft_vector_dot_matrix_double(
 								const t_vector *const vector,
+								const t_matrix *const matrix,
 								t_vector *const new_vector);
 t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
 t_vector					*ft_vector_transpose(const t_vector *const vector);
 void						ft_vector_add_double(
-								t_vector *vector,
-								double value,
-								t_vector *new_vector);
+								const t_vector *const vector,
+								const double value,
+								t_vector *const new_vector);
 void						ft_vector_exp_double(
 								const t_vector *const vector,
-								t_vector *const new_vector);
+								t_vector *const new_vector,
+								const t_sign sign);
 void						ft_vector_div_double(
-								t_vector *vector,
-								double value,
-								t_vector *new_vector);
+								const t_vector *const vector,
+								const double value,
+								t_vector *const new_vector);
+void						ft_double_div_vector(
+								const double value,
+								const t_vector *const vector,
+								t_vector *const new_vector);
 void						ft_matrix_print(
 								const char *const matrix_name,
 								const t_matrix *const matrix,

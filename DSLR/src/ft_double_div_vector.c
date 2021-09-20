@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector_add_double.c                             :+:      :+:    :+:   */
+/*   ft_double_div_vector.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 07:42:54 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 11:19:50 by jkauppi          ###   ########.fr       */
+/*   Created: 2021/09/20 11:38:03 by jkauppi           #+#    #+#             */
+/*   Updated: 2021/09/20 11:41:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-void	ft_vector_add_double(
-						const t_vector *const vector,
+void	ft_double_div_vector(
 						const double value,
+						const t_vector *const vector,
 						t_vector *const new_vector)
 {
 	t_vector_size	i;
@@ -22,11 +22,10 @@ void	ft_vector_add_double(
 	i.rows = -1;
 	while (++i.rows < vector->size.rows)
 	{
-		i.columns = -1;
 		while (++i.columns < vector->size.columns)
 		{
 			((double **)new_vector->values)[i.rows][i.columns]
-				= ((double **)vector->values)[i.rows][i.columns] + value;
+				= value / ((double **)vector->values)[i.rows][i.columns];
 		}
 	}
 	return ;

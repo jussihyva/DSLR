@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:30:20 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 12:54:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 10:35:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_vector	*ft_vector_create(size_t size, size_t length)
 {
-	static size_t	number_of_columns = 1;
+	static size_t	number_of_rows = 1;
 	t_vector		*vector;
 
-	vector = ft_matrix_create(size, length, number_of_columns);
+	vector = ft_matrix_create(size, number_of_rows, length);
 	return (vector);
 }

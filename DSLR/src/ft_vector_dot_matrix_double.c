@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrix_dot_vector_double.c                      :+:      :+:    :+:   */
+/*   ft_vector_dot_matrix_double.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 23:12:40 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 15:21:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 12:09:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static double	matrix_row_multiple_vector_values(
 							size_t length,
-							double *matrix_row_values,
-							double **vector_values)
+							double **matrix_values,
+							size_t matrix_column,
+							double *vector_values)
 {
 	double		result;
 	size_t		i;
@@ -23,26 +24,27 @@ static double	matrix_row_multiple_vector_values(
 	result = 0;
 	i = -1;
 	while (++i < length)
-		result += matrix_row_values[i] * vector_values[i][0];
+		result += matrix_values[i][matrix_column] * vector_values[i];
 	return (result);
 }
 
-void	ft_matrix_dot_vector_double(
-							const t_matrix *const matrix,
+void	ft_vector_dot_matrix_double(
 							const t_vector *const vector,
+							const t_matrix *const matrix,
 							t_vector *const new_vector)
 {
-	size_t		i;
+	t_vector_size	i;
 
-	i = -1;
-	if (matrix->size.columns == vector->size.rows
-		&& matrix->size.rows == new_vector->size.rows)
+	if (vector->size.columns == matrix->size.rows
+		&& matrix->size.columns == new_vector->size.columns)
 	{
-		while (++i < matrix->size.rows)
+		i.columns = -1;
+		while (++i.columns < matrix->size.columns)
 		{
-			((double **)new_vector->values)[i][0]
+			((double **)new_vector->values)[i.columns][0]
 				= matrix_row_multiple_vector_values(vector->size.rows,
-					((double **)matrix->values)[i], (double **)vector->values);
+					((double **)matrix->values), i.columns,
+					((double **)vector->values)[0]);
 		}
 	}
 	else

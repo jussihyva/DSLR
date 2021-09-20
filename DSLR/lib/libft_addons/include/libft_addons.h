@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 12:16:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 10:57:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ typedef struct s_matrix_size
 	size_t		columns;
 }				t_matrix_size;
 
+typedef t_matrix_size	t_vector_size;
+
 typedef struct s_log_event
 {
 	va_list			ap;
@@ -205,7 +207,7 @@ void					ft_log_set_lock(
 							t_logging_lock_function fn,
 							void *udata);
 void					ft_log_set_level(int level);
-t_logging_level			ft_log_get_level();
+t_logging_level			ft_log_get_level(void);
 /*
 ** void			log_set_quiet(int enable);
 */

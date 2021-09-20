@@ -6,24 +6,24 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/19 08:04:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:51:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static const t_vector	*ft_sigmoid(const t_vector *const input_vector)
+static const t_vector	*ft_sigmoid(const t_vector *const input)
 {
 	t_vector	*predicted_exp;
 	t_vector	*predicted_add;
 	t_vector	*predicted_div;
 
-	predicted_exp = ft_vector_create(sizeof(double), input_vector->size.rows);
-	predicted_add = ft_vector_create(sizeof(double), input_vector->size.rows);
-	predicted_div = ft_vector_create(sizeof(double), input_vector->size.rows);
-	ft_vector_exp_double(input_vector, predicted_exp);
+	predicted_exp = ft_vector_create(sizeof(double), input->size.columns);
+	predicted_add = ft_vector_create(sizeof(double), input->size.columns);
+	predicted_div = ft_vector_create(sizeof(double), input->size.columns);
+	ft_vector_exp_double(input, predicted_exp, E_MINUS);
 	ft_vector_add_double(predicted_exp, 1, predicted_add);
-	ft_vector_div_double(predicted_add, 1, predicted_div);
+	ft_double_div_vector(1, predicted_add, predicted_div);
 	// ft_vector_print("Input vector", input_vector, E_DOUBLE);
 	// ft_vector_print("Sigmod vector", predicted_div, E_DOUBLE);
 	return (predicted_div);
@@ -39,12 +39,12 @@ static const t_vector	*predict(
 	t_vector		*predicted_add;
 	const t_vector	*predicted;
 
-	predicted_prel = ft_vector_create(sizeof(double), matrix->size.rows);
-	predicted_add = ft_vector_create(sizeof(double), matrix->size.rows);
-	predicted = ft_vector_create(sizeof(double), matrix->size.rows);
+	predicted_prel = ft_vector_create(sizeof(double), matrix->size.columns);
+	predicted_add = ft_vector_create(sizeof(double), matrix->size.columns);
+	predicted = ft_vector_create(sizeof(double), matrix->size.columns);
 	if (regression_type == E_LOGISTIC)
 	{
-		ft_matrix_dot_vector_double(matrix, weigth, predicted_prel);
+		ft_vector_dot_matrix_double(matrix, weigth, predicted_prel);
 		ft_vector_add_double(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 	}
