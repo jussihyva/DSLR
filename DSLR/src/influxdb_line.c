@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/15 19:10:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/21 16:04:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,6 @@ char	*string_create(
 	return (new_string);
 }
 
-void	influxdb_line_tags_create(
-							t_influxdb_line_element *tags_element,
-							const char *const hogwarts_subject,
-							const char *const hogwarts_house)
-{
-	static const char	tag_key1[] = "hogwarts_subject";
-	static const char	tag_key2[] = "Hogwarts\\ House";
-	size_t				length[2];
-	const char			*string[2];
-
-	length[0] = length_calculate(SPECIAL_CHARS_INFLUXDB_TAGS, hogwarts_subject);
-	string[0] = string_create(SPECIAL_CHARS_INFLUXDB_TAGS, hogwarts_subject,
-			length[0]);
-	length[1] = length_calculate(SPECIAL_CHARS_INFLUXDB_TAGS, hogwarts_house);
-	string[1] = string_create(SPECIAL_CHARS_INFLUXDB_TAGS, hogwarts_house,
-			length[1]);
-	tags_element->string_length = ft_strlen(tag_key1);
-	tags_element->string_length++;
-	tags_element->string_length += length[0];
-	tags_element->string_length++;
-	tags_element->string_length += ft_strlen(tag_key2);
-	tags_element->string_length++;
-	tags_element->string_length += length[1];
-	tags_element->string = ft_memalloc(sizeof(*tags_element->string)
-			* (tags_element->string_length + 1));
-	ft_sprintf(tags_element->string, "%s=%s,%s=%s", tag_key1, string[0],
-		tag_key2, string[1]);
-	ft_strdel((char **)&string[0]);
-	ft_strdel((char **)&string[1]);
-	return ;
-}
-
 void	influxdb_line_fields_create(
 							t_influxdb_line_element *fields_element,
 							const char *const index,
@@ -108,6 +76,58 @@ void	influxdb_line_fields_create(
 			* (fields_element->string_length + 1));
 	ft_sprintf(fields_element->string, "%s=%s,%s=%s", tag_key1, index, tag_key2,
 		string);
+	ft_strdel((char **)&string);
+	return ;
+}
+
+void	influxdb_line_fields_create_2(
+							t_influxdb_line_element *fields_element,
+							const char **const column_name_array,
+							const char **const value_array)
+{
+	size_t				length;
+	const char			*string;
+	const char			*string1;
+	const char			*string2;
+	size_t				i;
+	const char			*column_name;
+	const char			*value;
+	t_queue				*queue_str;
+
+	queue_str = ft_queue_init();
+	fields_element->string_length = 0;
+	i = 5;
+	while (++i < 19)
+	{
+		value = value_array[i];
+		if (*value)
+		{
+			column_name = column_name_array[i];
+			length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name);
+			string1 = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name,
+					length);
+			length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
+			string2 = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, value, length);
+			fields_element->string_length += ft_strlen(string1);
+			fields_element->string_length++;
+			fields_element->string_length += ft_strlen(string2);
+			ft_enqueue(queue_str, (void *)string1);
+			ft_enqueue(queue_str, "=");
+			ft_enqueue(queue_str, (void *)string2);
+			if (i != 18)
+			{
+				fields_element->string_length++;
+				ft_enqueue(queue_str, ",");
+			}
+		}
+	}
+	fields_element->string = ft_strnew(fields_element->string_length);
+	string = NULL;
+	while (!ft_is_queue_empty(queue_str))
+	{
+		string = ft_dequeue(queue_str);
+		ft_strcat(fields_element->string, string);
+	}
 	ft_strdel((char **)&string);
 	return ;
 }
