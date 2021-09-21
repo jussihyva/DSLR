@@ -527,9 +527,855 @@
 		],
 		"title": "Care of Magical Creatures",
 		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 0,
+		  "y": 27
+		},
+		"id": 8,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Charms"
+			  }
+			]
+		  }
+		],
+		"title": "Charms",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 6,
+		  "y": 27
+		},
+		"id": 9,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Defense Against the Dark Arts"
+			  }
+			]
+		  }
+		],
+		"title": "Defense Against the Dark Arts",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 12,
+		  "y": 27
+		},
+		"id": 10,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Divination"
+			  }
+			]
+		  }
+		],
+		"title": "Divination",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 18,
+		  "y": 27
+		},
+		"id": 11,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Flying"
+			  }
+			]
+		  }
+		],
+		"title": "Flying",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 0,
+		  "y": 41
+		},
+		"id": 12,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Herbology"
+			  }
+			]
+		  }
+		],
+		"title": "Herbology",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 6,
+		  "y": 41
+		},
+		"id": 13,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "History of Magic"
+			  }
+			]
+		  }
+		],
+		"title": "History of Magic",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 12,
+		  "y": 41
+		},
+		"id": 14,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Muggle Studies"
+			  }
+			]
+		  }
+		],
+		"title": "Muggle Studies",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 18,
+		  "y": 41
+		},
+		"id": 15,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Potions"
+			  }
+			]
+		  }
+		],
+		"title": "Potions",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 14,
+		  "w": 6,
+		  "x": 0,
+		  "y": 55
+		},
+		"id": 16,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#05ff8a",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "none"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": false,
+			"size": 3
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": true
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "xAxisTitle": {
+			"text": "Dataset index",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": null
+		  },
+		  "yAxisTitle": {
+			"text": "Value",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Index"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Transfiguration"
+			  }
+			]
+		  }
+		],
+		"title": "Transfiguration",
+		"type": "michaeldmoore-scatter-panel"
 	  }
 	],
-	"refresh": false,
+	"refresh": "10s",
 	"schemaVersion": 30,
 	"style": "dark",
 	"tags": [],
@@ -537,13 +1383,13 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "2021-09-15T16:22:35.048Z",
-	  "to": "2021-09-15T16:23:24.615Z"
+	  "from": "now-15m",
+	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "Scatter plot",
 	"uid": "UHRRjyI7k",
-	"version": 2
+	"version": 3
   }
   

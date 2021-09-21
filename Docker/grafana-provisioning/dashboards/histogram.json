@@ -31,97 +31,6 @@
 			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "fillOpacity": 80,
-			  "gradientMode": "none",
-			  "hideFrom": {
-				"legend": false,
-				"tooltip": false,
-				"viz": false
-			  },
-			  "lineWidth": 1
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
-				}
-			  ]
-			}
-		  },
-		  "overrides": []
-		},
-		"gridPos": {
-		  "h": 13,
-		  "w": 24,
-		  "x": 0,
-		  "y": 0
-		},
-		"id": 11,
-		"options": {
-		  "bucketOffset": 0,
-		  "legend": {
-			"calcs": [
-			  "min",
-			  "max",
-			  "count",
-			  "mean"
-			],
-			"displayMode": "list",
-			"placement": "bottom"
-		  }
-		},
-		"targets": [
-		  {
-			"groupBy": [],
-			"measurement": "dataset_train",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"refId": "A",
-			"resultFormat": "table",
-			"select": [
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				}
-			  ]
-			],
-			"tags": [
-			  {
-				"condition": "AND",
-				"key": "hogwarts_subject",
-				"operator": "=",
-				"value": "Arithmancy"
-			  },
-			  {
-				"condition": "AND",
-				"key": "Hogwarts House",
-				"operator": "=",
-				"value": "Slytherin"
-			  }
-			]
-		  }
-		],
-		"title": "Panel Title",
-		"type": "histogram"
-	  },
-	  {
-		"datasource": null,
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "palette-classic"
-			},
-			"custom": {
 			  "axisLabel": "",
 			  "axisPlacement": "auto",
 			  "barAlignment": 0,
@@ -170,7 +79,7 @@
 		  "h": 12,
 		  "w": 24,
 		  "x": 0,
-		  "y": 13
+		  "y": 0
 		},
 		"id": 2,
 		"options": {
@@ -212,11 +121,17 @@
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
 			},
 			"mappings": [],
 			"thresholds": {
@@ -236,39 +151,113 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 15,
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 12
+		},
+		"id": 11,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Ancient Runes"
+			  }
+			]
+		  }
+		],
+		"title": "Ancient Runes",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
 		  "w": 24,
 		  "x": 0,
 		  "y": 25
 		},
-		"id": 5,
+		"id": 12,
 		"options": {
-		  "showHeader": true,
-		  "sortBy": []
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
 		},
-		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "180m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "hogwarts_subject"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
@@ -281,76 +270,38 @@
 					"value"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "min"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "max"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "count"
 				}
 			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Arithmancy"
+			  }
 			]
 		  }
 		],
-		"title": "Data overview (All Houses)",
-		"type": "table"
+		"title": "Arithmancy",
+		"type": "histogram"
 	  },
 	  {
 		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
 			},
 			"mappings": [],
 			"thresholds": {
@@ -370,39 +321,28 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 15,
+		  "h": 13,
 		  "w": 24,
 		  "x": 0,
-		  "y": 40
+		  "y": 38
 		},
-		"id": 6,
+		"id": 13,
 		"options": {
-		  "showHeader": true,
-		  "sortBy": []
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
 		},
-		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "180m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "hogwarts_subject"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
@@ -415,83 +355,38 @@
 					"value"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "min"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "max"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "count"
 				}
 			  ]
 			],
 			"tags": [
 			  {
-				"key": "Hogwarts House",
+				"condition": "AND",
+				"key": "hogwarts_subject",
 				"operator": "=",
-				"value": "Gryffindor"
+				"value": "Astronomy"
 			  }
 			]
 		  }
 		],
-		"title": "Data overview (Gryffindor)",
-		"type": "table"
+		"title": "Astronomy",
+		"type": "histogram"
 	  },
 	  {
 		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
 			},
 			"mappings": [],
 			"thresholds": {
@@ -511,39 +406,28 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 15,
+		  "h": 13,
 		  "w": 24,
 		  "x": 0,
-		  "y": 55
+		  "y": 51
 		},
-		"id": 7,
+		"id": 14,
 		"options": {
-		  "showHeader": true,
-		  "sortBy": []
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
 		},
-		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "180m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "hogwarts_subject"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
@@ -556,83 +440,38 @@
 					"value"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "min"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "max"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "count"
 				}
 			  ]
 			],
 			"tags": [
 			  {
-				"key": "Hogwarts House",
+				"condition": "AND",
+				"key": "hogwarts_subject",
 				"operator": "=",
-				"value": "Hufflepuff"
+				"value": "Care of Magical Creatures"
 			  }
 			]
 		  }
 		],
-		"title": "Data overview (Hufflepuff)",
-		"type": "table"
+		"title": "Care of Magical Creatures",
+		"type": "histogram"
 	  },
 	  {
 		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
 			},
 			"mappings": [],
 			"thresholds": {
@@ -652,39 +491,28 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 15,
+		  "h": 13,
 		  "w": 24,
 		  "x": 0,
-		  "y": 70
+		  "y": 64
 		},
-		"id": 9,
+		"id": 15,
 		"options": {
-		  "showHeader": true,
-		  "sortBy": []
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
 		},
-		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "180m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "hogwarts_subject"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
@@ -697,83 +525,38 @@
 					"value"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "min"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "max"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "count"
 				}
 			  ]
 			],
 			"tags": [
 			  {
-				"key": "Hogwarts House",
+				"condition": "AND",
+				"key": "hogwarts_subject",
 				"operator": "=",
-				"value": "Ravenclaw"
+				"value": "Charms"
 			  }
 			]
 		  }
 		],
-		"title": "Data overview (Ravenclaw)",
-		"type": "table"
+		"title": "Charms",
+		"type": "histogram"
 	  },
 	  {
 		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "palette-classic"
 			},
 			"custom": {
-			  "align": "auto",
-			  "displayMode": "auto"
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
 			},
 			"mappings": [],
 			"thresholds": {
@@ -793,39 +576,28 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 15,
+		  "h": 13,
 		  "w": 24,
 		  "x": 0,
-		  "y": 85
+		  "y": 77
 		},
-		"id": 8,
+		"id": 16,
 		"options": {
-		  "showHeader": true,
-		  "sortBy": []
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
 		},
-		"pluginVersion": "8.1.1",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "180m"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "hogwarts_subject"
-				],
-				"type": "tag"
-			  },
-			  {
-				"params": [
-				  "none"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
@@ -838,72 +610,616 @@
 					"value"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "min"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "median"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "max"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"value"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "count"
 				}
 			  ]
 			],
 			"tags": [
 			  {
-				"key": "Hogwarts House",
+				"condition": "AND",
+				"key": "hogwarts_subject",
 				"operator": "=",
-				"value": "Slytherin"
+				"value": "Defense Against the Dark Arts"
 			  }
 			]
 		  }
 		],
-		"title": "Data overview (Slytherin)",
-		"type": "table"
+		"title": "Defense Against the Dark Arts",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 90
+		},
+		"id": 17,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Divination"
+			  }
+			]
+		  }
+		],
+		"title": "Divination",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 103
+		},
+		"id": 18,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Flying"
+			  }
+			]
+		  }
+		],
+		"title": "Flying",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 116
+		},
+		"id": 19,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Herbology"
+			  }
+			]
+		  }
+		],
+		"title": "Herbology",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 129
+		},
+		"id": 20,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "History of Magic"
+			  }
+			]
+		  }
+		],
+		"title": "History of Magic",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 142
+		},
+		"id": 21,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Muggle Studies"
+			  }
+			]
+		  }
+		],
+		"title": "Muggle Studies",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 155
+		},
+		"id": 22,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Potions"
+			  }
+			]
+		  }
+		],
+		"title": "Potions",
+		"type": "histogram"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "fillOpacity": 80,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineWidth": 1
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 13,
+		  "w": 24,
+		  "x": 0,
+		  "y": 168
+		},
+		"id": 23,
+		"options": {
+		  "bucketOffset": 0,
+		  "legend": {
+			"calcs": [
+			  "min",
+			  "max",
+			  "count",
+			  "mean"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"value"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Transfiguration"
+			  }
+			]
+		  }
+		],
+		"title": "Transfiguration",
+		"type": "histogram"
 	  }
 	],
 	"refresh": "10s",
@@ -914,7 +1230,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-5m",
+	  "from": "now-30m",
 	  "to": "now"
 	},
 	"timepicker": {},
@@ -923,3 +1239,4 @@
 	"uid": "Histogram_2",
 	"version": 1
   }
+  
