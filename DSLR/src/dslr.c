@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 20:33:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/21 09:09:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(
 	const t_input_params		*input_params;
 	const t_tcp_connection		*connection;
 	// size_t						number;
-	const t_gradient_descent	*gradient_descent;
+	t_gradient_descent			*gradient_descent;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);

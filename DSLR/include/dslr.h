@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 11:52:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/21 09:09:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ const char					*influxdb_line_group_create(
 								const char **const column_name_array,
 								const char **const value_array);
 int							main_train(void);
-const t_gradient_descent	*gradient_descent_initialize(
+t_gradient_descent			*gradient_descent_initialize(
 								t_regression_type regression_type,
 								const t_dataset *const dataset);
 t_matrix					*ft_matrix_create(
@@ -166,8 +166,7 @@ t_matrix					*ft_matrix_create(
 t_vector					*ft_vector_create(size_t size, size_t length);
 void						gradient_descent_iteration(
 								const t_regression_type regression_type,
-								const t_gradient_descent
-								*const gradient_descent);
+								t_gradient_descent *const gradient_descent);
 void						ft_vector_dot_matrix_double(
 								const t_vector *const vector,
 								const t_matrix *const matrix,
@@ -208,6 +207,14 @@ void						ft_vector_subtract_vector_double(
 double						ft_vector_sum(const t_vector *const vector);
 void						ft_vector_abs_double(
 								const t_vector *const vector,
+								t_vector *const new_vector);
+void						ft_matrix_dot_vector_double(
+								const t_matrix *const matrix,
+								const t_vector *const vector,
+								t_vector *const new_vector);
+void						ft_vector_add_vector(
+								const t_vector *const vector1,
+								const t_vector *const vector2,
 								t_vector *const new_vector);
 
 #endif

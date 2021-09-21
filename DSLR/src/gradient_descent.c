@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 18:58:24 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/21 09:09:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static const t_matrix	*input_matrix_create(
 	return (matrix);
 }
 
-const t_gradient_descent	*gradient_descent_initialize(
+t_gradient_descent	*gradient_descent_initialize(
 									const t_regression_type regression_type,
 									const t_dataset *const dataset)
 {
