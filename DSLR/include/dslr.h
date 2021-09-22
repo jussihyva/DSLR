@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/21 15:39:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/22 15:59:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_gradient_descent
 {
 	const t_vector	*observed;
 	const t_matrix	*input_values;
-	t_vector		*weigth;
+	t_vector		*weight;
 	double			bias;
 }				t_gradient_descent;
 

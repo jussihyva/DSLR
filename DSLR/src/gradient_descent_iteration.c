@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/21 09:43:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/22 15:59:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static const t_vector	*predict(
 							t_regression_type regression_type,
 							const t_matrix *const matrix,
 							const double bias,
-							const t_vector *const weigth)
+							const t_vector *const weight)
 {
 	t_vector			*predicted_prel;
 	t_vector			*predicted_add;
-	const t_vector		*weigth_transposed;
+	const t_vector		*weight_transposed;
 	const t_vector		*predicted;
 
 	predicted_prel = ft_vector_create(sizeof(double), matrix->size.columns);
@@ -45,8 +45,8 @@ static const t_vector	*predict(
 	predicted = ft_vector_create(sizeof(double), matrix->size.columns);
 	if (regression_type == E_LOGISTIC)
 	{
-		weigth_transposed = ft_vector_transpose(weigth);
-		ft_vector_dot_matrix_double(weigth_transposed, matrix, predicted_prel);
+		weight_transposed = ft_vector_transpose(weight);
+		ft_vector_dot_matrix_double(weight_transposed, matrix, predicted_prel);
 		ft_vector_add_double(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 	}
@@ -61,10 +61,10 @@ void	gradient_descent_iteration(
 	const t_vector	*residual;
 	const t_vector	*residual_transpose;
 	t_vector		*residual_abs;
-	t_vector		*d_weigth_prel;
-	t_vector		*d_weigth;
-	t_vector		*d_weigth_delta;
-	t_vector		*new_weigth;
+	t_vector		*d_weight_prel;
+	t_vector		*d_weight;
+	t_vector		*d_weight_delta;
+	t_vector		*new_weight;
 	double			cost;
 	size_t			i;
 
@@ -75,31 +75,31 @@ void	gradient_descent_iteration(
 		{
 			predicted = predict(regression_type,
 					gradient_descent->input_values, gradient_descent->bias,
-					gradient_descent->weigth);
+					gradient_descent->weight);
 			residual = residual_calculate(gradient_descent->observed,
 					predicted);
 			residual_transpose = ft_vector_transpose(residual);
-			d_weigth_prel = ft_vector_create(sizeof(double),
+			d_weight_prel = ft_vector_create(sizeof(double),
 					gradient_descent->input_values->size.rows);
-			d_weigth = ft_vector_transpose(d_weigth_prel);
-			d_weigth_delta = ft_vector_transpose(d_weigth_prel);
-			new_weigth = ft_vector_transpose(d_weigth_prel);
+			d_weight = ft_vector_transpose(d_weight_prel);
+			d_weight_delta = ft_vector_transpose(d_weight_prel);
+			new_weight = ft_vector_transpose(d_weight_prel);
 			ft_matrix_dot_vector_double(gradient_descent->input_values,
-				residual_transpose, d_weigth);
+				residual_transpose, d_weight);
 			residual_abs = ft_vector_create(sizeof(double),
 					residual->size.columns);
 			ft_vector_abs_double(residual, residual_abs);
-			ft_vector_div_double(d_weigth,
+			ft_vector_div_double(d_weight,
 				gradient_descent->input_values->size.columns / 0.01,
-				d_weigth_delta);
+				d_weight_delta);
 			cost = ft_vector_sum(residual_abs) / residual_abs->size.columns;
 			ft_printf("COST: %f\n", cost);
-			ft_vector_add_vector(gradient_descent->weigth, d_weigth_delta,
-				new_weigth);
-			ft_vector_print("Delta weigth", new_weigth, E_DOUBLE);
+			ft_vector_add_vector(gradient_descent->weight, d_weight_delta,
+				new_weight);
+			ft_vector_print("Delta weight", new_weight, E_DOUBLE);
 			gradient_descent->bias += ft_vector_sum(residual)
 				/ gradient_descent->input_values->size.columns / 0.01;
-			gradient_descent->weigth->values = new_weigth->values;
+			gradient_descent->weight->values = new_weight->values;
 		}
 	}
 	return ;
