@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/22 15:59:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 07:21:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ static const t_vector	*ft_sigmoid(const t_vector *const input)
 	return (predicted_div);
 }
 
+static void	print_shapes(
+				const t_matrix *const activation_input,
+				const t_matrix *const weight,
+				const t_matrix *const activation_output)
+{
+	ft_shape_print("activation_input", activation_input);
+	ft_shape_print("weight", weight);
+	ft_shape_print("activation_output", activation_output);
+	return ;
+}
+
 static const t_vector	*predict(
 							t_regression_type regression_type,
 							const t_matrix *const matrix,
@@ -49,6 +60,8 @@ static const t_vector	*predict(
 		ft_vector_dot_matrix_double(weight_transposed, matrix, predicted_prel);
 		ft_vector_add_double(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
+		if (ft_log_get_level() <= LOG_DEBUG)
+			print_shapes(matrix, weight, predicted);
 	}
 	return (predicted);
 }

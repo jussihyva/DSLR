@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/22 15:59:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 07:06:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,5 +224,8 @@ void						ft_vector_add_vector(
 								const t_vector *const vector1,
 								const t_vector *const vector2,
 								t_vector *const new_vector);
+void						ft_shape_print(
+								const char *const matrix_name,
+								const t_matrix *const matrix);
 
 #endif
