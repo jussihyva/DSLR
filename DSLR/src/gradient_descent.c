@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/22 15:59:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 13:40:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static const t_vector	*output_vector_create(
 	const char		*house;
 	size_t			i;
 
-	vector = ft_vector_create(sizeof(double), length);
+	vector = ft_vector_create(sizeof(double), length, E_DIR_COLUMN);
 	i = 0;
 	elem = value_array_lst;
 	while (elem)
@@ -94,7 +94,7 @@ t_gradient_descent	*gradient_descent_initialize(
 	const t_vector			*is_gryffindor_house;
 	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
-	t_vector				*weight_prel;
+	t_vector				*weight;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
@@ -103,11 +103,11 @@ t_gradient_descent	*gradient_descent_initialize(
 				dataset->value_array_lst);
 		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
 				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
-		weight_prel = ft_vector_create(sizeof(double),
-				NUMBER_OF_HOGWARTS_COURSES);
+		weight = ft_vector_create(sizeof(double),
+				NUMBER_OF_HOGWARTS_COURSES, E_DIR_ROW);
 		gradient_descent->observed = is_gryffindor_house;
 		gradient_descent->input_values = hogwarts_course_values;
-		gradient_descent->weight = ft_vector_transpose(weight_prel);
+		gradient_descent->weight = weight;
 	}
 	return (gradient_descent);
 }

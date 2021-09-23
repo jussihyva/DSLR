@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 17:35:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 18:18:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 14:41:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,24 @@ void	ft_vector_subtract_vector_double(
 									const t_vector *const vector2,
 									t_vector *const new_vector)
 {
-	size_t			i;
+	t_vector_size		i;
 
 	if (vector1->size.columns == vector2->size.columns
-		&& vector1->size.columns == new_vector->size.columns)
+		&& vector1->size.columns == new_vector->size.columns &&
+		vector1->size.rows == vector2->size.rows
+		&& vector1->size.columns == new_vector->size.columns
+		&& vector1->size.rows == new_vector->size.rows)
 	{
-		i = -1;
-		while (++i < vector1->size.columns)
+		i.rows = -1;
+		while (++i.rows < vector1->size.rows)
 		{
-			((double **)new_vector->values)[0][i]
-				= ((double **)vector1->values)[0][i]
-				- ((double **)vector2->values)[0][i];
+			i.columns = -1;
+			while (++i.columns < vector1->size.columns)
+			{
+				((double **)new_vector->values)[i.rows][i.columns]
+					= ((double **)vector1->values)[i.rows][i.columns]
+					- ((double **)vector2->values)[i.rows][i.columns];
+			}
 		}
 	}
 	else

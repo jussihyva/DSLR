@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 07:06:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 13:37:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
 	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
 };
+
+typedef enum e_vector_type
+{
+	E_DIR_ROW,
+	E_DIR_COLUMN
+}				t_vector_type;
 
 typedef enum e_content_type
 {
@@ -109,6 +115,12 @@ typedef struct s_gradient_descent
 	double			bias;
 }				t_gradient_descent;
 
+typedef struct s_derivative
+{
+	t_vector	*weight;
+	double		bias;
+}				t_derivative;
+
 t_input_params				*input_params_initialize(
 								t_argc_argv *argc_argv);
 void						input_param_save(
@@ -171,7 +183,10 @@ t_matrix					*ft_matrix_create(
 								size_t size,
 								const size_t number_fo_rows,
 								const size_t number_of_columns);
-t_vector					*ft_vector_create(size_t size, size_t length);
+t_vector					*ft_vector_create(
+								size_t size,
+								size_t length,
+								t_vector_type vector_type);
 void						gradient_descent_iteration(
 								const t_regression_type regression_type,
 								t_gradient_descent *const gradient_descent);
