@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 14:47:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/23 17:02:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,45 @@ static t_derivative	*derivative_calculate(
 	return (derivative);
 }
 
+static void	update_weight_and_bias(
+							const t_derivative *const derivative,
+							t_vector *const weight,
+							double *bias)
+{
+	t_vector_size	i;
+
+	*bias += 0.01 * derivative->bias;
+	i.rows = -1;
+	while (++i.rows < weight->size.rows)
+	{
+		i.columns = -1;
+		while (++i.columns < weight->size.columns)
+		{
+			((double **)weight->values)[i.rows][i.columns]
+				-= 0.01 * ((double **)derivative->weight
+					->values)[i.rows][i.columns];
+		}
+	}
+	((double **)weight->values)[0][0] = 0;
+	((double **)weight->values)[8][0] = 0;
+	return ;
+}
+
 void	gradient_descent_iteration(
 							const t_regression_type regression_type,
 							t_gradient_descent *const gradient_descent)
 {
 	const t_vector	*predicted;
 	const t_vector	*residual;
-	const t_vector	*residual_transpose;
 	t_derivative	*derivative;
 	t_vector		*residual_abs;
-	t_vector		*d_weight;
-	t_vector		*d_weight_delta;
-	t_vector		*new_weight;
 	double			cost;
 	size_t			i;
 
 	if (regression_type == E_LOGISTIC)
 	{
 		i = 0;
-		while (++i <= 1)
+		while (++i <= 50000)
 		{
 			predicted = predict(regression_type,
 					gradient_descent->input_values, gradient_descent->bias,
@@ -125,30 +145,14 @@ void	gradient_descent_iteration(
 					predicted);
 			derivative = derivative_calculate(gradient_descent->input_values,
 					residual);
-			residual_transpose = ft_vector_transpose(residual);
-			d_weight = ft_vector_create(sizeof(double),
-					gradient_descent->input_values->size.rows, E_DIR_ROW);
-			d_weight_delta = ft_vector_create(sizeof(double),
-					gradient_descent->input_values->size.rows, E_DIR_ROW);
-			new_weight = ft_vector_create(sizeof(double),
-					gradient_descent->input_values->size.rows, E_DIR_ROW);
-			ft_matrix_dot_vector_double(gradient_descent->input_values,
-				residual_transpose, d_weight);
+			update_weight_and_bias(derivative, gradient_descent->weight,
+				&gradient_descent->bias);
 			residual_abs = ft_vector_create(sizeof(double),
 					residual->size.columns, E_DIR_COLUMN);
 			ft_vector_abs_double(residual, residual_abs);
-			ft_vector_div_double(d_weight,
-				gradient_descent->input_values->size.columns / 0.01,
-				d_weight_delta);
 			cost = ft_vector_sum(residual_abs) / residual_abs->size.columns;
 			ft_printf("COST: %f\n", cost);
-			ft_vector_subtract_vector_double(gradient_descent->weight,
-				d_weight_delta, new_weight);
-			ft_vector_print("Delta weight", d_weight_delta, E_DOUBLE);
-			gradient_descent->bias -= ft_vector_sum(residual)
-				/ gradient_descent->input_values->size.columns * 0.01;
-			gradient_descent->weight->values = new_weight->values;
-			ft_vector_print("New weight", gradient_descent->weight, E_DOUBLE);
+			// ft_vector_print("New weight", gradient_descent->weight, E_DOUBLE);
 		}
 	}
 	return ;
