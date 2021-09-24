@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 13:37:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 12:03:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define	SPECIAL_CHARS_INFLUXDB_TAGS			", ="
 # define	SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
 # define	NUMBER_OF_HOGWARTS_COURSES			13
+# define	NUMBER_OF_HOGWARTS_HOUSES			4
 # define	LEARNING_RATE						0.1
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
@@ -33,6 +34,14 @@ static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 	"xYRi_CjRmk5SZtOFuIzZDbGDbz7eKgB2_GzDkUeL-A==",
 	"BbEksKgeBUimgSgQ2tkveQWnfIbyQSTp9QqQy-Zlcwus"
 	"x8HE70Ux4IGUBIoC6njswxdI0he-GZudPl5YC_2qHA=="
+};
+
+static const char	*g_hogwarts_house_array[NUMBER_OF_HOGWARTS_HOUSES] =
+{
+	"Gryffindor",
+	"Ravenclaw",
+	"Slytherin",
+	"Hufflepuff"
 };
 
 typedef enum e_vector_type
@@ -111,7 +120,7 @@ typedef struct s_gradient_descent
 {
 	const t_vector	*observed;
 	const t_matrix	*input_values;
-	t_vector		*weight;
+	t_matrix		*weight;
 	double			bias;
 }				t_gradient_descent;
 
@@ -190,10 +199,10 @@ t_vector					*ft_vector_create(
 void						gradient_descent_iteration(
 								const t_regression_type regression_type,
 								t_gradient_descent *const gradient_descent);
-void						ft_vector_dot_matrix_double(
-								const t_vector *const vector,
-								const t_matrix *const matrix,
-								t_vector *const new_vector);
+void						ft_matrix_dot_matrix(
+								const t_matrix *const matrix1,
+								const t_matrix *const matrix2,
+								t_matrix *const new_matrix);
 t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
 t_vector					*ft_vector_transpose(const t_vector *const vector);
 void						ft_vector_add_double(

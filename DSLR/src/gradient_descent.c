@@ -6,40 +6,60 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 13:40:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 12:02:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static const t_vector	*output_vector_create(
+static size_t	house_index(const char *const hogwarts_house)
+{
+	size_t		i;
+	size_t		index;
+
+	index = -1;
+	i = -1;
+	while (++i < NUMBER_OF_HOGWARTS_HOUSES)
+	{
+		if (ft_strequ(hogwarts_house, g_hogwarts_house_array[i]))
+		{
+			index = i;
+			break ;
+		}
+	}
+	return (index);
+}
+
+static const t_matrix	*output_vector_create(
 									const size_t length,
 									const t_list *const value_array_lst)
 {
-	t_vector		*vector;
+	t_matrix		*matrix;
 	const t_list	*elem;
 	const char		**value_array;
-	const char		*house;
-	size_t			i;
+	t_vector_size	i;
+	int				index;
 
-	vector = ft_vector_create(sizeof(double), length, E_DIR_COLUMN);
-	i = 0;
+	matrix = ft_matrix_create(sizeof(double), NUMBER_OF_HOGWARTS_HOUSES,
+			length);
+	i.columns = 0;
 	elem = value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
-		house = value_array[1];
-		if (ft_strequ(house, "Gryffindor"))
+		index = house_index(value_array[1]);
+		if (index != -1)
 		{
-			((double **)vector->values)[0][i] = E_TRUE;
+			i.rows = index;
+			((double **)matrix->values)[i.rows][i.columns] = E_TRUE;
 			FT_LOG_TRACE("House: %s", value_array[1]);
 		}
 		else
-			((double **)vector->values)[0][i] = E_FALSE;
-		i++;
+			FT_LOG_WARN("Unknown house: %s", value_array[1]);
+		i.columns++;
 		elem = elem->next;
 	}
-	return (vector);
+	return (matrix);
 }
 
 static void	course_values_add(
@@ -94,7 +114,7 @@ t_gradient_descent	*gradient_descent_initialize(
 	const t_vector			*is_gryffindor_house;
 	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
-	t_vector				*weight;
+	t_matrix				*weight;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
@@ -103,8 +123,8 @@ t_gradient_descent	*gradient_descent_initialize(
 				dataset->value_array_lst);
 		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
 				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
-		weight = ft_vector_create(sizeof(double),
-				NUMBER_OF_HOGWARTS_COURSES, E_DIR_ROW);
+		weight = ft_matrix_create(sizeof(double),
+				NUMBER_OF_HOGWARTS_COURSES, NUMBER_OF_HOGWARTS_HOUSES);
 		gradient_descent->observed = is_gryffindor_house;
 		gradient_descent->input_values = hogwarts_course_values;
 		gradient_descent->weight = weight;

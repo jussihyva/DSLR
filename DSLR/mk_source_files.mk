@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/23 07:01:02 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/24 10:55:02 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							influxdb_line_tags.c \
 							gradient_descent.c gradient_descent_iteration.c \
 							ft_matrix_create.c ft_vector_create.c \
-							ft_vector_dot_matrix_double.c \
+							ft_matrix_dot_matrix.c \
 							ft_matrix_dot_vector_double.c \
 							ft_matrix_transpose.c ft_vector_transpose.c \
 							ft_vector_add_double.c ft_vector_exp_double.c \

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 17:02:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 12:07:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static const t_vector	*predict(
 	const t_vector		*weight_transposed;
 	const t_vector		*predicted;
 
-	predicted_prel = ft_vector_create(sizeof(double), matrix->size.columns,
-			E_DIR_COLUMN);
+	predicted_prel = ft_matrix_create(sizeof(double), weight->size.columns,
+			matrix->size.columns);
 	predicted_add = ft_vector_create(sizeof(double), matrix->size.columns,
 			E_DIR_COLUMN);
 	predicted = ft_vector_create(sizeof(double), matrix->size.columns,
@@ -63,7 +63,7 @@ static const t_vector	*predict(
 	if (regression_type == E_LOGISTIC)
 	{
 		weight_transposed = ft_vector_transpose(weight);
-		ft_vector_dot_matrix_double(weight_transposed, matrix, predicted_prel);
+		ft_matrix_dot_matrix(weight_transposed, matrix, predicted_prel);
 		ft_vector_add_double(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 		if (ft_log_get_level() <= LOG_DEBUG)
