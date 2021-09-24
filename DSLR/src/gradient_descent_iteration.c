@@ -6,29 +6,27 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 12:07:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 15:05:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static const t_vector	*ft_sigmoid(const t_vector *const input)
+static const t_matrix	*ft_sigmoid(const t_matrix *const input)
 {
-	t_vector	*predicted_exp;
-	t_vector	*predicted_add;
-	t_vector	*predicted_div;
+	t_matrix	*predicted_exp;
+	t_matrix	*predicted_add;
+	t_matrix	*predicted_div;
 
-	predicted_exp = ft_vector_create(sizeof(double), input->size.columns,
-			E_DIR_COLUMN);
-	predicted_add = ft_vector_create(sizeof(double), input->size.columns,
-			E_DIR_COLUMN);
-	predicted_div = ft_vector_create(sizeof(double), input->size.columns,
-			E_DIR_COLUMN);
-	ft_vector_exp_double(input, predicted_exp, E_MINUS);
-	ft_vector_add_double(predicted_exp, 1, predicted_add);
+	predicted_exp = ft_matrix_create(sizeof(double), input->size.rows,
+			input->size.columns);
+	predicted_add = ft_matrix_create(sizeof(double), input->size.rows,
+			input->size.columns);
+	predicted_div = ft_matrix_create(sizeof(double), input->size.rows,
+			input->size.columns);
+	ft_matrix_exp_double(input, predicted_exp, E_MINUS);
+	ft_matrix_add_double(predicted_exp, 1, predicted_add);
 	ft_double_div_vector(1, predicted_add, predicted_div);
-	// ft_vector_print("Input vector", input_vector, E_DOUBLE);
-	// ft_vector_print("Sigmod vector", predicted_div, E_DOUBLE);
 	return (predicted_div);
 }
 
@@ -46,25 +44,27 @@ static void	print_shapes(
 static const t_vector	*predict(
 							t_regression_type regression_type,
 							const t_matrix *const matrix,
-							const double bias,
-							const t_vector *const weight)
+							const t_vector *bias,
+							const t_matrix *const weight)
 {
-	t_vector			*predicted_prel;
-	t_vector			*predicted_add;
-	const t_vector		*weight_transposed;
-	const t_vector		*predicted;
+	t_matrix			*predicted_prel;
+	t_matrix			*predicted_add;
+	const t_matrix		*weight_transposed;
+	const t_vector		*bias_transposed;
+	const t_matrix		*predicted;
 
 	predicted_prel = ft_matrix_create(sizeof(double), weight->size.columns,
 			matrix->size.columns);
-	predicted_add = ft_vector_create(sizeof(double), matrix->size.columns,
-			E_DIR_COLUMN);
-	predicted = ft_vector_create(sizeof(double), matrix->size.columns,
-			E_DIR_COLUMN);
+	predicted_add = ft_matrix_create(sizeof(double), weight->size.columns,
+			matrix->size.columns);
+	predicted = ft_matrix_create(sizeof(double), weight->size.columns,
+			matrix->size.columns);
 	if (regression_type == E_LOGISTIC)
 	{
 		weight_transposed = ft_vector_transpose(weight);
+		bias_transposed = ft_vector_transpose(bias);
 		ft_matrix_dot_matrix(weight_transposed, matrix, predicted_prel);
-		ft_vector_add_double(predicted_prel, bias, predicted_add);
+		ft_matrix_add_vector(predicted_prel, bias_transposed, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 		if (ft_log_get_level() <= LOG_DEBUG)
 			print_shapes(matrix, weight, predicted);
@@ -101,11 +101,15 @@ static t_derivative	*derivative_calculate(
 static void	update_weight_and_bias(
 							const t_derivative *const derivative,
 							t_vector *const weight,
-							double *bias)
+							t_vector *const bias)
 {
+	t_vector		*new_bias;
 	t_vector_size	i;
 
-	*bias += 0.01 * derivative->bias;
+	new_bias = ft_vector_create(sizeof(double), bias->size.columns,
+			E_DIR_COLUMN);
+	ft_vector_add_double(bias, 0.01 * derivative->bias, new_bias);
+	bias->values = new_bias->values;
 	i.rows = -1;
 	while (++i.rows < weight->size.rows)
 	{
@@ -146,7 +150,7 @@ void	gradient_descent_iteration(
 			derivative = derivative_calculate(gradient_descent->input_values,
 					residual);
 			update_weight_and_bias(derivative, gradient_descent->weight,
-				&gradient_descent->bias);
+				gradient_descent->bias);
 			residual_abs = ft_vector_create(sizeof(double),
 					residual->size.columns, E_DIR_COLUMN);
 			ft_vector_abs_double(residual, residual_abs);

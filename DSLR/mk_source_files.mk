@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/24 10:55:02 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/24 15:17:12 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,12 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_matrix_dot_matrix.c \
 							ft_matrix_dot_vector_double.c \
 							ft_matrix_transpose.c ft_vector_transpose.c \
-							ft_vector_add_double.c ft_vector_exp_double.c \
+							ft_vector_add_double.c ft_matrix_add_double.c \
+							ft_matrix_add_vector.c ft_matrix_exp_double.c \
 							ft_vector_add_vector.c \
 							ft_vector_div_double.c ft_double_div_vector.c \
 							ft_matrix_print.c ft_vector_print.c \
-							residual.c ft_vector_subtract_vector_double.c \
+							residual.c ft_matrix_subtract_matrix.c \
 							ft_vector_sum.c ft_vector_abs_double.c \
 							ft_shape_print.c
 							# train.c

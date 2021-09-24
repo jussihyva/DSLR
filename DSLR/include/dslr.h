@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 12:03:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 15:18:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_gradient_descent
 	const t_vector	*observed;
 	const t_matrix	*input_values;
 	t_matrix		*weight;
-	double			bias;
+	t_vector		*bias;
 }				t_gradient_descent;
 
 typedef struct s_derivative
@@ -205,13 +205,13 @@ void						ft_matrix_dot_matrix(
 								t_matrix *const new_matrix);
 t_matrix					*ft_matrix_transpose(const t_matrix *const matrix);
 t_vector					*ft_vector_transpose(const t_vector *const vector);
-void						ft_vector_add_double(
+void						ft_matrix_add_vector(
+								const t_matrix *const matrix,
 								const t_vector *const vector,
-								const double value,
-								t_vector *const new_vector);
-void						ft_vector_exp_double(
-								const t_vector *const vector,
-								t_vector *const new_vector,
+								t_matrix *const new_matrix);
+void						ft_matrix_exp_double(
+								const t_matrix *const matrix,
+								t_matrix *const new_matrix,
 								const t_sign sign);
 void						ft_vector_div_double(
 								const t_vector *const vector,
@@ -229,13 +229,13 @@ void						ft_vector_print(
 								const char *const vectior_name,
 								const t_vector *const vector,
 								const t_content_type content_type);
-const t_vector				*residual_calculate(
-								const t_vector *const observed,
-								const t_vector *const predicted);
-void						ft_vector_subtract_vector_double(
-								const t_vector *const vector1,
-								const t_vector *const vector2,
-								t_vector *const new_vector);
+const t_matrix				*residual_calculate(
+								const t_matrix *const observed,
+								const t_matrix *const predicted);
+void						ft_matrix_subtract_matrix(
+								const t_matrix *const matrix1,
+								const t_matrix *const matrix2,
+								t_matrix *const new_matrix);
 double						ft_vector_sum(const t_vector *const vector);
 void						ft_vector_abs_double(
 								const t_vector *const vector,
@@ -247,6 +247,14 @@ void						ft_matrix_dot_vector_double(
 void						ft_vector_add_vector(
 								const t_vector *const vector1,
 								const t_vector *const vector2,
+								t_vector *const new_vector);
+void						ft_matrix_add_double(
+								const t_matrix *const matrix,
+								const double value,
+								t_vector *const new_matrix);
+void						ft_vector_add_double(
+								const t_vector *const vector,
+								const double value,
 								t_vector *const new_vector);
 void						ft_shape_print(
 								const char *const matrix_name,

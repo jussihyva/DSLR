@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 17:24:00 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/23 16:57:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/24 15:16:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static void	print_shapes(
 	return ;
 }
 
-const t_vector	*residual_calculate(
-						const t_vector *const observed,
-						const t_vector *const predicted)
+const t_matrix	*residual_calculate(
+						const t_matrix *const observed,
+						const t_matrix *const predicted)
 {
-	t_vector	*residual;
+	t_matrix	*residual;
 
-	residual = ft_vector_create(sizeof(double), observed->size.columns,
-			E_DIR_COLUMN);
-	ft_vector_subtract_vector_double(predicted, observed, residual);
+	residual = ft_matrix_create(sizeof(double), observed->size.rows,
+			observed->size.columns);
+	ft_matrix_subtract_matrix(predicted, observed, residual);
 	if (ft_log_get_level() <= LOG_DEBUG)
 		print_shapes(predicted, observed, residual);
 	return (residual);
