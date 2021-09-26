@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 09:33:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 23:46:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_input_params
 
 typedef struct s_gradient_descent
 {
-	const t_vector	*observed;
+	const t_matrix	*observed;
 	const t_matrix	*input_values;
 	t_matrix		*weight;
 	t_vector		*bias;
@@ -261,5 +261,24 @@ void						ft_vector_add_double(
 void						ft_shape_print(
 								const char *const matrix_name,
 								const t_matrix *const matrix);
+const t_vector				*cost_calculate(
+								const t_matrix *const predicted,
+								const t_matrix *const observed);
+void						ft_matrix_log(
+								const t_matrix *const matrix,
+								t_matrix *const new_matrix,
+								const t_sign sign);
+void						ft_double_subtract_matrix(
+								const double value,
+								const t_matrix *const matrix,
+								t_matrix *const new_matrix);
+void						ft_matrix_multiply_matrix(
+								const t_matrix *const matrix1,
+								const t_matrix *const matrix2,
+								t_matrix *const new_matrix);
+void						ft_matrix_add_matrix(
+								const t_matrix *const matrix1,
+								const t_matrix *const matrix2,
+								t_matrix *const new_matrix);
 
 #endif

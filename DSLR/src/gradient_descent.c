@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 08:18:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 19:22:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_gradient_descent	*gradient_descent_initialize(
 									const t_regression_type regression_type,
 									const t_dataset *const dataset)
 {
-	const t_vector			*is_gryffindor_house;
+	const t_matrix			*is_gryffindor_house;
 	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
 	t_matrix				*weight;

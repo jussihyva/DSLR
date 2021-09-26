@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 09:43:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 23:57:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	print_shapes(
 	return ;
 }
 
-static const t_vector	*predict(
+static const t_matrix	*predict(
 							t_regression_type regression_type,
 							const t_matrix *const activation_input,
 							const t_vector *bias,
@@ -93,8 +93,10 @@ static t_derivative	*derivative_calculate(
 	ft_vector_div_double(bias_prel, activation_input->size.columns,
 		derivative->bias);
 	if (ft_log_get_level() <= LOG_DEBUG)
+	{
 		ft_matrix_print("derivative weight", derivative->weight, E_DOUBLE);
-	FT_LOG_DEBUG("BIAS: %f", derivative->bias);
+		ft_matrix_print("BIAS", derivative->bias, E_DOUBLE);
+	}
 	return (derivative);
 }
 
@@ -118,7 +120,7 @@ static void	update_weight_and_bias(
 					->values)[i.rows][i.columns];
 		}
 		((double **)weight->values)[i.rows][0] = 0;
-		((double **)weight->values)[i.rows][8] = 0;
+		// ((double **)weight->values)[i.rows][8] = 0;
 	}
 	return ;
 }
@@ -127,11 +129,11 @@ void	gradient_descent_iteration(
 							const t_regression_type regression_type,
 							t_gradient_descent *const gradient_descent)
 {
-	const t_vector	*predicted;
-	const t_vector	*residual;
+	const t_matrix	*predicted;
+	const t_matrix	*residual;
+	const t_vector	*residual_sum;
 	t_derivative	*derivative;
-	// t_vector		*residual_abs;
-	// double			cost;
+	const t_vector	*cost;
 	size_t			i;
 
 	if (regression_type == E_LOGISTIC)
@@ -148,12 +150,13 @@ void	gradient_descent_iteration(
 					residual);
 			update_weight_and_bias(derivative, gradient_descent->weight,
 				gradient_descent->bias);
-			// residual_abs = ft_vector_create(sizeof(double),
-			// 		residual->size.columns, E_DIR_COLUMN);
-			// ft_vector_abs_double(residual, residual_abs);
-			// cost = ft_vector_sum(residual_abs) / residual_abs->size.columns;
-			// ft_printf("COST: %f\n", cost);
-			// ft_vector_print("New weight", gradient_descent->weight, E_DOUBLE);
+			if (ft_log_get_level() <= LOG_DEBUG)
+			{
+				residual_sum = ft_matrix_sum(residual, E_DIR_ROW);
+				ft_matrix_print("Residual sum", residual_sum, E_DOUBLE);
+			}
+			cost = cost_calculate(predicted, gradient_descent->observed);
+			ft_matrix_print("COST", cost, E_DOUBLE);
 		}
 	}
 	return ;
