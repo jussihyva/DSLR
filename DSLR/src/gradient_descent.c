@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 14:39:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 08:18:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ t_gradient_descent	*gradient_descent_initialize(
 		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
 				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
 		weight = ft_matrix_create(sizeof(double),
-				NUMBER_OF_HOGWARTS_COURSES, NUMBER_OF_HOGWARTS_HOUSES);
+				NUMBER_OF_HOGWARTS_HOUSES, NUMBER_OF_HOGWARTS_COURSES);
 		bias = ft_vector_create(sizeof(double), NUMBER_OF_HOGWARTS_HOUSES,
-				E_DIR_COLUMN);
+				E_DIR_ROW);
 		gradient_descent->observed = is_gryffindor_house;
 		gradient_descent->input_values = hogwarts_course_values;
 		gradient_descent->weight = weight;

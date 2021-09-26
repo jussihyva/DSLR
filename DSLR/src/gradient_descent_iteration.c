@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/25 09:29:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 09:03:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,27 @@ static void	print_shapes(
 
 static const t_vector	*predict(
 							t_regression_type regression_type,
-							const t_matrix *const matrix,
+							const t_matrix *const activation_input,
 							const t_vector *bias,
 							const t_matrix *const weight)
 {
 	t_matrix			*predicted_prel;
 	t_matrix			*predicted_add;
-	const t_matrix		*weight_transposed;
-	const t_vector		*bias_transposed;
 	const t_matrix		*predicted;
 
-	predicted_prel = ft_matrix_create(sizeof(double), weight->size.columns,
-			matrix->size.columns);
-	predicted_add = ft_matrix_create(sizeof(double), weight->size.columns,
-			matrix->size.columns);
-	predicted = ft_matrix_create(sizeof(double), weight->size.columns,
-			matrix->size.columns);
+	predicted_prel = ft_matrix_create(sizeof(double), weight->size.rows,
+			activation_input->size.columns);
+	predicted_add = ft_matrix_create(sizeof(double), weight->size.rows,
+			activation_input->size.columns);
+	predicted = ft_matrix_create(sizeof(double), weight->size.rows,
+			activation_input->size.columns);
 	if (regression_type == E_LOGISTIC)
 	{
-		weight_transposed = ft_vector_transpose(weight);
-		bias_transposed = ft_vector_transpose(bias);
-		ft_matrix_dot_matrix(weight_transposed, matrix, predicted_prel);
-		ft_matrix_add_vector(predicted_prel, bias_transposed, predicted_add);
+		ft_matrix_dot_matrix(weight, activation_input, predicted_prel);
+		ft_matrix_add_vector(predicted_prel, bias, predicted_add);
 		predicted = ft_sigmoid(predicted_add);
 		if (ft_log_get_level() <= LOG_DEBUG)
-			print_shapes(matrix, weight, predicted);
+			print_shapes(activation_input, weight, predicted);
 	}
 	return (predicted);
 }
@@ -77,21 +73,23 @@ static t_derivative	*derivative_calculate(
 									const t_vector *const residual)
 {
 	const t_vector		*residual_transposed;
-	t_vector			*weight_prel;
+	t_matrix			*weight_prel;
+	t_vector			*bias_prel;
 	t_derivative		*derivative;
 
 	residual_transposed = ft_vector_transpose(residual);
 	derivative = ft_memalloc(sizeof(*derivative));
-	weight_prel = ft_matrix_create(sizeof(double), activation_input->size.rows,
-			residual->size.rows);
+	weight_prel = ft_matrix_create(sizeof(double), residual->size.rows,
+			activation_input->size.rows);
 	derivative->weight = ft_matrix_create(sizeof(double),
-			activation_input->size.rows, residual->size.rows);
+			residual->size.rows, activation_input->size.rows);
 	ft_matrix_dot_matrix(activation_input, residual_transposed,
 		weight_prel);
 	ft_vector_div_double(weight_prel, activation_input->size.columns,
 		derivative->weight);
-	derivative->bias = ft_vector_sum(residual);
-	derivative->bias /= activation_input->size.columns;
+	bias_prel = ft_matrix_sum(residual, E_DIR_ROW);
+	ft_vector_div_double(bias_prel, activation_input->size.columns,
+		derivative->bias);
 	if (ft_log_get_level() <= LOG_DEBUG)
 		ft_matrix_print("derivative weight", derivative->weight, E_DOUBLE);
 	FT_LOG_DEBUG("BIAS: %f", derivative->bias);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 15:18:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 08:52:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ typedef struct s_gradient_descent
 
 typedef struct s_derivative
 {
-	t_vector	*weight;
-	double		bias;
+	t_matrix	*weight;
+	t_vector	*bias;
 }				t_derivative;
 
 t_input_params				*input_params_initialize(
@@ -236,7 +236,9 @@ void						ft_matrix_subtract_matrix(
 								const t_matrix *const matrix1,
 								const t_matrix *const matrix2,
 								t_matrix *const new_matrix);
-double						ft_vector_sum(const t_vector *const vector);
+t_vector					*ft_matrix_sum(
+								const t_matrix *const matrix,
+								const t_vector_type vector_type);
 void						ft_vector_abs_double(
 								const t_vector *const vector,
 								t_vector *const new_vector);
