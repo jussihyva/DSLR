@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 09:03:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/26 09:43:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,17 @@ static t_derivative	*derivative_calculate(
 {
 	const t_vector		*residual_transposed;
 	t_matrix			*weight_prel;
-	t_vector			*bias_prel;
+	const t_vector		*bias_prel;
 	t_derivative		*derivative;
 
 	residual_transposed = ft_vector_transpose(residual);
 	derivative = ft_memalloc(sizeof(*derivative));
-	weight_prel = ft_matrix_create(sizeof(double), residual->size.rows,
-			activation_input->size.rows);
+	weight_prel = ft_matrix_create(sizeof(double), activation_input->size.rows,
+			residual->size.rows);
 	derivative->weight = ft_matrix_create(sizeof(double),
-			residual->size.rows, activation_input->size.rows);
+			activation_input->size.rows, residual->size.rows);
+	derivative->bias = ft_vector_create(sizeof(double), residual->size.rows,
+			E_DIR_ROW);
 	ft_matrix_dot_matrix(activation_input, residual_transposed,
 		weight_prel);
 	ft_vector_div_double(weight_prel, activation_input->size.columns,
@@ -101,16 +103,13 @@ static void	update_weight_and_bias(
 							t_vector *const weight,
 							t_vector *const bias)
 {
-	t_vector		*new_bias;
 	t_vector_size	i;
 
-	new_bias = ft_vector_create(sizeof(double), bias->size.columns,
-			E_DIR_COLUMN);
-	ft_vector_add_double(bias, 0.01 * derivative->bias, new_bias);
-	bias->values = new_bias->values;
 	i.rows = -1;
 	while (++i.rows < weight->size.rows)
 	{
+		((double **)bias->values)[i.rows][0]
+			-= 0.01 * ((double **)derivative->bias->values)[i.rows][0];
 		i.columns = -1;
 		while (++i.columns < weight->size.columns)
 		{
@@ -118,9 +117,9 @@ static void	update_weight_and_bias(
 				-= 0.01 * ((double **)derivative->weight
 					->values)[i.rows][i.columns];
 		}
+		((double **)weight->values)[i.rows][0] = 0;
+		((double **)weight->values)[i.rows][8] = 0;
 	}
-	((double **)weight->values)[0][0] = 0;
-	((double **)weight->values)[8][0] = 0;
 	return ;
 }
 
