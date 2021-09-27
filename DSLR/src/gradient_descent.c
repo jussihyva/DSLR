@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 19:22:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/27 09:56:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static const t_matrix	*input_matrix_create(
 									const t_list *const value_array_lst)
 {
 	t_matrix		*matrix;
+	const t_matrix	*matrix_normalized;
 	const t_list	*elem;
 	const char		**value_array;
 	size_t			i;
@@ -104,7 +105,8 @@ static const t_matrix	*input_matrix_create(
 		i++;
 		elem = elem->next;
 	}
-	return (matrix);
+	matrix_normalized = ft_matrix_normalize(matrix, E_DIR_ROW);
+	return (matrix_normalized);
 }
 
 t_gradient_descent	*gradient_descent_initialize(

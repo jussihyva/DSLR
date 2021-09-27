@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:25:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 08:45:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/27 09:58:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ const t_vector	*cost_calculate(
 			observed->size.columns);
 	ft_matrix_add_matrix(part1, part2, cost_matrix);
 	cost = ft_matrix_sum(cost_matrix, E_DIR_ROW);
-	ft_matrix_print("cost_matrix", cost_matrix, E_DOUBLE);
+	// ft_matrix_print("cost_matrix", cost_matrix, E_DOUBLE);
 	return (cost);
 }

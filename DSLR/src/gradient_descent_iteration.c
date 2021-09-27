@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 23:57:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:46:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ static void	update_weight_and_bias(
 				-= 0.01 * ((double **)derivative->weight
 					->values)[i.rows][i.columns];
 		}
-		((double **)weight->values)[i.rows][0] = 0;
-		// ((double **)weight->values)[i.rows][8] = 0;
 	}
 	return ;
 }
@@ -139,7 +137,7 @@ void	gradient_descent_iteration(
 	if (regression_type == E_LOGISTIC)
 	{
 		i = 0;
-		while (++i <= 50)
+		while (++i <= 5000)
 		{
 			predicted = predict(regression_type,
 					gradient_descent->input_values, gradient_descent->bias,

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/26 23:39:20 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/27 13:36:17 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,10 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							residual.c ft_matrix_subtract_matrix.c \
 							ft_matrix_multiply_matrix.c \
 							ft_matrix_sum.c ft_vector_abs_double.c \
-							ft_shape_print.c cost.c ft_double_subtract_matrix.c
+							ft_shape_print.c cost.c ft_matrix_normalize.c \
+							ft_double_subtract_matrix.c ft_matrix_min.c \
+							ft_matrix_subtract_vector.c \
+							ft_matrix_div_vector.c ft_matrix_max.c
 							# train.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a

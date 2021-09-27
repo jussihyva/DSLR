@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 23:46:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/27 13:36:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ typedef struct s_matrix
 }				t_matrix;
 
 typedef t_matrix	t_vector;
+
+typedef struct s_min_max_value
+{
+	const t_vector	*min_value;
+	const t_vector	*max_value;
+	t_vector		*range;
+}				t_min_max_value;
 
 typedef struct s_influxdb_line_element
 {
@@ -279,6 +286,23 @@ void						ft_matrix_multiply_matrix(
 void						ft_matrix_add_matrix(
 								const t_matrix *const matrix1,
 								const t_matrix *const matrix2,
+								t_matrix *const new_matrix);
+const t_matrix				*ft_matrix_normalize(
+								const t_matrix *const matrix,
+								const t_vector_type vector_type);
+const t_vector				*ft_matrix_min(
+								const t_matrix *const matrix,
+								const t_vector_type vector_type);
+const t_vector				*ft_matrix_max(
+								const t_matrix *const matrix,
+								const t_vector_type vector_type);
+void						ft_matrix_div_vector(
+								const t_matrix *const matrix,
+								const t_vector *const vector,
+								t_matrix *const new_matrix);
+void						ft_matrix_subtract_vector(
+								const t_matrix *const matrix,
+								const t_vector *const vector,
 								t_matrix *const new_matrix);
 
 #endif
