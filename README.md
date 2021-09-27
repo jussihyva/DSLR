@@ -6,7 +6,7 @@
 
 ### 2.1 Solution description
 
-### 2.2 Implemented Matrix amd Vector calculation funtions
+### 2.2 Implemented Matrix and Vector calculation funtions
 
 ### 2.3 Implemented activation functions
 
