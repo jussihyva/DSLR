@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/21 09:09:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 13:54:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,10 @@ static void	main_remove(
 	return ;
 }
 
-int	main(
-	const int argc,
-	const char **argv)
+static void	tensorflow_activities(void)
 {
-	t_arg_parser				*arg_parser;
-	const t_input_params		*input_params;
-	const t_tcp_connection		*connection;
 	// size_t						number;
-	t_gradient_descent			*gradient_descent;
 
-	arg_parser = arg_parser_init(&argc, &argv);
-	input_params = ft_arg_parser(arg_parser);
-	connection = ft_influxdb_connect("127.0.0.1", "8086",
-			INFLUXDB_CONNECTION_PROTOCOL);
-	if (input_params->is_influxdb && connection && input_params->dataset)
-		dataset_send_to_influxdb(connection, input_params->dataset);
-	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
-			input_params->dataset);
-	gradient_descent_iteration(E_LOGISTIC, gradient_descent);
 	// ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
 	// number = TF_max(23, 822);
 	// FT_LOG_INFO("Number: %u", number);
@@ -98,6 +83,31 @@ int	main(
 	// TF_NewBufferFromString(arg_parser, 45);
 	// TF_NewGraph();
 	// main_train();
+	return ;
+}
+
+int	main(
+	const int argc,
+	const char **argv)
+{
+	t_arg_parser				*arg_parser;
+	const t_input_params		*input_params;
+	const t_tcp_connection		*connection;
+	t_gradient_descent			*gradient_descent;
+
+	arg_parser = arg_parser_init(&argc, &argv);
+	input_params = ft_arg_parser(arg_parser);
+	connection = ft_influxdb_connect("127.0.0.1", "8086",
+			INFLUXDB_CONNECTION_PROTOCOL);
+	if (input_params->is_influxdb && connection && input_params->dataset)
+		dataset_send_to_influxdb(connection, input_params->dataset);
+	if (input_params->mode == E_LEARNING_MODE)
+	{
+		gradient_descent = gradient_descent_initialize(E_LOGISTIC,
+				input_params->dataset);
+		gradient_descent_iteration(E_LOGISTIC, gradient_descent);
+	}
+	tensorflow_activities();
 	main_remove(&arg_parser, &input_params, &connection);
 	return (0);
 }

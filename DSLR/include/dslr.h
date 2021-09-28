@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:24:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 13:49:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define	WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
 # define	WRITE_BUF_SIZE						1000
 # define	SUB_STRING_MAX_LENGTH				100
+# define	LEARNING_MODE						"L"
+# define	TEST_MODE							"T"
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -46,6 +48,13 @@ static const char	*g_hogwarts_house_array[NUMBER_OF_HOGWARTS_HOUSES] =
 	"Slytherin",
 	"Hufflepuff"
 };
+
+typedef enum e_mode
+{
+	E_NO_MODE,
+	E_LEARNING_MODE,
+	E_TEST_MODE
+}				t_mode;
 
 typedef enum e_vector_type
 {
@@ -123,6 +132,7 @@ typedef struct s_input_params
 	t_logging_level			logging_level;
 	t_bool					print_leaks;
 	t_bool					is_influxdb;
+	t_mode					mode;
 	const t_dataset			*dataset;
 }				t_input_params;
 
