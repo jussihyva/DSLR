@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 13:46:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:39:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,14 +148,15 @@ void	gradient_descent_iteration(
 					residual);
 			update_weight_and_bias(derivative, gradient_descent->weight,
 				gradient_descent->bias);
+			cost = cost_calculate(predicted, gradient_descent->observed);
 			if (ft_log_get_level() <= LOG_DEBUG)
 			{
 				residual_sum = ft_matrix_sum(residual, E_DIR_ROW);
 				ft_matrix_print("Residual sum", residual_sum, E_DOUBLE);
+				ft_matrix_print("COST", cost, E_DOUBLE);
 			}
-			cost = cost_calculate(predicted, gradient_descent->observed);
-			ft_matrix_print("COST", cost, E_DOUBLE);
 		}
 	}
+	weight_bias_save(gradient_descent->weight, gradient_descent->bias);
 	return ;
 }

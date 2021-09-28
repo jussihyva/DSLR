@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/21 16:04:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:11:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-size_t	length_calculate(
+static size_t	length_calculate(
 					const char *special_chars,
 					const char *const string)
 {
@@ -30,16 +30,17 @@ size_t	length_calculate(
 	return (length);
 }
 
-char	*string_create(
+char	*backslash_chars_add(
 					const char *const special_chars,
-					const char *const string,
-					size_t string_length)
+					const char *const string)
 {
 	char			*new_string;
 	const char		*ptr;
+	size_t			new_length;
 	size_t			i;
 
-	new_string = ft_memalloc(sizeof(*new_string) * (string_length + 1));
+	new_length = length_calculate(SPECIAL_CHARS_INFLUXDB_TAGS, string);
+	new_string = ft_strnew(new_length);
 	i = 0;
 	ptr = string;
 	while (*ptr)
@@ -59,11 +60,9 @@ void	influxdb_line_fields_create(
 {
 	static const char	tag_key1[] = "Index";
 	static const char	tag_key2[] = "value";
-	size_t				length;
 	char				*string;
 
-	length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
-	string = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, value, length);
+	string = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
 	fields_element->string_length = 0;
 	fields_element->string_length += ft_strlen(tag_key1);
 	fields_element->string_length++;
@@ -71,7 +70,7 @@ void	influxdb_line_fields_create(
 	fields_element->string_length++;
 	fields_element->string_length += ft_strlen(tag_key2);
 	fields_element->string_length++;
-	fields_element->string_length += length;
+	fields_element->string_length += ft_strlen(string);
 	fields_element->string = ft_memalloc(sizeof(*fields_element->string)
 			* (fields_element->string_length + 1));
 	ft_sprintf(fields_element->string, "%s=%s,%s=%s", tag_key1, index, tag_key2,
@@ -85,7 +84,6 @@ void	influxdb_line_fields_create_2(
 							const char **const column_name_array,
 							const char **const value_array)
 {
-	size_t				length;
 	const char			*string;
 	const char			*string1;
 	const char			*string2;
@@ -103,11 +101,8 @@ void	influxdb_line_fields_create_2(
 		if (*value)
 		{
 			column_name = column_name_array[i];
-			length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name);
-			string1 = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name,
-					length);
-			length = length_calculate(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
-			string2 = string_create(SPECIAL_CHARS_INFLUXDB_FIELDS, value, length);
+			string1 = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name);
+			string2 = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
 			fields_element->string_length += ft_strlen(string1);
 			fields_element->string_length++;
 			fields_element->string_length += ft_strlen(string2);

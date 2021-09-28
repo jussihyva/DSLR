@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 17:55:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/08 16:44:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/27 18:11:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	parse_and_save_values(
 	return ;
 }
 
-char	**ft_strsplit_ex(
+const char	**ft_strsplit_ex(
 					const char *const s,
 					const char c,
 					size_t *const number_of_values)
@@ -77,5 +77,5 @@ char	**ft_strsplit_ex(
 	*number_of_values = count_number_of_values(s, c);
 	value_array = ft_memalloc(sizeof(*value_array) * (*number_of_values + 1));
 	parse_and_save_values(s, c, value_array);
-	return (value_array);
+	return ((const char **)value_array);
 }

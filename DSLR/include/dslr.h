@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 13:36:23 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:24:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # define	NUMBER_OF_HOGWARTS_COURSES			13
 # define	NUMBER_OF_HOGWARTS_HOUSES			4
 # define	LEARNING_RATE						0.1
+# define	WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
+# define	WRITE_BUF_SIZE						1000
+# define	SUB_STRING_MAX_LENGTH				100
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -148,7 +151,7 @@ void						input_params_remove(
 								const t_input_params **input_params);
 const t_dataset				*dataset_initialize(
 								const char *const dataset_file_path);
-char						**ft_strsplit_ex(
+const char					**ft_strsplit_ex(
 								char const *s,
 								const char c,
 								size_t *const num_of_words);
@@ -181,13 +184,9 @@ void						influxdb_line_fields_create_2(
 void						influxdb_line_timestamp_create(
 								t_influxdb_line_element *timestamp_element,
 								const size_t utc_time_ms);
-size_t						length_calculate(
-								const char *special_chars,
-								const char *const string);
-char						*string_create(
+char						*backslash_chars_add(
 								const char *const special_chars,
-								const char *const string,
-								size_t string_length);
+								const char *const string);
 const char					*influxdb_line_group_create(
 								const char **const column_name_array,
 								const char **const value_array);
@@ -304,5 +303,8 @@ void						ft_matrix_subtract_vector(
 								const t_matrix *const matrix,
 								const t_vector *const vector,
 								t_matrix *const new_matrix);
+void						weight_bias_save(
+								const t_matrix *const weight,
+								const t_vector *const bias);
 
 #endif
