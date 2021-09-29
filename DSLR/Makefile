@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/28 19:40:33 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/29 10:22:07 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,10 +114,10 @@ endif
 .PHONY: run_leaks
 run_leaks: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) -l $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) -l $(MODE) $(DATASET)
 else
 	valgrind -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) L $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
 endif
 
 .PHONY: clean
@@ -140,4 +140,3 @@ ifeq ($(OS), Darwin)
 else
 	norminette
 endif
-

@@ -6,20 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 20:09:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 14:20:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
-
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-#include <tensorflow/c/c_api.h>
 
 static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 {
@@ -58,7 +49,7 @@ static void	main_remove(
 					t_arg_parser **arg_parser,
 					const t_input_params **const input_params,
 					const t_tcp_connection **const influxdb_connection,
-					t_gradient_descent **const gradient_descent)
+					const t_gradient_descent **const gradient_descent)
 {
 	t_bool			print_leaks;
 
@@ -67,7 +58,7 @@ static void	main_remove(
 		influxdb_remove(influxdb_connection);
 	input_params_remove(input_params);
 	arg_parser_remove(arg_parser);
-	ft_memdel((void **)gradient_descent);
+	gradient_descent_remove(gradient_descent);
 	if (print_leaks)
 		ft_print_leaks("dslr");
 	return ;

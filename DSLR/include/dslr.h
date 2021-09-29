@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 16:39:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 14:20:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # include "ft_printf.h"
 # include "libft_addons.h"
 # include <stdio.h>
-# include "tensorflow/c/c_api.h"
+# include <fcntl.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 # define	NUMBER_OF_INFLUXDB_TOKENS			2
 # define	INFLUXDB_CONNECTION_PROTOCOL		E_TLS
@@ -319,5 +323,8 @@ void						weight_bias_save(
 void						weight_bias_read(
 								t_matrix **weight,
 								t_vector **bias);
+void						ft_matrix_remove(t_matrix **matrix);
+void						gradient_descent_remove(
+								t_gradient_descent **gradient_descent);
 
 #endif
