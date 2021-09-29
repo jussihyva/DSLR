@@ -13,6 +13,7 @@
 			// "args": [],
 			// "args": ["data/dataset_train.csv"],
 			"args": ["L", "data/dataset_train.csv"],
+			// "args": ["T", "data/dataset_test.csv"],
 			// "args": ["-I", "data/dataset_train.csv"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/DSLR",

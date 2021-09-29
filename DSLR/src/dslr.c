@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 13:54:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 20:09:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	influxdb_remove(const t_tcp_connection **influxdb_connection)
 static void	main_remove(
 					t_arg_parser **arg_parser,
 					const t_input_params **const input_params,
-					const t_tcp_connection **const influxdb_connection)
+					const t_tcp_connection **const influxdb_connection,
+					t_gradient_descent **const gradient_descent)
 {
 	t_bool			print_leaks;
 
@@ -66,6 +67,7 @@ static void	main_remove(
 		influxdb_remove(influxdb_connection);
 	input_params_remove(input_params);
 	arg_parser_remove(arg_parser);
+	ft_memdel((void **)gradient_descent);
 	if (print_leaks)
 		ft_print_leaks("dslr");
 	return ;
@@ -101,13 +103,19 @@ int	main(
 			INFLUXDB_CONNECTION_PROTOCOL);
 	if (input_params->is_influxdb && connection && input_params->dataset)
 		dataset_send_to_influxdb(connection, input_params->dataset);
+	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
+			input_params->dataset);
 	if (input_params->mode == E_LEARNING_MODE)
 	{
-		gradient_descent = gradient_descent_initialize(E_LOGISTIC,
-				input_params->dataset);
 		gradient_descent_iteration(E_LOGISTIC, gradient_descent);
 	}
+	else if (input_params->mode == E_TEST_MODE)
+	{
+		weight_bias_read(&gradient_descent->weight, &gradient_descent->bias);
+		ft_matrix_print("BIAS", gradient_descent->bias, E_DOUBLE);
+		ft_matrix_print("WEIGHT", gradient_descent->weight, E_DOUBLE);
+	}
 	tensorflow_activities();
-	main_remove(&arg_parser, &input_params, &connection);
+	main_remove(&arg_parser, &input_params, &connection, &gradient_descent);
 	return (0);
 }

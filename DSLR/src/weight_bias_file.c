@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:01:46 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:56:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 17:05:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void	parse_weight_bias_values(
 			else
 			{
 				errno = 0;
-				weight_row[i - 1] = strtod(param_value[1], &endptr);
+				weight_row[i - 1] = strtod(param_value[i], &endptr);
 			}
 			if (errno != 0 || *endptr != '\0')
 				FT_LOG_ERROR("Content of the file %s (line=%lu) is not valid!",

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 13:49:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 16:39:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,5 +316,8 @@ void						ft_matrix_subtract_vector(
 void						weight_bias_save(
 								const t_matrix *const weight,
 								const t_vector *const bias);
+void						weight_bias_read(
+								t_matrix **weight,
+								t_vector **bias);
 
 #endif

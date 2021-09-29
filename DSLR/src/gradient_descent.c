@@ -6,27 +6,38 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 09:56:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/28 16:50:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static size_t	house_index(const char *const hogwarts_house)
+static size_t	house_index(
+					const char *const hogwarts_house,
+					t_vector_size *i,
+					double **matrix_values)
 {
-	size_t		i;
-	size_t		index;
+	size_t	house_i;
+	int		index;
 
 	index = -1;
-	i = -1;
-	while (++i < NUMBER_OF_HOGWARTS_HOUSES)
+	house_i = -1;
+	while (++house_i < NUMBER_OF_HOGWARTS_HOUSES)
 	{
-		if (ft_strequ(hogwarts_house, g_hogwarts_house_array[i]))
+		if (ft_strequ(hogwarts_house, g_hogwarts_house_array[house_i]))
 		{
-			index = i;
+			index = house_i;
 			break ;
 		}
 	}
+	if (index != -1)
+	{
+		i->rows = index;
+		matrix_values[i->rows][i->columns] = E_TRUE;
+		FT_LOG_TRACE("House: %s", hogwarts_house);
+	}
+	else
+		FT_LOG_WARN("Unknown house: %s", hogwarts_house);
 	return (index);
 }
 
@@ -47,15 +58,8 @@ static const t_matrix	*output_vector_create(
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
-		index = house_index(value_array[1]);
-		if (index != -1)
-		{
-			i.rows = index;
-			((double **)matrix->values)[i.rows][i.columns] = E_TRUE;
-			FT_LOG_TRACE("House: %s", value_array[1]);
-		}
-		else
-			FT_LOG_WARN("Unknown house: %s", value_array[1]);
+		if (*value_array[1])
+			index = house_index(value_array[1], &i, (double **)matrix->values);
 		i.columns++;
 		elem = elem->next;
 	}
