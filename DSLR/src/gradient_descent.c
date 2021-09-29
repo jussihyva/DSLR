@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 16:50:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 19:38:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ static const t_matrix	*input_matrix_create(
 		elem = elem->next;
 	}
 	matrix_normalized = ft_matrix_normalize(matrix, E_DIR_ROW);
+	ft_matrix_remove(&matrix);
 	return (matrix_normalized);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:01:46 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 17:05:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 22:24:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ static const char	*yaml_string_create(
 		ft_strcat(str, substring);
 		ft_strdel(&substring);
 	}
+	ft_memdel((void **)&queue->in_stack);
+	ft_memdel((void **)&queue->out_stack);
+	ft_memdel((void **)&queue);
 	return (str);
 }
 

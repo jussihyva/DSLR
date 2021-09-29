@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:48:50 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 13:34:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 22:14:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,9 @@ const t_matrix	*ft_matrix_normalize(
 		ft_matrix_div_vector(matrix_normalized_prel, min_max_value.range,
 			matrix_normalized);
 	}
+	ft_matrix_remove(&matrix_normalized_prel);
+	ft_matrix_remove((t_matrix **)&min_max_value.min_value);
+	ft_matrix_remove((t_matrix **)&min_max_value.max_value);
+	ft_vector_remove(&min_max_value.range);
 	return (matrix_normalized);
 }

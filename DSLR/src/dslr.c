@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 14:20:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 19:32:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	main_remove(
 					t_arg_parser **arg_parser,
 					const t_input_params **const input_params,
 					const t_tcp_connection **const influxdb_connection,
-					const t_gradient_descent **const gradient_descent)
+					t_gradient_descent **gradient_descent)
 {
 	t_bool			print_leaks;
 

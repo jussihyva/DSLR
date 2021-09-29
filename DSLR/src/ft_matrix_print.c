@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 19:23:56 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 17:00:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 22:51:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_matrix_print(
 	while (++i < matrix->size.rows)
 	{
 		example_cnt++;
-		ft_printf("%lu", example_cnt);
+		ft_printf("%lu: ", example_cnt);
 		j = -1;
 		while (++j < matrix->size.columns)
 		{

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 08:12:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 23:09:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static const t_matrix	*ft_sigmoid(const t_matrix *const input)
 			input->size.columns);
 	ft_matrix_exp_double(input, predicted_exp, E_MINUS);
 	ft_matrix_add_double(predicted_exp, 1, predicted_add);
+	ft_matrix_remove(&predicted_exp);
 	ft_double_div_vector(1, predicted_add, predicted_div);
+	ft_matrix_remove(&predicted_add);
 	return (predicted_div);
 }
 
@@ -55,8 +57,7 @@ static const t_matrix	*predict(
 			activation_input->size.columns);
 	predicted_add = ft_matrix_create(sizeof(double), weight->size.rows,
 			activation_input->size.columns);
-	predicted = ft_matrix_create(sizeof(double), weight->size.rows,
-			activation_input->size.columns);
+	predicted = NULL;
 	if (regression_type == E_LOGISTIC)
 	{
 		ft_matrix_dot_matrix(weight, activation_input, predicted_prel);
@@ -65,6 +66,8 @@ static const t_matrix	*predict(
 		if (ft_log_get_level() <= LOG_DEBUG)
 			print_shapes(activation_input, weight, predicted);
 	}
+	ft_matrix_remove(&predicted_prel);
+	ft_matrix_remove(&predicted_add);
 	return (predicted);
 }
 
@@ -72,26 +75,29 @@ static t_derivative	*derivative_calculate(
 									const t_matrix *const activation_input,
 									const t_vector *const residual)
 {
-	const t_vector		*residual_transposed;
+	const t_vector		*activation_input_transposed;
 	t_matrix			*weight_prel;
 	const t_vector		*bias_prel;
 	t_derivative		*derivative;
 
-	residual_transposed = ft_vector_transpose(residual);
+	activation_input_transposed = ft_vector_transpose(activation_input);
 	derivative = ft_memalloc(sizeof(*derivative));
-	weight_prel = ft_matrix_create(sizeof(double), activation_input->size.rows,
-			residual->size.rows);
+	weight_prel = ft_matrix_create(sizeof(double),
+			residual->size.rows, activation_input->size.rows);
 	derivative->weight = ft_matrix_create(sizeof(double),
-			activation_input->size.rows, residual->size.rows);
+			residual->size.rows, activation_input->size.rows);
 	derivative->bias = ft_vector_create(sizeof(double), residual->size.rows,
 			E_DIR_ROW);
-	ft_matrix_dot_matrix(activation_input, residual_transposed,
+	ft_matrix_dot_matrix(residual, activation_input_transposed,
 		weight_prel);
+	ft_vector_remove((t_vector **)&activation_input_transposed);
 	ft_vector_div_double(weight_prel, activation_input->size.columns,
 		derivative->weight);
+	ft_vector_remove(&weight_prel);
 	bias_prel = ft_matrix_sum(residual, E_DIR_ROW);
 	ft_vector_div_double(bias_prel, activation_input->size.columns,
 		derivative->bias);
+	ft_matrix_remove((t_matrix **)&bias_prel);
 	if (ft_log_get_level() <= LOG_DEBUG)
 	{
 		ft_matrix_print("derivative weight", derivative->weight, E_DOUBLE);
@@ -111,12 +117,12 @@ static void	update_weight_and_bias(
 	while (++i.rows < weight->size.rows)
 	{
 		((double **)bias->values)[i.rows][0]
-			-= 0.01 * ((double **)derivative->bias->values)[i.rows][0];
+			-= LEARNING_RATE * ((double **)derivative->bias->values)[i.rows][0];
 		i.columns = -1;
 		while (++i.columns < weight->size.columns)
 		{
 			((double **)weight->values)[i.rows][i.columns]
-				-= 0.01 * ((double **)derivative->weight
+				-= LEARNING_RATE * ((double **)derivative->weight
 					->values)[i.rows][i.columns];
 		}
 	}
@@ -125,7 +131,7 @@ static void	update_weight_and_bias(
 
 void	gradient_descent_iteration(
 							const t_regression_type regression_type,
-							t_gradient_descent *const gradient_descent)
+							const t_gradient_descent *const gradient_descent)
 {
 	const t_matrix	*predicted;
 	const t_matrix	*residual;
@@ -137,7 +143,7 @@ void	gradient_descent_iteration(
 	if (regression_type == E_LOGISTIC)
 	{
 		i = 0;
-		while (++i <= 5000)
+		while (++i <= ITERATION_LOOP)
 		{
 			predicted = predict(regression_type,
 					gradient_descent->input_values, gradient_descent->bias,
@@ -148,13 +154,20 @@ void	gradient_descent_iteration(
 					residual);
 			update_weight_and_bias(derivative, gradient_descent->weight,
 				gradient_descent->bias);
+			ft_vector_remove(&derivative->bias);
+			ft_matrix_remove(&derivative->weight);
+			ft_memdel((void **)&derivative);
 			cost = cost_calculate(predicted, gradient_descent->observed);
-			if (ft_log_get_level() <= LOG_DEBUG)
+			ft_matrix_remove((t_matrix **)&predicted);
+			if (ft_log_get_level() <= LOG_INFO)
 			{
 				residual_sum = ft_matrix_sum(residual, E_DIR_ROW);
 				ft_matrix_print("Residual sum", residual_sum, E_DOUBLE);
 				ft_matrix_print("COST", cost, E_DOUBLE);
+				ft_vector_remove((t_vector **)&residual_sum);
 			}
+			ft_matrix_remove((t_matrix **)&residual);
+			ft_vector_remove((t_vector **)&cost);
 		}
 	}
 	weight_bias_save(gradient_descent->weight, gradient_descent->bias);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:25:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 09:58:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 19:43:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ const t_vector	*cost_calculate(
 	ft_double_subtract_matrix(1, observed, observed_subtracted);
 	ft_double_subtract_matrix(1, predicted, predicted_subtracted);
 	ft_matrix_log(predicted_subtracted, predicted_log, E_PLUS);
+	ft_matrix_remove(&predicted_subtracted);
 	ft_matrix_multiply_matrix(observed_subtracted, predicted_log, part2);
-	// ft_matrix_print("Part2", part2, E_DOUBLE);
+	ft_matrix_remove(&observed_subtracted);
+	ft_matrix_remove(&predicted_log);
 	cost_matrix = ft_matrix_create(sizeof(double), predicted->size.rows,
 			observed->size.columns);
 	ft_matrix_add_matrix(part1, part2, cost_matrix);
+	ft_matrix_remove(&part1);
+	ft_matrix_remove(&part2);
 	cost = ft_matrix_sum(cost_matrix, E_DIR_ROW);
-	// ft_matrix_print("cost_matrix", cost_matrix, E_DOUBLE);
+	ft_matrix_remove(&cost_matrix);
 	return (cost);
 }

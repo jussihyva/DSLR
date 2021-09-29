@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 14:20:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/29 23:09:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 # define	SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
 # define	NUMBER_OF_HOGWARTS_COURSES			13
 # define	NUMBER_OF_HOGWARTS_HOUSES			4
-# define	LEARNING_RATE						0.1
+# define	LEARNING_RATE						0.2
+# define	ITERATION_LOOP						10000
 # define	WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
 # define	WRITE_BUF_SIZE						1000
 # define	SUB_STRING_MAX_LENGTH				100
@@ -218,7 +219,8 @@ t_vector					*ft_vector_create(
 								t_vector_type vector_type);
 void						gradient_descent_iteration(
 								const t_regression_type regression_type,
-								t_gradient_descent *const gradient_descent);
+								const t_gradient_descent
+								*const gradient_descent);
 void						ft_matrix_dot_matrix(
 								const t_matrix *const matrix1,
 								const t_matrix *const matrix2,
@@ -324,6 +326,7 @@ void						weight_bias_read(
 								t_matrix **weight,
 								t_vector **bias);
 void						ft_matrix_remove(t_matrix **matrix);
+void						ft_vector_remove(t_vector **vector);
 void						gradient_descent_remove(
 								t_gradient_descent **gradient_descent);
 
