@@ -2,6 +2,12 @@
 
 ## 1. Project description
 
+### 1.1 Formulas for calculation
+
+![sigmoid](https://latex.codecogs.com/svg.latex?\Large&space;sigmoid(z)=\frac{1}{1+e^{-z})
+
+![Cost formula](https://latex.codecogs.com/svg.latex?\Large&space;J(\theta)=-\frac{1}{m}\sum_{i=1}^{m}y^ilog(h_\theta(x^i))+(1-y^i)log(1-h_\theta(x^i)))
+
 ## 2. My solution
 
 ### 2.1 Solution description
@@ -11,14 +17,3 @@
 ### 2.3 Implemented activation functions
 
 ### 2.4 Implemented gradient descent functions
-
-![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a})
-
-![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
-
-![equation](http://www.sciweavers.org/tex2img.php?eq=1/(1%2Bexp^z)&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
-
-
-```math
-a^2+b^2=c^2
-```
