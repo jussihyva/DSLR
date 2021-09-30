@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 07:11:45 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/26 09:33:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 09:12:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static const t_vector	*sum_row_based(const t_matrix *const matrix)
 {
 	const t_vector		*sum_vector;
-	t_vector_size	i;
+	t_vector_size		i;
 
 	sum_vector = ft_vector_create(sizeof(double), matrix->size.rows, E_DIR_ROW);
 	i.rows = -1;
@@ -34,7 +34,7 @@ static const t_vector	*sum_row_based(const t_matrix *const matrix)
 static const t_vector	*sum_column_based(const t_matrix *const matrix)
 {
 	const t_vector		*sum_vector;
-	t_vector_size	i;
+	t_vector_size		i;
 
 	sum_vector = ft_vector_create(sizeof(double), matrix->size.columns,
 			E_DIR_COLUMN);

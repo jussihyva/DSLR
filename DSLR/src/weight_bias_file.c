@@ -6,24 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:01:46 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 22:24:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 09:19:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
-
-static char	*file_path_create(char *file_name)
-{
-	char			*file_path;
-	size_t			str_len;
-
-	str_len = ft_strlen(ft_home_dir()) + 1 + ft_strlen(file_name);
-	file_path = ft_memalloc(sizeof(*file_path) * (str_len + 1));
-	ft_strcat(file_path, ft_home_dir());
-	ft_strcat(file_path, "/");
-	ft_strcat(file_path, file_name);
-	return (file_path);
-}
 
 static const char	*yaml_string_create(
 							const double *const weight_row,
@@ -77,7 +64,7 @@ void	weight_bias_save(
 	ssize_t			ret;
 	size_t			i;
 
-	weight_bias_file_yaml = file_path_create(WEIGHT_BIAS_FILE_NAME);
+	weight_bias_file_yaml = ft_file_path_create(WEIGHT_BIAS_FILE_NAME);
 	remove(weight_bias_file_yaml);
 	fd = open(weight_bias_file_yaml, O_CREAT | O_RDWR, S_IWUSR | S_IRUSR);
 	i = -1;
@@ -164,14 +151,14 @@ static void	read_weight_bias_values(
 	return ;
 }
 
-void weight_bias_read(
+void	weight_bias_read(
 				t_matrix **weight,
 				t_vector **bias)
 {
 	int			fd;
 	char		*weight_bias_file_yaml;
 
-	weight_bias_file_yaml = file_path_create(WEIGHT_BIAS_FILE_NAME);
+	weight_bias_file_yaml = ft_file_path_create(WEIGHT_BIAS_FILE_NAME);
 	fd = open(weight_bias_file_yaml, O_RDONLY);
 	if (fd > 0)
 		read_weight_bias_values(weight_bias_file_yaml, fd, weight, bias);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 23:45:39 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/13 11:31:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 09:14:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static time_t	convert_timespec_to_ms(struct timespec *utc_timespec)
 }
 
 #if DARWIN
+
 time_t	ft_gettime(void)
 {
 	struct timespec		utc_timespec;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 23:09:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 10:14:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	gradient_descent_iteration(
 {
 	const t_matrix	*predicted;
 	const t_matrix	*residual;
-	const t_vector	*residual_sum;
 	t_derivative	*derivative;
 	const t_vector	*cost;
 	size_t			i;
@@ -160,12 +159,7 @@ void	gradient_descent_iteration(
 			cost = cost_calculate(predicted, gradient_descent->observed);
 			ft_matrix_remove((t_matrix **)&predicted);
 			if (ft_log_get_level() <= LOG_INFO)
-			{
-				residual_sum = ft_matrix_sum(residual, E_DIR_ROW);
-				ft_matrix_print("Residual sum", residual_sum, E_DOUBLE);
 				ft_matrix_print("COST", cost, E_DOUBLE);
-				ft_vector_remove((t_vector **)&residual_sum);
-			}
 			ft_matrix_remove((t_matrix **)&residual);
 			ft_vector_remove((t_vector **)&cost);
 		}

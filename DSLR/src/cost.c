@@ -6,33 +6,42 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:25:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 19:43:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 10:08:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-const t_vector	*cost_calculate(
-				const t_matrix *const predicted,
-				const t_matrix *const observed)
+static t_matrix	*part1_calculate(
+						const t_matrix *const observed,
+						const t_matrix *const predicted)
 {
-	const t_vector	*cost;
-	t_matrix		*cost_matrix;
-	t_matrix		*part1;
-	t_matrix		*part2;
-	t_matrix		*predicted_log;
-	t_matrix		*observed_subtracted;
-	t_matrix		*predicted_subtracted;
+	t_matrix	*part1;
+	t_matrix	*predicted_log;
 
-	predicted_log = ft_matrix_create(sizeof(double), predicted->size.rows,
-			predicted->size.columns);
 	part1 = ft_matrix_create(sizeof(double), predicted->size.rows,
 			observed->size.columns);
-	part2 = ft_matrix_create(sizeof(double), predicted->size.rows,
-			observed->size.columns);
+	predicted_log = ft_matrix_create(sizeof(double), predicted->size.rows,
+			predicted->size.columns);
 	ft_matrix_log(predicted, predicted_log, E_PLUS);
 	ft_matrix_multiply_matrix(observed, predicted_log, part1);
-	// ft_matrix_print("Part1", part1, E_DOUBLE);
+	ft_matrix_remove(&predicted_log);
+	return (part1);
+}
+
+static t_matrix	*part2_calculate(
+						const t_matrix *const observed,
+						const t_matrix *const predicted)
+{
+	t_matrix	*part2;
+	t_matrix	*predicted_log;
+	t_matrix	*observed_subtracted;
+	t_matrix	*predicted_subtracted;
+
+	part2 = ft_matrix_create(sizeof(double), predicted->size.rows,
+			observed->size.columns);
+	predicted_log = ft_matrix_create(sizeof(double), predicted->size.rows,
+			predicted->size.columns);
 	observed_subtracted = ft_matrix_create(sizeof(double), predicted->size.rows,
 			predicted->size.columns);
 	predicted_subtracted = ft_matrix_create(sizeof(double),
@@ -44,12 +53,30 @@ const t_vector	*cost_calculate(
 	ft_matrix_multiply_matrix(observed_subtracted, predicted_log, part2);
 	ft_matrix_remove(&observed_subtracted);
 	ft_matrix_remove(&predicted_log);
+	return (part2);
+}
+
+const t_vector	*cost_calculate(
+				const t_matrix *const predicted,
+				const t_matrix *const observed)
+{
+	const t_vector	*loss;
+	t_vector		*cost;
+	t_matrix		*cost_matrix;
+	t_matrix		*part1;
+	t_matrix		*part2;
+
+	part1 = part1_calculate(observed, predicted);
+	part2 = part2_calculate(observed, predicted);
 	cost_matrix = ft_matrix_create(sizeof(double), predicted->size.rows,
 			observed->size.columns);
 	ft_matrix_add_matrix(part1, part2, cost_matrix);
 	ft_matrix_remove(&part1);
 	ft_matrix_remove(&part2);
-	cost = ft_matrix_sum(cost_matrix, E_DIR_ROW);
+	loss = ft_matrix_sum(cost_matrix, E_DIR_ROW);
 	ft_matrix_remove(&cost_matrix);
+	cost = ft_vector_create(sizeof(double), predicted->size.rows, E_DIR_ROW);
+	ft_vector_div_double(loss, -(double)predicted->size.columns, cost);
+	ft_vector_remove((t_vector **)&loss);
 	return (cost);
 }

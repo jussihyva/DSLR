@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 14:53:13 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 10:57:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 09:07:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ typedef struct s_logging_data
 }				t_logging_data;
 
 # if DARWIN
+
 typedef struct s_timeval
 {
 	__darwin_time_t			tv_sec;
 	__darwin_suseconds_t	tv_usec;
 }									t_timeval;
 # else
+
 typedef struct s_timeval
 {
 	__kernel_time_t			tv_sec;
@@ -121,8 +123,8 @@ typedef struct s_log_event
 	int				level;
 }				t_log_event;
 
-typedef void	(*t_logging_function)(t_log_event *event);
-typedef void	(*t_logging_lock_function)(int lock, void *udata);
+typedef void			(*t_logging_function)(t_log_event *event);
+typedef void			(*t_logging_lock_function)(int lock, void *udata);
 
 typedef struct s_logging_extension
 {
@@ -175,12 +177,12 @@ typedef struct s_bt_node
 	t_bt_elem			bt_elem[MAX_NUM_OF_B_TREE_ELEMS];
 }				t_bt_node;
 
-typedef void	(*t_input_param_save)(void *const, char, t_argc_argv*,
+typedef void			(*t_input_param_save)(void *const, char, t_argc_argv*,
 															t_cmd_param_type);
 
-typedef void*	(*t_input_params_initialize)(t_argc_argv *argc_argv);
+typedef void*			(*t_input_params_initialize)(t_argc_argv *argc_argv);
 
-typedef void	(*t_usage_print)(void);
+typedef void			(*t_usage_print)(void);
 
 typedef struct s_arg_parser
 {
@@ -247,7 +249,7 @@ SSL_CTX					*ft_openssl_init_ctx(const SSL_METHOD	*tls_method,
 							char *pem_cert_file, char *pem_private_key_file);
 SSL_CTX					*ft_openssl_init_client(char *pem_cert_file,
 							char *pem_private_key_file, int *socket_fd,
-							const t_connection_protocol
+							const t_connection_protocol \
 							influxdb_connection_protocol);
 t_tcp_connection		*ft_openssl_connect(
 							const char *const hostname,
@@ -286,7 +288,7 @@ void					ft_strarraydel(const char ***const array);
 t_tcp_connection		*ft_influxdb_connect(
 							const char *const host_name,
 							const char *const port_number,
-							const t_connection_protocol
+							const t_connection_protocol \
 							influxdb_connection_protocol);
 char					*ft_file_create(
 							const char *const folder,
