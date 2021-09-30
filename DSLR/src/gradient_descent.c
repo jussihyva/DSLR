@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 19:38:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 13:41:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,27 +118,22 @@ t_gradient_descent	*gradient_descent_initialize(
 									const t_regression_type regression_type,
 									const t_dataset *const dataset)
 {
-	const t_matrix			*is_gryffindor_house;
-	const t_matrix			*hogwarts_course_values;
 	t_gradient_descent		*gradient_descent;
-	t_matrix				*weight;
-	t_vector				*bias;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
 	{
-		is_gryffindor_house = output_vector_create(dataset->number_of_rows,
-				dataset->value_array_lst);
-		hogwarts_course_values = input_matrix_create(dataset->number_of_rows,
+		gradient_descent->observed = output_vector_create(
+				dataset->number_of_rows, dataset->value_array_lst);
+		gradient_descent->input_values
+			= input_matrix_create(dataset->number_of_rows,
 				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
-		weight = ft_matrix_create(sizeof(double),
+		gradient_descent->weight = ft_matrix_create(sizeof(double),
 				NUMBER_OF_HOGWARTS_HOUSES, NUMBER_OF_HOGWARTS_COURSES);
-		bias = ft_vector_create(sizeof(double), NUMBER_OF_HOGWARTS_HOUSES,
-				E_DIR_ROW);
-		gradient_descent->observed = is_gryffindor_house;
-		gradient_descent->input_values = hogwarts_course_values;
-		gradient_descent->weight = weight;
-		gradient_descent->bias = bias;
+		gradient_descent->bias = ft_vector_create(sizeof(double),
+				NUMBER_OF_HOGWARTS_HOUSES, E_DIR_ROW);
+		gradient_descent->cost = ft_vector_create(sizeof(double),
+				gradient_descent->observed->size.rows, E_DIR_ROW);
 	}
 	return (gradient_descent);
 }

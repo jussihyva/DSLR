@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:01:46 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 09:19:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 12:16:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	weight_bias_save(
 	ssize_t			ret;
 	size_t			i;
 
+	ft_matrix_print("WEIGHT", weight, E_DOUBLE);
+	ft_matrix_print("BIAS", bias, E_DOUBLE);
 	weight_bias_file_yaml = ft_file_path_create(WEIGHT_BIAS_FILE_NAME);
 	remove(weight_bias_file_yaml);
 	fd = open(weight_bias_file_yaml, O_CREAT | O_RDWR, S_IWUSR | S_IRUSR);

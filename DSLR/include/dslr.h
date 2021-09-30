@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 09:20:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 13:34:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_gradient_descent
 	const t_matrix	*input_values;
 	t_matrix		*weight;
 	t_vector		*bias;
+	t_vector		*cost;
 }				t_gradient_descent;
 
 typedef struct s_derivative
@@ -282,9 +283,10 @@ void					ft_vector_add_double(
 void					ft_shape_print(
 							const char *const matrix_name,
 							const t_matrix *const matrix);
-const t_vector			*cost_calculate(
+const t_vector			*cost_recalculate(
 							const t_matrix *const predicted,
-							const t_matrix *const observed);
+							const t_matrix *const observed,
+							t_vector *const cost);
 void					ft_matrix_log(
 							const t_matrix *const matrix,
 							t_matrix *const new_matrix,
@@ -329,5 +331,19 @@ void					ft_vector_remove(t_vector **vector);
 void					gradient_descent_remove(
 							t_gradient_descent **gradient_descent);
 char					*ft_file_path_create(char *file_name);
+t_derivative			*derivative_initialize(
+							const t_matrix_size *const weight_size,
+							const t_matrix_size *const bias_size);
+void					derivative_remove(t_derivative **derivative);
+void					leayer_calculate(
+							const t_regression_type regression_type,
+							const t_gradient_descent *const gradient_descent,
+							const t_derivative *const derivative);
+const t_matrix			*ft_sigmoid(const t_matrix *const input);
+void					derivative_recalculate(
+							const t_matrix *const activation_input,
+							const t_matrix *const observed,
+							const t_matrix *const predicted,
+							const t_derivative *const derivative);
 
 #endif

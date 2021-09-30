@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:25:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 10:08:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 12:43:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static t_matrix	*part2_calculate(
 	return (part2);
 }
 
-const t_vector	*cost_calculate(
+const t_vector	*cost_recalculate(
 				const t_matrix *const predicted,
-				const t_matrix *const observed)
+				const t_matrix *const observed,
+				t_vector *const cost)
 {
 	const t_vector	*loss;
-	t_vector		*cost;
 	t_matrix		*cost_matrix;
 	t_matrix		*part1;
 	t_matrix		*part2;
@@ -75,7 +75,6 @@ const t_vector	*cost_calculate(
 	ft_matrix_remove(&part2);
 	loss = ft_matrix_sum(cost_matrix, E_DIR_ROW);
 	ft_matrix_remove(&cost_matrix);
-	cost = ft_vector_create(sizeof(double), predicted->size.rows, E_DIR_ROW);
 	ft_vector_div_double(loss, -(double)predicted->size.columns, cost);
 	ft_vector_remove((t_vector **)&loss);
 	return (cost);
