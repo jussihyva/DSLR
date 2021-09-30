@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:28:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 14:01:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	gradient_descent_iteration(
 		}
 	}
 	ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
-	weight_bias_save(gradient_descent->weight, gradient_descent->bias);
+	weight_bias_write(gradient_descent->weight, gradient_descent->bias);
 	derivative_remove(&derivative);
 	return ;
 }

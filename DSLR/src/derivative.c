@@ -6,11 +6,30 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:01:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:34:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 14:47:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
+
+static void	derivative_recalculate_weight(
+						const t_matrix *residual,
+						const t_matrix *activation_input,
+						t_matrix *const weight)
+{
+	const t_vector		*activation_input_transposed;
+	t_matrix			*weight_prel;
+
+	weight_prel = ft_matrix_create(sizeof(double),
+			residual->size.rows, activation_input->size.rows);
+	activation_input_transposed = ft_vector_transpose(activation_input);
+	ft_matrix_dot_matrix(residual, activation_input_transposed,
+		weight_prel);
+	ft_vector_remove((t_vector **)&activation_input_transposed);
+	ft_vector_div_double(weight_prel, activation_input->size.columns, weight);
+	ft_vector_remove(&weight_prel);
+	return ;
+}
 
 void	derivative_recalculate(
 							const t_matrix *const activation_input,
@@ -18,21 +37,12 @@ void	derivative_recalculate(
 							const t_matrix *const predicted,
 							const t_derivative *const derivative)
 {
-	const t_vector		*activation_input_transposed;
-	t_matrix			*weight_prel;
 	const t_vector		*bias_prel;
 	const t_matrix		*residual;
 
 	residual = residual_calculate(observed, predicted);
-	activation_input_transposed = ft_vector_transpose(activation_input);
-	weight_prel = ft_matrix_create(sizeof(double),
-			residual->size.rows, activation_input->size.rows);
-	ft_matrix_dot_matrix(residual, activation_input_transposed,
-		weight_prel);
-	ft_vector_remove((t_vector **)&activation_input_transposed);
-	ft_vector_div_double(weight_prel, activation_input->size.columns,
+	derivative_recalculate_weight(residual, activation_input,
 		derivative->weight);
-	ft_vector_remove(&weight_prel);
 	bias_prel = ft_matrix_sum(residual, E_DIR_ROW);
 	ft_matrix_remove((t_matrix **)&residual);
 	ft_vector_div_double(bias_prel, activation_input->size.columns,

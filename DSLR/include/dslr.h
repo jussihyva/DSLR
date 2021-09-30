@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:34:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 14:00:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ void					ft_matrix_subtract_vector(
 							const t_matrix *const matrix,
 							const t_vector *const vector,
 							t_matrix *const new_matrix);
-void					weight_bias_save(
+void					weight_bias_write(
 							const t_matrix *const weight,
 							const t_vector *const bias);
 void					weight_bias_read(

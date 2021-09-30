@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/30 13:26:33 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/09/30 13:59:12 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_double_subtract_matrix.c ft_matrix_min.c \
 							ft_matrix_subtract_vector.c \
 							ft_matrix_div_vector.c ft_matrix_max.c \
-							weight_bias_file.c ft_home_dir.c \
+							weight_bias_file_write.c weight_bias_file_read.c \
+							ft_home_dir.c \
 							ft_matrix_remove.c ft_vector_remove.c \
 							gradient_descent_remove.c derivative.c \
 							ft_file_path_create.c leayer.c \

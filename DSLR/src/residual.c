@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 17:24:00 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 15:16:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/09/30 14:33:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	print_shapes(
 	ft_shape_print("predicted_result", predicted_result);
 	ft_shape_print("desired_result", desired_result);
 	ft_shape_print("residual", residual);
-	// ft_vector_print("residual", residual, E_DOUBLE);
 	return ;
 }
 
