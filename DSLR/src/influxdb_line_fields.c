@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:44:45 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 15:47:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 16:57:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ void	influxdb_line_fields_create_2(
 	}
 	fields_element->string = ft_strcat_queue(queue_str,
 			fields_element->string_length);
+	ft_memdel((void **)&queue_str->in_stack);
+	ft_memdel((void **)&queue_str->out_stack);
+	ft_memdel((void **)&queue_str);
 	return ;
 }
