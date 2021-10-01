@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:19:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:34:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 20:21:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ static void	update_weight_and_bias(
 	return ;
 }
 
-static const t_matrix	*predict(
-							t_regression_type regression_type,
-							const t_matrix *const activation_input,
-							const t_vector *bias,
-							const t_matrix *const weight)
+const t_matrix	*predict(
+					t_regression_type regression_type,
+					const t_matrix *const activation_input,
+					const t_vector *bias,
+					const t_matrix *const weight)
 {
 	t_matrix			*predicted_prel;
 	t_matrix			*predicted_add;
