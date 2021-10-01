@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/01 12:39:32 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/01 15:44:16 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							gradient_descent_remove.c derivative.c \
 							ft_file_path_create.c leayer.c \
 							ft_sigmoid.c input_params_mandatory.c \
-							influxdb_line_subject_based.c
+							influxdb_line_subject_based.c ft_strcat_queue.c \
+							influxdb_line_fields.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
 GLOBAL_LIBS				=	libssl.a libcrypto.a
 GLOBAL_LIB_FOLDERS		=	
 ifeq ($(OS), Darwin)
 	GLOBAL_LIBS			+=	
-	GLOBAL_LIB_FOLDERS	+=	$(HOME)/lib/libtensorflow
 	GLOBAL_LIB_FOLDERS	+=	$(HOME)/.brew/Cellar/openssl@1.1/1.1.1k/lib
 else
 	GLOBAL_LIBS	+=	libm.a

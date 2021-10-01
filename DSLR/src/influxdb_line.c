@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 10:27:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 15:45:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,58 +79,10 @@ void	influxdb_line_fields_create(
 	return ;
 }
 
-void	influxdb_line_fields_create_2(
-							t_influxdb_line_element *fields_element,
-							const char **const column_name_array,
-							const char **const value_array)
-{
-	const char			*string;
-	const char			*string1;
-	const char			*string2;
-	size_t				i;
-	const char			*column_name;
-	const char			*value;
-	t_queue				*queue_str;
-
-	queue_str = ft_queue_init();
-	fields_element->string_length = 0;
-	i = 5;
-	while (++i < 19)
-	{
-		value = value_array[i];
-		if (*value)
-		{
-			column_name = column_name_array[i];
-			string1 = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_FIELDS, column_name);
-			string2 = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_FIELDS, value);
-			fields_element->string_length += ft_strlen(string1);
-			fields_element->string_length++;
-			fields_element->string_length += ft_strlen(string2);
-			ft_enqueue(queue_str, (void *)string1);
-			ft_enqueue(queue_str, "=");
-			ft_enqueue(queue_str, (void *)string2);
-			if (i != 18)
-			{
-				fields_element->string_length++;
-				ft_enqueue(queue_str, ",");
-			}
-		}
-	}
-	fields_element->string = ft_strnew(fields_element->string_length);
-	string = NULL;
-	while (!ft_is_queue_empty(queue_str))
-	{
-		string = ft_dequeue(queue_str);
-		ft_strcat(fields_element->string, string);
-	}
-	ft_strdel((char **)&string);
-	return ;
-}
-
 void	influxdb_line_timestamp_create(
 							t_influxdb_line_element *timestamp_element)
 {
-	size_t 		utc_time_ms;
+	size_t		utc_time_ms;
 	char		string[100];
 
 	utc_time_ms = ft_gettime();

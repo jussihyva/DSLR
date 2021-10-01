@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 12:52:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 15:25:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,5 +365,8 @@ const char				*elements_merge(
 							t_influxdb_line_element *const
 							influxdb_line_element,
 							const size_t length);
+char					*ft_strcat_queue(
+							t_queue *const queue,
+							const size_t string_length);
 
 #endif

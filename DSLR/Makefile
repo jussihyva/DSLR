@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/01 10:08:48 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/01 15:57:43 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,18 +106,18 @@ libraries_norm:
 .PHONY: run
 run: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) -I $(LEVEL) $(MODE) $(DATASET)
 else
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) -I $(LEVEL) $(MODE) $(DATASET)
 endif
 
 .PHONY: run_leaks
 run_leaks: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) -l $(MODE) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) -I $(LEVEL) -l $(MODE) $(DATASET)
 else
 	valgrind -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) -I $(LEVEL) $(MODE) $(DATASET)
 endif
 
 .PHONY: clean
