@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/29 19:32:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 09:40:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,6 @@ static void	main_remove(
 	return ;
 }
 
-static void	tensorflow_activities(void)
-{
-	// size_t						number;
-
-	// ft_printf("Hello from TensorFlow C library version %s\n", TF_Version());
-	// number = TF_max(23, 822);
-	// FT_LOG_INFO("Number: %u", number);
-	// TF_AllocateTensor(TF_STRING);
-	// number = TF_StringInit(TF_TString);
-	// TF_NewBufferFromString(arg_parser, 45);
-	// TF_NewGraph();
-	// main_train();
-	return ;
-}
-
 int	main(
 	const int argc,
 	const char **argv)
@@ -106,7 +91,6 @@ int	main(
 		ft_matrix_print("BIAS", gradient_descent->bias, E_DOUBLE);
 		ft_matrix_print("WEIGHT", gradient_descent->weight, E_DOUBLE);
 	}
-	tensorflow_activities();
 	main_remove(&arg_parser, &input_params, &connection, &gradient_descent);
 	return (0);
 }

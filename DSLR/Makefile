@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:45:12 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/29 10:22:07 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/01 10:08:48 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,9 +106,9 @@ libraries_norm:
 .PHONY: run
 run: all
 ifeq ($(OS), Darwin)
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
 else
-	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(DATASET)
+	$(CUR_DIR)/$(BIN)/$(NAME) $(LEVEL) $(MODE) $(DATASET)
 endif
 
 .PHONY: run_leaks

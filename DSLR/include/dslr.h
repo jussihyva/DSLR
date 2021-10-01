@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 14:00:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 12:52:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static const char	*g_hogwarts_house_array[NUMBER_OF_HOGWARTS_HOUSES] =
 	"Slytherin",
 	"Hufflepuff"
 };
+
+typedef enum e_influxdb_line_type
+{
+	E_INDEX_BASED,
+	E_SUBJECT_BASED
+}				t_influxdb_line_type;
 
 typedef enum e_mode
 {
@@ -198,8 +204,7 @@ void					influxdb_line_fields_create_2(
 							const char **const column_name_array,
 							const char **const value_array);
 void					influxdb_line_timestamp_create(
-							t_influxdb_line_element *timestamp_element,
-							const size_t utc_time_ms);
+							t_influxdb_line_element *timestamp_element);
 char					*backslash_chars_add(
 							const char *const special_chars,
 							const char *const string);
@@ -345,5 +350,20 @@ void					derivative_recalculate(
 							const t_matrix *const observed,
 							const t_matrix *const predicted,
 							const t_derivative *const derivative);
+void					input_param_mandatory_validate(
+							t_input_params *const input_params,
+							char opt,
+							t_argc_argv *argc_argv);
+size_t					influxdb_line_subject_based_create(
+							const char **const value_array,
+							const char **const column_name_array,
+							const size_t i,
+							t_queue *queue);
+size_t					influxdb_line_length_calculate(
+							t_influxdb_line_element *influxdb_line_element);
+const char				*elements_merge(
+							t_influxdb_line_element *const
+							influxdb_line_element,
+							const size_t length);
 
 #endif

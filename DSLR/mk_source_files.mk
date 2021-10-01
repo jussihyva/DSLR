@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/01 09:38:27 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/01 12:39:32 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_matrix_remove.c ft_vector_remove.c \
 							gradient_descent_remove.c derivative.c \
 							ft_file_path_create.c leayer.c \
-							ft_sigmoid.c
+							ft_sigmoid.c input_params_mandatory.c \
+							influxdb_line_subject_based.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
 GLOBAL_LIBS				=	libssl.a libcrypto.a

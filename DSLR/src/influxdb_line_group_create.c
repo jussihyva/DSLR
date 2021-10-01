@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 14:51:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/21 14:57:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 12:49:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static size_t	influxdb_line_length_calculate(
+size_t	influxdb_line_length_calculate(
 								t_influxdb_line_element *influxdb_line_element)
 {
 	size_t		length;
@@ -28,7 +28,7 @@ static size_t	influxdb_line_length_calculate(
 	return (length);
 }
 
-static const char	*elements_merge(
+const char	*elements_merge(
 					t_influxdb_line_element *const influxdb_line_element,
 					const size_t length)
 {
@@ -50,41 +50,9 @@ static const char	*elements_merge(
 	return (influxdb_line);
 }
 
-static const char	*influxdb_line_create_1(
-									const char **const value_array,
-									const char **const column_name_array,
-									const size_t i,
-									const size_t utc_time_ms)
-{
-	const char					*influxdb_line;
-	size_t						length;
-	const char					*hogwarts_house;
-	const char					*hogwarts_subject;
-	t_influxdb_line_element		influxdb_line_element
-											[NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
-
-	hogwarts_house = value_array[1];
-	hogwarts_subject = column_name_array[i];
-	influxdb_line = NULL;
-	ft_bzero(influxdb_line_element, sizeof(*influxdb_line_element)
-		* NUMBER_OF_INFLUXDB_LINE_ELEMENTS);
-	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
-		"dataset_train");
-	influxdb_line_tags_create(&influxdb_line_element[E_TAGS],
-		hogwarts_subject, hogwarts_house);
-	influxdb_line_fields_create(&influxdb_line_element[E_FIELDS],
-		value_array[0], value_array[i]);
-	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP],
-		utc_time_ms);
-	length = influxdb_line_length_calculate(influxdb_line_element);
-	influxdb_line = elements_merge(influxdb_line_element, length);
-	return (influxdb_line);
-}
-
 static const char	*influxdb_line_create_2(
 									const char **const value_array,
-									const char **const column_name_array,
-									const size_t utc_time_ms)
+									const char **const column_name_array)
 {
 	const char					*influxdb_line;
 	size_t						length;
@@ -104,8 +72,7 @@ static const char	*influxdb_line_create_2(
 		hogwarts_house);
 	influxdb_line_fields_create_2(&influxdb_line_element[E_FIELDS],
 		column_name_array, value_array);
-	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP],
-		utc_time_ms);
+	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP]);
 	length = influxdb_line_length_calculate(influxdb_line_element);
 	influxdb_line = elements_merge(influxdb_line_element, length);
 	return (influxdb_line);
@@ -120,28 +87,24 @@ static size_t	influxdb_line_lines_create(
 	const char		*influxdb_line;
 	size_t			i;
 	char			*endptr;
-	size_t			utc_time_ms;
 
 	if (!(ft_strtoi(value_array[0], &endptr, 10) % 20))
 		FT_LOG_INFO("%s", value_array[0]);
 	i = 5;
 	field_string_length_total = -1;
-	utc_time_ms = ft_gettime();
 	while (++i < 19)
 	{
 		if (*value_array[i])
 		{
-			influxdb_line = influxdb_line_create_1(value_array,
-					column_name_array, i, utc_time_ms);
-			ft_enqueue(influxdb_line_queue, (void *)influxdb_line);
-			field_string_length_total += ft_strlen(influxdb_line) + 1;
+			field_string_length_total
+				+= influxdb_line_subject_based_create(value_array,
+					column_name_array, i, influxdb_line_queue);
 		}
 		else
 			FT_LOG_DEBUG("Value of %s %s Check line (dataset file) %s",
-				column_name_array[i], "course is empty.", value_array[0]);
+				column_name_array[i], "subject is empty.", value_array[0]);
 	}
-	influxdb_line = influxdb_line_create_2(value_array, column_name_array,
-			utc_time_ms);
+	influxdb_line = influxdb_line_create_2(value_array, column_name_array);
 	ft_enqueue(influxdb_line_queue, (void *)influxdb_line);
 	field_string_length_total += ft_strlen(influxdb_line) + 1;
 	return (field_string_length_total);

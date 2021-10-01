@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 20:18:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:11:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/01 10:27:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,12 @@ void	influxdb_line_fields_create_2(
 }
 
 void	influxdb_line_timestamp_create(
-							t_influxdb_line_element *timestamp_element,
-							const size_t utc_time_ms)
+							t_influxdb_line_element *timestamp_element)
 {
+	size_t 		utc_time_ms;
 	char		string[100];
 
+	utc_time_ms = ft_gettime();
 	ft_sprintf(string, "%lu", utc_time_ms);
 	timestamp_element->string_length = ft_strlen(string);
 	timestamp_element->string = ft_strdup(string);
