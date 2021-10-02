@@ -1,39 +1,4 @@
 // LINUX
-// {
-// 	// Use IntelliSense to learn about possible attributes.
-// 	// Hover to view descriptions of existing attributes.
-// 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-// 	"version": "0.2.0",
-// 	"configurations": [
-// 		{
-// 			"name": "(lldb) Launch",
-// 			"type": "cppdbg",
-// 			"request": "launch",
-// 			"program": "${workspaceFolder}/DSLR/dslr",
-// 			// "args": [],
-// 			// "args": ["data/dataset_train.csv"],
-// 			"args": ["L", "data/dataset_train.csv"],
-// 			// "args": ["T", "data/dataset_test.csv"],
-// 			// "args": ["-I", "data/dataset_train.csv"],
-// 			"stopAtEntry": false,
-// 			"cwd": "${workspaceFolder}/DSLR",
-// 			"environment": [],
-// 			"externalConsole": false,
-// 			"MIMode": "gdb",
-// 			"setupCommands":
-// 			[
-// 				{
-// 					// "text": "settings set target.input-path ${workspaceFolder}/file.txt"
-// 					"description": "Enable pretty-printing for gdb",
-// 					"text": "-enable-pretty-printing",
-// 					"ignoreFailures": true
-// 				}
-// 			]
-// 		}
-// 	]
-// }
-
-// MAC-OS
 {
 	// Use IntelliSense to learn about possible attributes.
 	// Hover to view descriptions of existing attributes.
@@ -45,14 +10,49 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/DSLR/dslr",
-			// "args": ["-L", "0"],
-			// "args": ["--help"],
-			"args": ["-I", "L", "data/dataset_train.csv"],
+			// "args": [],
+			// "args": ["data/dataset_train.csv"],
+			"args": ["T", "data/dataset_train.csv"],
+			// "args": ["T", "data/dataset_test.csv"],
+			// "args": ["-I", "data/dataset_train.csv"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/DSLR",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "lldb"
+			"MIMode": "gdb",
+			"setupCommands":
+			[
+				{
+					// "text": "settings set target.input-path ${workspaceFolder}/file.txt"
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
 		}
 	]
 }
+
+// MAC-OS
+// {
+// 	// Use IntelliSense to learn about possible attributes.
+// 	// Hover to view descriptions of existing attributes.
+// 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+// 	"version": "0.2.0",
+// 	"configurations": [
+// 		{
+// 			"name": "(lldb) Launch",
+// 			"type": "cppdbg",
+// 			"request": "launch",
+// 			"program": "${workspaceFolder}/DSLR/dslr",
+// 			// "args": ["-L", "0"],
+// 			// "args": ["--help"],
+// 			"args": ["-I", "L", "data/dataset_train.csv"],
+// 			"stopAtEntry": false,
+// 			"cwd": "${workspaceFolder}/DSLR",
+// 			"environment": [],
+// 			"externalConsole": false,
+// 			"MIMode": "lldb"
+// 		}
+// 	]
+// }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 13:41:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 08:18:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,17 @@ static const t_matrix	*input_matrix_create(
 
 	matrix = ft_matrix_create(sizeof(double), number_of_columns,
 			number_of_rows);
-	i = 0;
+	i = number_of_rows - 1;
 	elem = value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
 		course_values_add((double **const)matrix->values, i, value_array);
-		i++;
 		elem = elem->next;
+		if (elem && !i)
+			FT_LOG_FATAL("Calculation errur during "
+				"setting up content of dataset!");
+		i--;
 	}
 	matrix_normalized = ft_matrix_normalize(matrix, E_DIR_ROW);
 	ft_matrix_remove(&matrix);
