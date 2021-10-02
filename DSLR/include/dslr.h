@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/02 22:08:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 22:26:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,10 @@ void					ft_vector_div_double(
 							const t_vector *const vector,
 							const double value,
 							t_vector *const new_vector);
+void					ft_matrix_div_double(
+							const t_matrix *const matrix,
+							const double value,
+							t_matrix *const new_matrix);
 void					ft_double_div_vector(
 							const double value,
 							const t_vector *const vector,
