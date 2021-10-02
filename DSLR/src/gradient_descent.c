@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/02 16:22:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 22:12:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static const t_matrix	*output_vector_create(
 
 	matrix = ft_matrix_create(sizeof(double), NUMBER_OF_HOGWARTS_HOUSES,
 			length);
-	i.columns = 0;
+	i.columns = length - 1;
 	elem = value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
 		if (*value_array[1])
 			index = house_index(value_array[1], &i, (double **)matrix->values);
-		i.columns++;
+		i.columns--;
 		elem = elem->next;
 	}
 	return (matrix);
@@ -101,7 +101,6 @@ static const t_matrix	*input_matrix_create(
 	matrix = ft_matrix_create(sizeof(double), number_of_columns,
 			number_of_rows);
 	i = number_of_rows - 1;
-	// i = 0;
 	elem = value_array_lst;
 	while (elem)
 	{
@@ -112,7 +111,6 @@ static const t_matrix	*input_matrix_create(
 			FT_LOG_FATAL("Calculation error during "
 				"setting up content of dataset!");
 		i--;
-		// i++;
 	}
 	matrix_normalized = ft_matrix_normalize(matrix, E_DIR_ROW);
 	ft_matrix_remove(&matrix);

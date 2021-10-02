@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:01:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 14:47:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 22:10:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	derivative_recalculate_weight(
 						const t_matrix *activation_input,
 						t_matrix *const weight)
 {
-	const t_vector		*activation_input_transposed;
+	const t_matrix		*activation_input_transposed;
 	t_matrix			*weight_prel;
 
 	weight_prel = ft_matrix_create(sizeof(double),
 			residual->size.rows, activation_input->size.rows);
-	activation_input_transposed = ft_vector_transpose(activation_input);
+	activation_input_transposed = ft_matrix_transpose(activation_input);
 	ft_matrix_dot_matrix(residual, activation_input_transposed,
 		weight_prel);
-	ft_vector_remove((t_vector **)&activation_input_transposed);
+	ft_matrix_remove((t_matrix **)&activation_input_transposed);
 	ft_vector_div_double(weight_prel, activation_input->size.columns, weight);
-	ft_vector_remove(&weight_prel);
+	ft_matrix_remove(&weight_prel);
 	return ;
 }
 

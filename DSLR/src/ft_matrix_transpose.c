@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 23:54:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/17 00:26:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 21:47:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_matrix	*ft_matrix_transpose(const t_matrix *const matrix)
 	new_matrix->size.rows = matrix->size.columns;
 	new_matrix->size.columns = matrix->size.rows;
 	new_matrix->values = ft_memalloc(sizeof(*new_matrix->values)
-			* matrix->size.columns);
+			* new_matrix->size.rows);
 	i = -1;
 	while (++i < new_matrix->size.rows)
 	{

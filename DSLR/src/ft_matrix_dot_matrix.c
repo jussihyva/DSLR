@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 23:12:40 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/24 11:52:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/02 21:56:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static double	matrix1_rows_multiple_matrix2_column_values(
 	result = 0;
 	i = -1;
 	while (++i < matrix2_rows)
-		result += matrix2_values[i][matrix2_column] * matrix1_row_values[i];
+		result += matrix1_row_values[i] * matrix2_values[i][matrix2_column];
 	return (result);
 }
 
