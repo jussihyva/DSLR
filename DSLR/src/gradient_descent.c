@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/02 22:12:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/03 19:45:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static size_t	house_index(
 					const char *const hogwarts_house,
-					t_vector_size *i,
+					const size_t column,
 					double **matrix_values)
 {
 	size_t	house_i;
@@ -32,38 +32,12 @@ static size_t	house_index(
 	}
 	if (index != -1)
 	{
-		i->rows = index;
-		matrix_values[i->rows][i->columns] = E_TRUE;
+		matrix_values[index][column] = E_TRUE;
 		FT_LOG_TRACE("House: %s", hogwarts_house);
 	}
 	else
 		FT_LOG_WARN("Unknown house: %s", hogwarts_house);
 	return (index);
-}
-
-static const t_matrix	*output_vector_create(
-									const size_t length,
-									const t_list *const value_array_lst)
-{
-	t_matrix		*matrix;
-	const t_list	*elem;
-	const char		**value_array;
-	t_vector_size	i;
-	int				index;
-
-	matrix = ft_matrix_create(sizeof(double), NUMBER_OF_HOGWARTS_HOUSES,
-			length);
-	i.columns = length - 1;
-	elem = value_array_lst;
-	while (elem)
-	{
-		value_array = *(const char ***)elem->content;
-		if (*value_array[1])
-			index = house_index(value_array[1], &i, (double **)matrix->values);
-		i.columns--;
-		elem = elem->next;
-	}
-	return (matrix);
 }
 
 static void	course_values_add(
@@ -87,34 +61,38 @@ static void	course_values_add(
 	return ;
 }
 
-static const t_matrix	*input_matrix_create(
-									const size_t number_of_rows,
-									const size_t number_of_columns,
-									const t_list *const value_array_lst)
+static void	input_data_add(
+					const t_dataset *const dataset,
+					t_gradient_descent *const gradient_descent)
 {
-	t_matrix		*matrix;
-	const t_matrix	*matrix_normalized;
+	t_matrix		*input_values;
 	const t_list	*elem;
 	const char		**value_array;
 	size_t			i;
 
-	matrix = ft_matrix_create(sizeof(double), number_of_columns,
-			number_of_rows);
-	i = number_of_rows - 1;
-	elem = value_array_lst;
+	input_values = ft_matrix_create(sizeof(double), NUMBER_OF_HOGWARTS_COURSES,
+			dataset->number_of_rows);
+	gradient_descent->observed = ft_matrix_create(sizeof(double),
+			NUMBER_OF_HOGWARTS_HOUSES, dataset->number_of_rows);
+	i = dataset->number_of_rows - 1;
+	elem = dataset->value_array_lst;
 	while (elem)
 	{
 		value_array = *(const char ***)elem->content;
-		course_values_add((double **const)matrix->values, i, value_array);
+		if (*value_array[1])
+			house_index(value_array[1], i,
+				(double **)gradient_descent->observed->values);
+		course_values_add((double **const)input_values->values, i, value_array);
 		elem = elem->next;
 		if (elem && !i)
 			FT_LOG_FATAL("Calculation error during "
 				"setting up content of dataset!");
 		i--;
 	}
-	matrix_normalized = ft_matrix_normalize(matrix, E_DIR_ROW);
-	ft_matrix_remove(&matrix);
-	return (matrix_normalized);
+	gradient_descent->input_values = ft_matrix_normalize(input_values,
+			E_DIR_ROW);
+	ft_matrix_remove(&input_values);
+	return ;
 }
 
 t_gradient_descent	*gradient_descent_initialize(
@@ -122,15 +100,13 @@ t_gradient_descent	*gradient_descent_initialize(
 									const t_dataset *const dataset)
 {
 	t_gradient_descent		*gradient_descent;
+	// size_t					number_of_valid_lines;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
 	{
-		gradient_descent->observed = output_vector_create(
-				dataset->number_of_rows, dataset->value_array_lst);
-		gradient_descent->input_values
-			= input_matrix_create(dataset->number_of_rows,
-				NUMBER_OF_HOGWARTS_COURSES, dataset->value_array_lst);
+		// number_of_valid_lines = input_data_validate(dataset);
+		input_data_add(dataset, gradient_descent);
 		gradient_descent->weight = ft_matrix_create(sizeof(double),
 				NUMBER_OF_HOGWARTS_HOUSES, NUMBER_OF_HOGWARTS_COURSES);
 		gradient_descent->bias = ft_vector_create(sizeof(double),
