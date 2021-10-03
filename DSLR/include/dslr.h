@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/02 22:26:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/03 09:50:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <float.h>
 
 # define NUMBER_OF_INFLUXDB_TOKENS			2
 # define INFLUXDB_CONNECTION_PROTOCOL		E_TLS
@@ -377,5 +378,13 @@ const t_matrix			*predict(
 							const t_matrix *const activation_input,
 							const t_vector *bias,
 							const t_matrix *const weight);
+void					gradient_descent_predict(
+							t_gradient_descent *const gradient_descent);
+const t_vector			*ft_matrix_argmax(
+							const t_matrix *const matrix,
+							const t_vector_type vector_type);
+void					ft_vector_set(
+							t_vector *const vector,
+							const double value);
 
 #endif

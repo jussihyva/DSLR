@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 20:27:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/03 09:53:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main(
 	const t_input_params		*input_params;
 	const t_tcp_connection		*connection;
 	t_gradient_descent			*gradient_descent;
-	const t_matrix				*predicted;
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
@@ -83,18 +82,9 @@ int	main(
 	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
 			input_params->dataset);
 	if (input_params->mode == E_LEARNING_MODE)
-	{
 		gradient_descent_iteration(E_LOGISTIC, gradient_descent);
-	}
 	else if (input_params->mode == E_TEST_MODE)
-	{
-		weight_bias_read(&gradient_descent->weight, &gradient_descent->bias);
-		ft_matrix_print("BIAS", gradient_descent->bias, E_DOUBLE);
-		ft_matrix_print("WEIGHT", gradient_descent->weight, E_DOUBLE);
-		predicted = predict(E_LOGISTIC, gradient_descent->input_values,
-				gradient_descent->bias, gradient_descent->weight);
-		ft_matrix_print("PREDICTED", ft_matrix_transpose(predicted), E_DOUBLE);
-	}
+		gradient_descent_predict(gradient_descent);
 	main_remove(&arg_parser, &input_params, &connection, &gradient_descent);
 	return (0);
 }
