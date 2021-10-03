@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 09:50:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/03 12:28:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define LEARNING_RATE						0.2
 # define ITERATION_LOOP						10000
 # define WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
+# define HOUSES_RESULT_FILE_NAME			"houses.csv"
 # define WRITE_BUF_SIZE						1000
 # define SUB_STRING_MAX_LENGTH				100
 # define LEARNING_MODE						"L"
