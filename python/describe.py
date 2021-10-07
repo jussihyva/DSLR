@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/06 18:46:43 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/07 14:55:59 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,22 +14,13 @@ import os
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
+from CmdArguments import *
 
 def usage():
 	print("python3 describe.py dataset_file.csv")
 
-def read_cmd_arguments():
-	input_params = {}
-	if len(sys.argv) != 2:
-		usage()
-		exit(42)
-	else:
-		input_params.update({"dataset_file": sys.argv[1]})
-	return (input_params)
-
-def describe(dataset_file):
+def describe(dataset_file, transpose):
 	my_data = pd.read_csv(dataset_file)
-	print(my_data.columns)
 	hogwarts_subjects = my_data[["Arithmancy", "Astronomy", "Herbology", \
 		"Defense Against the Dark Arts", "Divination", 'Muggle Studies', \
        'Ancient Runes', 'History of Magic', 'Transfiguration', 'Potions', \
@@ -50,7 +41,10 @@ def describe(dataset_file):
 	# print(hogwarts_subjects["Defense Against the Dark Arts"])
 	# hogwarts_subjects = hogwarts_subjects.fillna(hogwarts_subjects.mean())
 	# print(hogwarts_subjects["Defense Against the Dark Arts"])
-	print(my_describe_df)
+	if transpose:
+		print(my_describe_df.T)
+	else:
+		print(my_describe_df)
 	# f, ax = plt.subplots()
 	# ax.bar(x=my_data["Index"],
 	# 	height=my_data["Arithmancy"],
@@ -59,6 +53,6 @@ def describe(dataset_file):
 	# plt.show()
 
 if __name__ == "__main__":
-	input_params = read_cmd_arguments()
-	describe(input_params["dataset_file"])
-
+	cmdArguments = CmdArguments()
+	inputParams = cmdArguments.get_arguments()
+	describe(inputParams.dataset_file, inputParams.Transpose)
