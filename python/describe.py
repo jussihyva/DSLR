@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/08 11:10:39 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/08 14:31:57 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
-
-def usage():
-	print("python3 describe.py dataset_file.csv")
 
 def createDescribeList(hogwartsSubjects):
 	describe_list = {}
