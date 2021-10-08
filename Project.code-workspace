@@ -18,6 +18,7 @@
 			"tf_tensor.h": "c",
 			"tf_file_statistics.h": "c",
 			"ctstring.h": "c"
-		}
+		},
+		"python.pythonPath": "/usr/local/bin/python3"
 	}
 }
