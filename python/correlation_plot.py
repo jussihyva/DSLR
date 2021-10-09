@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    scatter_plot.py                                    :+:      :+:    :+:    #
+#    correlation_plot.py                                :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 10:18:43 by jkauppi          ###   ########.fr        #
+#    Created: 2021/10/09 10:38:42 by jkauppi           #+#    #+#              #
+#    Updated: 2021/10/09 10:52:10 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,26 +14,30 @@ import os
 import sys
 from matplotlib import colors
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
 
-def scatter_plot(dataset_file):
+def correlation_plot(dataset_file):
 	dataset = pd.read_csv(dataset_file)
 	hogwartsSubjects = HogwartsSubjects(dataset)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
-	axes = pd.plotting.scatter_matrix(hogwartsSubjects_df, alpha=0.2, 
-		diagonal="kde")
-	for ax in axes.flatten():
-		ax.xaxis.label.set_rotation(0)
-		ax.yaxis.label.set_rotation(0)
-		ax.set_xticklabels([])
-		ax.set_yticklabels([])
-	plt.tight_layout()
-	plt.gcf().subplots_adjust(wspace=0, hspace=0)
+	subjects = hogwartsSubjects.getSubjectList()
+	numOfSubjects = hogwartsSubjects.getNumOfSubjects()
+	correlations = hogwartsSubjects_df.corr()
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	cax = ax.matshow(correlations, vmin=-1, vmax=1)
+	fig.colorbar(cax)
+	ticks = np.arange(0, numOfSubjects, 1)
+	ax.set_xticks(ticks)
+	ax.set_yticks(ticks)
+	ax.set_xticklabels(subjects, rotation=40)
+	ax.set_yticklabels(subjects)
 	plt.show()
 
 if __name__ == "__main__":
-	cmdArguments = CmdArguments_histogram()
+	cmdArguments = CmdArguments_correlation()
 	inputParams = cmdArguments.get_arguments()
-	scatter_plot(inputParams.dataset_file)
+	correlation_plot(inputParams.dataset_file)
