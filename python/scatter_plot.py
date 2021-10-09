@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 10:18:43 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/09 14:26:00 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,6 @@ def scatter_plot(dataset_file):
 	plt.show()
 
 if __name__ == "__main__":
-	cmdArguments = CmdArguments_histogram()
-	inputParams = cmdArguments.get_arguments()
+	cmdArguments = CmdArguments_scatter()
+	inputParams = cmdArguments.getArguments()
 	scatter_plot(inputParams.dataset_file)

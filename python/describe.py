@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/08 14:31:57 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/09 14:24:14 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,5 +45,5 @@ def describe(dataset_file, transpose):
 
 if __name__ == "__main__":
 	cmdArguments = CmdArguments_describe()
-	inputParams = cmdArguments.get_arguments()
+	inputParams = cmdArguments.getArguments()
 	describe(inputParams.dataset_file, inputParams.Transpose)

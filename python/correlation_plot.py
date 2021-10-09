@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 10:38:42 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 10:52:10 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/09 14:26:10 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,5 +39,5 @@ def correlation_plot(dataset_file):
 
 if __name__ == "__main__":
 	cmdArguments = CmdArguments_correlation()
-	inputParams = cmdArguments.get_arguments()
+	inputParams = cmdArguments.getArguments()
 	correlation_plot(inputParams.dataset_file)

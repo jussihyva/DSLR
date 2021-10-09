@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 18:49:56 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/08 14:31:49 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/09 14:25:55 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,5 +26,5 @@ def histogram(dataset_file):
 
 if __name__ == "__main__":
 	cmdArguments = CmdArguments_histogram()
-	inputParams = cmdArguments.get_arguments()
+	inputParams = cmdArguments.getArguments()
 	histogram(inputParams.dataset_file)
