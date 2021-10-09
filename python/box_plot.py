@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 10:24:10 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 14:51:48 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/09 15:55:55 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ def box_plot(dataset_file):
 	hogwartsSubjects = HogwartsSubjects(dataset)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	numOfSubjects = hogwartsSubjects.getNumOfSubjects()
+	columns = round(sqrt(hogwartsSubjects_df.shape[1]))
+	title = "Overview of Hogwards courses (Boxplot)"
 	hogwartsSubjects_df.plot(kind='box', subplots=True,
-		layout=(4, 4), sharex=False, sharey=False)
+		layout=(columns, 4), sharex=False, sharey=False, title=title)
 	plt.show()
 
 if __name__ == "__main__":
