@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dataset_send_to_influxdb.c                         :+:      :+:    :+:   */
+/*   dataset_validate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:10:29 by jkauppi          ###   ########.fr       */
+/*   Created: 2021/10/11 15:11:07 by jkauppi           #+#    #+#             */
+/*   Updated: 2021/10/11 17:26:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-void	dataset_send_to_influxdb(
-							const t_tcp_connection *const connection,
-							const t_dataset *const dataset)
+size_t	dataset_validate(const t_dataset *const dataset)
 {
-	const char			*influxdb_lines;
+	size_t				number_of_valid_examples;
 	t_list				*elem;
 	const t_example		*example;
-	t_bool				result;
 
+	number_of_valid_examples = 0;
 	elem = dataset->example_lst;
 	while (elem)
 	{
 		example = *(const t_example **)elem->content;
-		influxdb_lines = influxdb_line_group_create(dataset->column_name_array,
-				example->value_array);
-		if (influxdb_lines)
-		{
-			result = ft_influxdb_write(connection, influxdb_lines,
-					g_influxdb_token_array, NUMBER_OF_INFLUXDB_TOKENS);
-			if (!result)
-				FT_LOG_ERROR("Sending of data to an influxdb failed!");
-			ft_strdel((char **)&influxdb_lines);
-		}
-		elem = elem->next;
 	}
-	return ;
+	return (number_of_valid_examples);
 }

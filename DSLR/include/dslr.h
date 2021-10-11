@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 12:47:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 17:18:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,13 @@ typedef struct s_file_params
 	char	*line;
 }				t_file_params;
 
+typedef struct s_example
+{
+	const char	**value_array;
+	t_bool		are_all_values_valid;
+	t_bool		*validity_array;
+}				t_example;
+
 typedef enum e_regression_type
 {
 	E_LINEAR,
@@ -135,7 +142,7 @@ typedef struct s_dataset
 	size_t			*column_length_array;
 	size_t			number_of_columns;
 	size_t			number_of_rows;
-	t_list			*value_array_lst;
+	t_list			*example_lst;
 }				t_dataset;
 
 typedef struct s_input_params

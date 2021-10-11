@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/20 07:09:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 17:48:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,29 @@ static void	create_column_arrays(
 
 static void	dataset_save_record(
 							const char *const line,
-							t_list **const value_array_lst,
+							t_list **const example_lst,
 							const size_t number_of_columns)
 {
 	size_t			number_of_values;
-	const char		**value_array;
 	const t_list	*new_elem;
+	t_example		*example;
 
-	value_array = (const char **)ft_strsplit_ex(line, ',', &number_of_values);
-	ft_strarray_trim(value_array);
+	example = ft_memalloc(sizeof(*example));
+	example->value_array = (const char **)ft_strsplit_ex(line, ',',
+			&number_of_values);
+	ft_strarray_trim(example->value_array);
 	if (number_of_values != number_of_columns)
 	{
 		if (ft_log_get_level() <= LOG_TRACE)
-			ft_strarray_print(value_array);
+			ft_strarray_print(example->value_array);
 		ft_printf("%s\n", line);
 		FT_LOG_FATAL("FATAL: %u\n", number_of_values);
 	}
-	new_elem = ft_lstnew(&value_array, sizeof(value_array));
-	ft_lstadd(value_array_lst, (t_list *)new_elem);
+	new_elem = ft_lstnew(&example, sizeof(example));
+	ft_lstadd(example_lst, (t_list *)new_elem);
 	FT_LOG_DEBUG("%s\n", line);
 	if (ft_log_get_level() <= LOG_TRACE)
-		ft_strarray_print(value_array);
+		ft_strarray_print(example->value_array);
 	return ;
 }
 
@@ -81,7 +83,7 @@ static const t_dataset	*dataset_read_file(
 		if (dataset->number_of_rows == 0)
 			create_column_arrays(file_params.line, dataset);
 		else
-			dataset_save_record(file_params.line, &dataset->value_array_lst,
+			dataset_save_record(file_params.line, &dataset->example_lst,
 				dataset->number_of_columns);
 		ft_strdel((char **)&file_params.line);
 	}
@@ -101,10 +103,11 @@ const t_dataset	*dataset_initialize(
 
 void	dataset_value_array_remove(void *content, size_t size)
 {
-	const char		***value_array;
+	const t_example		*example;
 
 	(void)size;
-	value_array = (const char ***)content;
-	ft_strarraydel(value_array);
+	example = *(const t_example **)content;
+	ft_strarraydel((const char ***)&example->value_array);
+	ft_memdel((void **)&example);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 19:45:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 17:24:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,25 @@ static void	input_data_add(
 					const t_dataset *const dataset,
 					t_gradient_descent *const gradient_descent)
 {
-	t_matrix		*input_values;
-	const t_list	*elem;
-	const char		**value_array;
-	size_t			i;
+	t_matrix			*input_values;
+	const t_list		*elem;
+	const t_example		*example;
+	size_t				i;
 
 	input_values = ft_matrix_create(sizeof(double), NUMBER_OF_HOGWARTS_COURSES,
 			dataset->number_of_rows);
 	gradient_descent->observed = ft_matrix_create(sizeof(double),
 			NUMBER_OF_HOGWARTS_HOUSES, dataset->number_of_rows);
 	i = dataset->number_of_rows - 1;
-	elem = dataset->value_array_lst;
+	elem = dataset->example_lst;
 	while (elem)
 	{
-		value_array = *(const char ***)elem->content;
-		if (*value_array[1])
-			house_index(value_array[1], i,
+		example = *(const t_example **)elem->content;
+		if (*example->value_array[1])
+			house_index(example->value_array[1], i,
 				(double **)gradient_descent->observed->values);
-		course_values_add((double **const)input_values->values, i, value_array);
+		course_values_add((double **const)input_values->values, i,
+			example->value_array);
 		elem = elem->next;
 		if (elem && !i)
 			FT_LOG_FATAL("Calculation error during "
@@ -100,12 +101,12 @@ t_gradient_descent	*gradient_descent_initialize(
 									const t_dataset *const dataset)
 {
 	t_gradient_descent		*gradient_descent;
-	// size_t					number_of_valid_lines;
+	// size_t					number_of_valid_examples;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
 	{
-		// number_of_valid_lines = input_data_validate(dataset);
+		// number_of_valid_examples = dataset_validate(dataset);
 		input_data_add(dataset, gradient_descent);
 		gradient_descent->weight = ft_matrix_create(sizeof(double),
 				NUMBER_OF_HOGWARTS_HOUSES, NUMBER_OF_HOGWARTS_COURSES);
