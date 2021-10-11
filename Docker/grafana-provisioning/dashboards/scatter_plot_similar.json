@@ -192,7 +192,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -369,7 +369,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -458,7 +458,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -546,7 +546,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -634,7 +634,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -722,7 +722,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -810,7 +810,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -904,7 +904,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -998,7 +998,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -1092,7 +1092,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -1186,7 +1186,7 @@
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "Defense Against the Dark Arts",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -1273,14 +1273,14 @@
 		  "rotateYAxisTitle": false,
 		  "xAxis": {
 			"col": 2,
-			"inverted": true
+			"inverted": false
 		  },
 		  "xAxisExtents": {
 			"min": null,
 			"max": null
 		  },
 		  "xAxisTitle": {
-			"text": "Dataset index",
+			"text": "",
 			"color": "white",
 			"textSize": 1
 		  },
@@ -1289,7 +1289,7 @@
 			"max": null
 		  },
 		  "yAxisTitle": {
-			"text": "Value",
+			"text": "",
 			"color": "#777",
 			"textSize": 1
 		  }

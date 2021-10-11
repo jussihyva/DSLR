@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 15:03:19 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/11 14:12:25 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,10 @@ import argparse
 class CmdArguments:
 	def __init__(self):
 		pass
+
+	def _create_parser(self, description):
+		parser = argparse.ArgumentParser(description = description)
+		return parser
 
 	def __add_common_arguments(self, parser):
 		parser.add_argument("dataset_file", help = "Dataset file", default = "")
@@ -31,31 +35,32 @@ class CmdArguments:
 class CmdArguments_describe(CmdArguments):
 	def __init__(self):
 		CmdArguments.__init__(self)
-		parser = argparse.ArgumentParser(description = "describe prints basic informtion about a content of a dataset file.")
-		parser.add_argument("-T", "--Transpose", help = "Transposed printout", action=argparse.BooleanOptionalAction, required = False, default = False)
+		parser = self._create_parser("describe prints basic informtion about a content of a dataset file.")
+		parser.add_argument("-T", "--Transpose", help = "Transposed printout",
+			action=argparse.BooleanOptionalAction, required = False, default = False)
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_histogram(CmdArguments):
 	def __init__(self):
-		parser = argparse.ArgumentParser(description = "histogram visualize basic informtion about a content of a dataset file.")
+		parser = self._create_parser("histogram visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_scatter(CmdArguments):
 	def __init__(self):
-		parser = argparse.ArgumentParser(description = "scatter visualize basic informtion about a content of a dataset file.")
+		parser = self._create_parser("scatter visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_box(CmdArguments):
 	def __init__(self):
-		parser = argparse.ArgumentParser(description = "whisker visualize basic informtion about a content of a dataset file.")
+		parser = self._create_parser("box visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_correlation(CmdArguments):
 	def __init__(self):
-		parser = argparse.ArgumentParser(description = "correlation visualize basic informtion about a content of a dataset file.")
+		parser = self._create_parser("correlation visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None

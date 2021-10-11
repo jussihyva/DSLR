@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 09:43:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 09:47:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 12:53:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	input_param_mandatory_validate(
 								t_argc_argv *argc_argv)
 {
 	const char		*arg;
+	char			*arg_upper;
 	const char		*dataset_file_path;
 
 	(void)opt;
@@ -46,12 +47,14 @@ void	input_param_mandatory_validate(
 	}
 	else if (((*argc_argv->argc) - argc_argv->i) == 2)
 	{
-		if (ft_strequ(arg, LEARNING_MODE))
+		arg_upper = ft_str_toupper(arg);
+		if (ft_strequ(arg_upper, TRAIN_MODE))
 			input_params->mode = E_LEARNING_MODE;
-		else if (ft_strequ(arg, TEST_MODE))
+		else if (ft_strequ(arg_upper, TEST_MODE))
 			input_params->mode = E_TEST_MODE;
 		else
 			usage_print();
+		ft_strdel(&arg_upper);
 	}
 	else
 		usage_print();

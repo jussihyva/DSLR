@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 12:28:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 12:47:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define HOUSES_RESULT_FILE_NAME			"houses.csv"
 # define WRITE_BUF_SIZE						1000
 # define SUB_STRING_MAX_LENGTH				100
-# define LEARNING_MODE						"L"
-# define TEST_MODE							"T"
+# define TRAIN_MODE							"TRAIN"
+# define TEST_MODE							"TEST"
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
@@ -387,5 +387,6 @@ const t_vector			*ft_matrix_argmax(
 void					ft_vector_set(
 							t_vector *const vector,
 							const double value);
+char					*ft_str_toupper(const char *const str);
 
 #endif
