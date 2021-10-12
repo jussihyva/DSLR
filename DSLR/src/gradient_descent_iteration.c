@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 14:01:23 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 21:01:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	gradient_descent_iteration(
 	derivative = derivative_initialize(&weight_size, &bias_size);
 	if (regression_type == E_LOGISTIC)
 	{
-		i = 0;
-		while (++i <= ITERATION_LOOP)
+		i = -1;
+		while (++i < ITERATION_LOOP)
 		{
 			leayer_calculate(regression_type, gradient_descent, derivative);
-			if (ft_log_get_level() <= LOG_INFO)
+			if (ft_log_get_level() <= LOG_INFO && !(i % 100))
 				ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 		}
 	}
