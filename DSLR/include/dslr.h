@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:18:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 19:53:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,5 +395,6 @@ void					ft_vector_set(
 							t_vector *const vector,
 							const double value);
 char					*ft_str_toupper(const char *const str);
+size_t					dataset_validate(const t_dataset *const dataset);
 
 #endif

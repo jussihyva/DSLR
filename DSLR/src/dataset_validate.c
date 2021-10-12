@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:11:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:26:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 19:53:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ size_t	dataset_validate(const t_dataset *const dataset)
 	while (elem)
 	{
 		example = *(const t_example **)elem->content;
+		elem = elem->next;
 	}
 	return (number_of_valid_examples);
 }

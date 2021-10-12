@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:24:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/11 19:53:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ t_gradient_descent	*gradient_descent_initialize(
 									const t_dataset *const dataset)
 {
 	t_gradient_descent		*gradient_descent;
-	// size_t					number_of_valid_examples;
+	size_t					number_of_valid_examples;
 
 	gradient_descent = ft_memalloc(sizeof(*gradient_descent));
 	if (regression_type == E_LOGISTIC)
 	{
-		// number_of_valid_examples = dataset_validate(dataset);
+		number_of_valid_examples = dataset_validate(dataset);
 		input_data_add(dataset, gradient_descent);
 		gradient_descent->weight = ft_matrix_create(sizeof(double),
 				NUMBER_OF_HOGWARTS_HOUSES, NUMBER_OF_HOGWARTS_COURSES);

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:50:47 by jkauppi           #+#    #+#              #
-#    Updated: 2021/09/29 10:21:04 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/11 19:42:19 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,5 +25,5 @@ endif
 ifdef M
 	MODE			=	$(M)
 else
-	MODE			=	L
+	MODE			=	TRAIN
 endif
