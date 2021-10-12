@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 19:53:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 13:00:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ typedef struct s_file_params
 
 typedef struct s_example
 {
-	const char	**value_array;
-	t_bool		are_all_values_valid;
-	t_bool		*validity_array;
+	const char		**value_array;
+	double			*double_value_array;
+	t_bool			are_all_values_valid;
+	t_bool			*validity_array;
 }				t_example;
 
 typedef enum e_regression_type
@@ -135,14 +136,21 @@ typedef struct s_influxdb_line_element
 	size_t		string_length;
 }				t_influxdb_line_element;
 
+typedef struct s_dataset_stat
+{
+	double		*sum_array;
+	size_t		*num_of_values_array;
+	double		*mean_array;
+}				t_dataset_stat;
+
 typedef struct s_dataset
 {
-	const char		*file_path;
-	const char		**column_name_array;
-	size_t			*column_length_array;
-	size_t			number_of_columns;
-	size_t			number_of_rows;
-	t_list			*example_lst;
+	const char				*file_path;
+	const char				**column_name_array;
+	size_t					number_of_columns;
+	size_t					number_of_rows;
+	t_list					*example_lst;
+	const t_dataset_stat	*stat;
 }				t_dataset;
 
 typedef struct s_input_params
@@ -185,7 +193,8 @@ const t_dataset			*dataset_initialize(
 const char				**ft_strsplit_ex(
 							char const *s,
 							const char c,
-							size_t *const num_of_words);
+							size_t *const num_of_words,
+							t_bool do_trim);
 void					dataset_value_array_remove(
 							void *contnet,
 							size_t size);
@@ -395,6 +404,12 @@ void					ft_vector_set(
 							t_vector *const vector,
 							const double value);
 char					*ft_str_toupper(const char *const str);
-size_t					dataset_validate(const t_dataset *const dataset);
+void					example_validate_and_statistics_update(
+							t_example *const example,
+							const size_t number_of_values,
+							const t_dataset_stat *stat);
+const t_dataset_stat	*dataset_stat_initialize(
+							const size_t number_of_columns);
+void					dataaset_stat_remove(t_dataset_stat **stat);
 
 #endif

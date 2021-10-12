@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:06:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 12:33:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ void	input_param_save(
 void	input_params_remove(
 						const t_input_params **input_params)
 {
-	if ((*input_params)->dataset)
+	const t_dataset	*dataset;
+
+	dataset = (*input_params)->dataset;
+	if (dataset)
 	{
-		ft_strdel((char **)&(*input_params)->dataset->file_path);
-		ft_memdel((void **)&(*input_params)->dataset->column_length_array);
-		ft_strarraydel((const char ***const)&(*input_params)->dataset
-			->column_name_array);
-		ft_lstdel((t_list **)&(*input_params)->dataset->example_lst,
-			dataset_value_array_remove);
+		ft_strdel((char **)&dataset->file_path);
+		ft_strarraydel((const char ***const)&dataset->column_name_array);
+		ft_lstdel((t_list **)&dataset->example_lst, dataset_value_array_remove);
+		dataaset_stat_remove((t_dataset_stat **)&dataset->stat);
 		ft_memdel((void **)&(*input_params)->dataset);
 	}
 	ft_logging_release(

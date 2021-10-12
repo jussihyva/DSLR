@@ -6,11 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 17:55:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/27 18:11:23 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 10:34:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "dslr.h"
 
 static size_t	count_number_of_values(const char *str, const char delim)
 {
@@ -30,21 +30,33 @@ static size_t	count_number_of_values(const char *str, const char delim)
 
 static char	*read_value(
 					const char *start_ptr,
-					const char *end_ptr)
+					const char *end_ptr,
+					t_bool do_trim)
 {
 	char	*value;
+	char	*prel_value;
 
 	if (start_ptr == end_ptr)
 		value = ft_strdup("");
 	else
-		value = ft_strsub(start_ptr, 0, end_ptr - start_ptr);
+	{
+		prel_value = ft_strsub(start_ptr, 0, end_ptr - start_ptr);
+		if (do_trim)
+		{
+			value = ft_strtrim(prel_value);
+			ft_strdel(&prel_value);
+		}
+		else
+			value = prel_value;
+	}
 	return (value);
 }
 
 static void	parse_and_save_values(
 							const char *const str,
 							const char delim,
-							char **value_array)
+							char **value_array,
+							t_bool do_trim)
 {
 	const char		*start_ptr;
 	const char		*end_ptr;
@@ -57,25 +69,26 @@ static void	parse_and_save_values(
 	{
 		if (*end_ptr == delim)
 		{
-			value_array[i++] = read_value(start_ptr, end_ptr);
+			value_array[i++] = read_value(start_ptr, end_ptr, do_trim);
 			start_ptr = end_ptr + 1;
 		}
 		end_ptr++;
 	}
 	if (str != end_ptr)
-		value_array[i++] = read_value(start_ptr, end_ptr);
+		value_array[i++] = read_value(start_ptr, end_ptr, do_trim);
 	return ;
 }
 
 const char	**ft_strsplit_ex(
 					const char *const s,
 					const char c,
-					size_t *const number_of_values)
+					size_t *const number_of_values,
+					t_bool do_trim)
 {
 	char		**value_array;
 
 	*number_of_values = count_number_of_values(s, c);
 	value_array = ft_memalloc(sizeof(*value_array) * (*number_of_values + 1));
-	parse_and_save_values(s, c, value_array);
+	parse_and_save_values(s, c, value_array, do_trim);
 	return ((const char **)value_array);
 }

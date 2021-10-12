@@ -6,24 +6,50 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:11:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 19:53:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 13:09:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-size_t	dataset_validate(const t_dataset *const dataset)
+static void	statistics_update(
+						const t_dataset_stat *const stat,
+						const double value,
+						size_t i)
 {
-	size_t				number_of_valid_examples;
-	t_list				*elem;
-	const t_example		*example;
+	stat->sum_array[i] += value;
+	stat->num_of_values_array[i]++;
+	return ;
+}
 
-	number_of_valid_examples = 0;
-	elem = dataset->example_lst;
-	while (elem)
+void	example_validate_and_statistics_update(
+					t_example *const example,
+					const size_t number_of_values,
+					const t_dataset_stat *stat)
+{
+	size_t		i;
+	char		*endptr;
+	double		value;
+
+	example->are_all_values_valid = E_TRUE;
+	example->validity_array = ft_memalloc(sizeof(*example->validity_array)
+			* number_of_values);
+	example->double_value_array
+		= ft_memalloc(sizeof(*example->double_value_array)
+			* number_of_values);
+	i = -1;
+	while (++i < number_of_values)
 	{
-		example = *(const t_example **)elem->content;
-		elem = elem->next;
+		errno = 0;
+		value = strtod(example->value_array[i], &endptr);
+		if (errno == 0 && *endptr == '\0')
+		{
+			example->double_value_array[i] = value;
+			example->validity_array[i] = E_TRUE;
+			statistics_update(stat, value, i);
+		}
+		else
+			example->are_all_values_valid = E_FALSE;
 	}
-	return (number_of_valid_examples);
+	return ;
 }

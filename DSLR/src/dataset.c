@@ -6,42 +6,35 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:48:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 13:00:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
-static void	create_column_arrays(
+static const char	**create_column_arrays(
 						const char *const line,
-						t_dataset *const dataset)
+						size_t *number_of_columns)
 {
-	const char		*column_name;
+	const char		**column_name_array;
 	size_t			i;
 
-	dataset->column_name_array = (const char **)ft_strsplit_ex(line, ',',
-			&dataset->number_of_columns);
-	dataset->column_length_array
-		= ft_memalloc(sizeof(*dataset->column_length_array)
-			* (dataset->number_of_columns + 1));
+	column_name_array = (const char **)ft_strsplit_ex(line, ',',
+			number_of_columns, E_FALSE);
 	FT_LOG_INFO("%s", line);
 	FT_LOG_INFO("Columns:");
 	i = -1;
-	while (++i < dataset->number_of_columns)
-	{
-		column_name = dataset->column_name_array[i];
-		FT_LOG_INFO("  %s", column_name);
-		if (column_name)
-			dataset->column_length_array[i] = ft_strlen(column_name);
-	}
-	FT_LOG_INFO("Number of columns: %d", dataset->number_of_columns);
-	return ;
+	while (++i < *number_of_columns)
+		FT_LOG_INFO("  %s", column_name_array[i]);
+	FT_LOG_INFO("Number of columns: %d", *number_of_columns);
+	return (column_name_array);
 }
 
 static void	dataset_save_record(
 							const char *const line,
 							t_list **const example_lst,
-							const size_t number_of_columns)
+							const size_t number_of_columns,
+							const t_dataset_stat *stat)
 {
 	size_t			number_of_values;
 	const t_list	*new_elem;
@@ -49,8 +42,8 @@ static void	dataset_save_record(
 
 	example = ft_memalloc(sizeof(*example));
 	example->value_array = (const char **)ft_strsplit_ex(line, ',',
-			&number_of_values);
-	ft_strarray_trim(example->value_array);
+			&number_of_values, E_TRUE);
+	example_validate_and_statistics_update(example, number_of_values, stat);
 	if (number_of_values != number_of_columns)
 	{
 		if (ft_log_get_level() <= LOG_TRACE)
@@ -81,10 +74,14 @@ static const t_dataset	*dataset_read_file(
 	{
 		dataset->number_of_rows++;
 		if (dataset->number_of_rows == 0)
-			create_column_arrays(file_params.line, dataset);
+		{
+			dataset->column_name_array = create_column_arrays(file_params.line,
+					&dataset->number_of_columns);
+			dataset->stat = dataset_stat_initialize(dataset->number_of_columns);
+		}
 		else
 			dataset_save_record(file_params.line, &dataset->example_lst,
-				dataset->number_of_columns);
+				dataset->number_of_columns, dataset->stat);
 		ft_strdel((char **)&file_params.line);
 	}
 	ft_strdel((char **)&file_params.line);
@@ -108,6 +105,8 @@ void	dataset_value_array_remove(void *content, size_t size)
 	(void)size;
 	example = *(const t_example **)content;
 	ft_strarraydel((const char ***)&example->value_array);
+	ft_memdel((void **)&example->validity_array);
+	ft_memdel((void **)&example->double_value_array);
 	ft_memdel((void **)&example);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:01:46 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/30 14:32:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/12 11:01:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	parse_weight_bias_values(
 	size_t			num_of_values;
 	size_t			i;
 
-	param_value = ft_strsplit_ex(line, ':', &num_of_values);
+	param_value = ft_strsplit_ex(line, ':', &num_of_values, E_FALSE);
 	if (num_of_values != (NUMBER_OF_HOGWARTS_COURSES + 1))
 		FT_LOG_ERROR("Content of the file %s (line=%lu) is not valid!",
 			WEIGHT_BIAS_FILE_NAME, line_nbr);
