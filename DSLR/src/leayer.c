@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:19:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 20:21:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:38:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	print_shapes(
 static void	update_weight_and_bias(
 							const t_derivative *const derivative,
 							t_vector *const weight,
-							t_vector *const bias)
+							t_vector *const bias,
+							const double learning_rate)
 {
 	t_vector_size	i;
 
@@ -34,12 +35,12 @@ static void	update_weight_and_bias(
 	while (++i.rows < weight->size.rows)
 	{
 		((double **)bias->values)[i.rows][0]
-			-= LEARNING_RATE * ((double **)derivative->bias->values)[i.rows][0];
+			-= learning_rate * ((double **)derivative->bias->values)[i.rows][0];
 		i.columns = -1;
 		while (++i.columns < weight->size.columns)
 		{
 			((double **)weight->values)[i.rows][i.columns]
-				-= LEARNING_RATE * ((double **)derivative->weight
+				-= learning_rate * ((double **)derivative->weight
 					->values)[i.rows][i.columns];
 		}
 	}
@@ -77,7 +78,8 @@ const t_matrix	*predict(
 void	leayer_calculate(
 				const t_regression_type regression_type,
 				const t_gradient_descent *const gradient_descent,
-				const t_derivative *const derivative)
+				const t_derivative *const derivative,
+				const double learning_rate)
 {
 	const t_matrix	*predicted;
 
@@ -87,7 +89,7 @@ void	leayer_calculate(
 	derivative_recalculate(gradient_descent->input_values,
 		gradient_descent->observed, predicted, derivative);
 	update_weight_and_bias(derivative, gradient_descent->weight,
-		gradient_descent->bias);
+		gradient_descent->bias, learning_rate);
 	cost_recalculate(predicted, gradient_descent->observed,
 		gradient_descent->cost);
 	ft_matrix_remove((t_matrix **)&predicted);

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/12 12:01:19 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/13 13:50:06 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							influxdb_line_fields.c \
 							gradient_descent_predict.c ft_matrix_argmax.c \
 							ft_vector_set.c ft_str_toupper.c \
-							dataset_validate.c dataset_stat.c
+							dataset_validate.c dataset_stat.c \
+							prediction_validate.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
 GLOBAL_LIBS				=	libssl.a libcrypto.a

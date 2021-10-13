@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 10:50:47 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/11 19:42:19 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/13 14:58:28 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,4 +26,10 @@ ifdef M
 	MODE			=	$(M)
 else
 	MODE			=	TRAIN
+endif
+
+ifdef I
+	ITERATIONS		=	-I $(I)
+else
+	ITERATIONS		=	-I 2000
 endif

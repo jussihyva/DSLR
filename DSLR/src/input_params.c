@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 12:33:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:43:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_input_params	*input_params_initialize(
 	input_params->argc_argv = argc_argv;
 	input_params->logging_level = LOG_WARN;
 	input_params->logging_data = ft_event_logging_init(DEFAULT_LOGGING_LEVEL);
+	input_params->hyper_parameters.iterations = ITERATION_LOOP;
+	input_params->hyper_parameters.learning_rate = LEARNING_RATE;
 	return (input_params);
 }
 
@@ -29,7 +31,8 @@ static void	input_param_save_short(
 								char opt,
 								t_argc_argv *argc_argv)
 {
-	const char			*arg;
+	const char		*arg;
+	char			*endptr;
 
 	if (opt == 'L')
 	{
@@ -38,8 +41,18 @@ static void	input_param_save_short(
 			= ft_logging_level_param_validate(arg);
 		ft_log_set_level(input_params->logging_level);
 	}
-	else if (opt == 'I')
+	else if (opt == 'S')
 		input_params->is_influxdb = E_TRUE;
+	else if (opt == 'A')
+	{
+		arg = (*argc_argv->argv)[argc_argv->i];
+		input_params->hyper_parameters.learning_rate = strtod(arg, &endptr);
+	}
+	else if (opt == 'I')
+	{
+		arg = (*argc_argv->argv)[argc_argv->i];
+		input_params->hyper_parameters.iterations = ft_strtoi(arg, &endptr, 10);
+	}
 	else if (opt == 'l')
 		input_params->print_leaks = E_TRUE;
 	else if (opt == 'h')

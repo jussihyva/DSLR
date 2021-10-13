@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:08:19 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 10:49:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:32:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ static void	input_data_add(
 }
 
 t_gradient_descent	*gradient_descent_initialize(
-									const t_regression_type regression_type,
-									const t_dataset *const dataset)
+							const t_regression_type regression_type,
+							const t_dataset *const dataset,
+							const t_hyper_parameters *const hyper_parameters)
 {
 	t_gradient_descent		*gradient_descent;
 
@@ -112,6 +113,7 @@ t_gradient_descent	*gradient_descent_initialize(
 				NUMBER_OF_HOGWARTS_HOUSES, E_DIR_ROW);
 		gradient_descent->cost = ft_vector_create(sizeof(double),
 				gradient_descent->observed->size.rows, E_DIR_ROW);
+		gradient_descent->hyper_parameters = hyper_parameters;
 	}
 	return (gradient_descent);
 }

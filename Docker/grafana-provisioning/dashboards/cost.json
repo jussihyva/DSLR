@@ -152,34 +152,34 @@
 			{
 			  "col": 1,
 			  "color": "#a5ff84",
-			  "dotSize": 2,
+			  "dotSize": 1,
 			  "hidden": false,
 			  "lineSize": 1,
-			  "lineType": "none"
+			  "lineType": "simple"
 			},
 			{
 			  "col": 3,
 			  "color": "#1052a8",
-			  "dotSize": 2,
+			  "dotSize": 1,
 			  "hidden": false,
-			  "lineSize": 0,
-			  "lineType": "none"
+			  "lineSize": 1,
+			  "lineType": "simple"
 			},
 			{
 			  "col": 4,
 			  "color": "#eac856",
-			  "dotSize": 2,
+			  "dotSize": 1,
 			  "hidden": false,
-			  "lineSize": 0,
-			  "lineType": "none"
+			  "lineSize": 1,
+			  "lineType": "simple"
 			},
 			{
 			  "col": 5,
 			  "color": "#B877D9",
-			  "dotSize": 2,
+			  "dotSize": 1,
 			  "hidden": false,
-			  "lineSize": 0,
-			  "lineType": "none"
+			  "lineSize": 1,
+			  "lineType": "simple"
 			}
 		  ],
 		  "grid": {
@@ -187,7 +187,7 @@
 		  },
 		  "legend": {
 			"show": true,
-			"size": 3
+			"size": 2
 		  },
 		  "rotateYAxisTitle": false,
 		  "xAxis": {
@@ -196,7 +196,7 @@
 		  },
 		  "xAxisExtents": {
 			"min": null,
-			"max": null
+			"max": 1500
 		  },
 		  "xAxisTitle": {
 			"text": "Iteration",
@@ -332,7 +332,7 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 22,
+		  "h": 14,
 		  "w": 23,
 		  "x": 0,
 		  "y": 21
@@ -473,5 +473,5 @@
 	"timezone": "",
 	"title": "Cost",
 	"uid": "iUZC33v7z",
-	"version": 1
+	"version": 2
   }

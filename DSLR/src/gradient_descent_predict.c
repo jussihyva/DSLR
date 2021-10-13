@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 09:00:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 12:39:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 13:53:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	gradient_descent_predict(
 	create_result_file(predicted_argmax);
 	if (ft_log_get_level() <= LOG_DEBUG)
 		ft_matrix_print("PREDICTED", predicted_transposed, E_DOUBLE);
+	prediction_validate(gradient_descent->observed, predicted_argmax);
 	ft_matrix_remove((t_matrix **)&predicted_transposed);
 	ft_matrix_remove((t_matrix **)&predicted);
 	return ;

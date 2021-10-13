@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 13:28:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:45:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define INFLUXDB_CONNECTION_PROTOCOL		E_TLS
 # define NUMBER_OF_INFLUXDB_LINE_ELEMENTS	4
 # define SPECIAL_CHARS_INFLUXDB_MEASUREMENT	", "
-# define SPECIAL_CHARS_INFLUXDB_TAGS			", ="
+# define SPECIAL_CHARS_INFLUXDB_TAGS		", ="
 # define SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
 # define NUMBER_OF_HOGWARTS_COURSES			13
 # define NUMBER_OF_HOGWARTS_HOUSES			4
 # define LEARNING_RATE						0.2
-# define ITERATION_LOOP						7000
+# define ITERATION_LOOP						5000
 # define WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
 # define HOUSES_RESULT_FILE_NAME			"houses.csv"
 # define WRITE_BUF_SIZE						1000
@@ -154,6 +154,12 @@ typedef struct s_dataset
 	const t_dataset_stat	*stat;
 }				t_dataset;
 
+typedef struct s_hyper_parameters
+{
+	size_t					iterations;
+	double					learning_rate;
+}				t_hyper_parameters;
+
 typedef struct s_input_params
 {
 	const t_argc_argv		*argc_argv;
@@ -163,15 +169,17 @@ typedef struct s_input_params
 	t_bool					is_influxdb;
 	t_mode					mode;
 	const t_dataset			*dataset;
+	t_hyper_parameters		hyper_parameters;
 }				t_input_params;
 
 typedef struct s_gradient_descent
 {
-	const t_matrix	*observed;
-	const t_matrix	*input_values;
-	t_matrix		*weight;
-	t_vector		*bias;
-	t_vector		*cost;
+	const t_matrix				*observed;
+	const t_matrix				*input_values;
+	t_matrix					*weight;
+	t_vector					*bias;
+	t_vector					*cost;
+	const t_hyper_parameters	*hyper_parameters;
 }				t_gradient_descent;
 
 typedef struct s_derivative
@@ -233,7 +241,8 @@ const char				*influxdb_line_group_create(
 int						main_train(void);
 t_gradient_descent		*gradient_descent_initialize(
 							t_regression_type regression_type,
-							const t_dataset *const dataset);
+							const t_dataset *const dataset,
+							const t_hyper_parameters *const hyper_parameters);
 t_matrix				*ft_matrix_create(
 							size_t size,
 							const size_t number_fo_rows,
@@ -328,7 +337,7 @@ void					ft_matrix_multiply_matrix(
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
 							t_matrix *const new_matrix);
-void					ft_matrix_add_matrix(
+void					ft_matrix_add_matrix(iterations
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
 							t_matrix *const new_matrix);
@@ -367,7 +376,8 @@ void					derivative_remove(t_derivative **derivative);
 void					leayer_calculate(
 							const t_regression_type regression_type,
 							const t_gradient_descent *const gradient_descent,
-							const t_derivative *const derivative);
+							const t_derivative *const derivative,
+							const double learning_rate);
 const t_matrix			*ft_sigmoid(const t_matrix *const input);
 void					derivative_recalculate(
 							const t_matrix *const activation_input,
@@ -412,5 +422,8 @@ void					example_validate_and_statistics_update(
 const t_dataset_stat	*dataset_stat_initialize(
 							const size_t number_of_columns);
 void					dataaset_stat_remove(t_dataset_stat **stat);
+void					prediction_validate(
+							const t_matrix *const observed,
+							const t_vector *const predicted_argmax);
 
 #endif

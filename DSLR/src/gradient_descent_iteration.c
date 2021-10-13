@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 12:52:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:39:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ void	gradient_descent_iteration(
 	if (regression_type == E_LOGISTIC)
 	{
 		i = 0;
-		while (++i <= ITERATION_LOOP)
+		while (++i <= gradient_descent->hyper_parameters->iterations)
 		{
-			leayer_calculate(regression_type, gradient_descent, derivative);
+			leayer_calculate(regression_type, gradient_descent, derivative,
+				gradient_descent->hyper_parameters->learning_rate);
 			if (!(i % 100) || i == 10 || i == 20 || i == 50)
 			{
 				cost_send_to_influxdb(connection, gradient_descent->cost, i);

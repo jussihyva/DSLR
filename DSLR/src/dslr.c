@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 09:01:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 17:43:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_arg_parser	*arg_parser_init(const int *argc, const char ***argv)
 	arg_parser->fn_input_params_initialize = (void *)input_params_initialize;
 	arg_parser->fn_input_param_save = input_param_save;
 	arg_parser->fn_usage_print = usage_print;
-	arg_parser->options = ft_strdup("L:hlI");
+	arg_parser->options = ft_strdup("L:hlA:I:S");
 	return (arg_parser);
 }
 
@@ -80,7 +80,7 @@ int	main(
 	if (input_params->is_influxdb && connection && input_params->dataset)
 		dataset_send_to_influxdb(connection, input_params->dataset);
 	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
-			input_params->dataset);
+			input_params->dataset, &input_params->hyper_parameters);
 	if (input_params->mode == E_LEARNING_MODE)
 		gradient_descent_iteration(E_LOGISTIC, gradient_descent, connection);
 	else if (input_params->mode == E_TEST_MODE)
