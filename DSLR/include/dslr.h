@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 12:25:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 13:28:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define NUMBER_OF_HOGWARTS_COURSES			13
 # define NUMBER_OF_HOGWARTS_HOUSES			4
 # define LEARNING_RATE						0.2
-# define ITERATION_LOOP						10000
+# define ITERATION_LOOP						7000
 # define WEIGHT_BIAS_FILE_NAME				"weight_bias_values.yaml"
 # define HOUSES_RESULT_FILE_NAME			"houses.csv"
 # define WRITE_BUF_SIZE						1000
