@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 09:53:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 09:01:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(
 	gradient_descent = gradient_descent_initialize(E_LOGISTIC,
 			input_params->dataset);
 	if (input_params->mode == E_LEARNING_MODE)
-		gradient_descent_iteration(E_LOGISTIC, gradient_descent);
+		gradient_descent_iteration(E_LOGISTIC, gradient_descent, connection);
 	else if (input_params->mode == E_TEST_MODE)
 		gradient_descent_predict(gradient_descent);
 	main_remove(&arg_parser, &input_params, &connection, &gradient_descent);

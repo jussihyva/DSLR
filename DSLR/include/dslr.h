@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 13:00:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 09:42:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,8 @@ t_vector				*ft_vector_create(
 							t_vector_type vector_type);
 void					gradient_descent_iteration(
 							const t_regression_type regression_type,
-							const t_gradient_descent *const gradient_descent);
+							const t_gradient_descent *const gradient_descent,
+							const t_tcp_connection *const connection);
 void					ft_matrix_dot_matrix(
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
@@ -385,8 +386,7 @@ size_t					influxdb_line_length_calculate(
 							t_influxdb_line_element *influxdb_line_element);
 const char				*elements_merge(
 							t_influxdb_line_element *const
-							influxdb_line_element,
-							const size_t length);
+							influxdb_line_element);
 char					*ft_strcat_queue(
 							t_queue *const queue,
 							const size_t string_length);

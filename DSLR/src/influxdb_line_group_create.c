@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 14:51:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 12:49:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 08:35:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ size_t	influxdb_line_length_calculate(
 }
 
 const char	*elements_merge(
-					t_influxdb_line_element *const influxdb_line_element,
-					const size_t length)
+					t_influxdb_line_element *const influxdb_line_element)
 {
 	char		*influxdb_line;
+	size_t		length;
 
+	length = influxdb_line_length_calculate(influxdb_line_element);
 	influxdb_line = ft_strnew(sizeof(*influxdb_line) * length);
 	ft_sprintf(influxdb_line, "%s,%s %s %s",
 		influxdb_line_element[E_MEASUREMENT].string,
@@ -55,7 +56,6 @@ static const char	*influxdb_line_create_2(
 									const char **const column_name_array)
 {
 	const char					*influxdb_line;
-	size_t						length;
 	const char					*index;
 	const char					*hogwarts_house;
 	t_influxdb_line_element		influxdb_line_element
@@ -73,8 +73,7 @@ static const char	*influxdb_line_create_2(
 	influxdb_line_fields_create_2(&influxdb_line_element[E_FIELDS],
 		column_name_array, value_array);
 	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP]);
-	length = influxdb_line_length_calculate(influxdb_line_element);
-	influxdb_line = elements_merge(influxdb_line_element, length);
+	influxdb_line = elements_merge(influxdb_line_element);
 	return (influxdb_line);
 }
 

@@ -6,15 +6,64 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 21:01:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 09:55:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
+static void	cost_influxdb_field_elem_create(
+							t_influxdb_line_element *influxdb_line_element,
+							const t_vector *const cost,
+							const size_t iteration)
+{
+	char	*string;
+
+	string = ft_strnew(100);
+	ft_sprintf(string, "%s=%f,%s=%f,%s=%f,%s=%f,iteration=%lu",
+		g_hogwarts_house_array[0], ((double **)cost->values)[0][0],
+		g_hogwarts_house_array[1], ((double **)cost->values)[1][0],
+		g_hogwarts_house_array[2], ((double **)cost->values)[2][0],
+		g_hogwarts_house_array[3], ((double **)cost->values)[3][0],
+		iteration);
+	influxdb_line_element->string = string;
+	influxdb_line_element->string_length = ft_strlen(string);
+	return ;
+}
+
+static void	cost_send_to_influxdb(
+						const t_tcp_connection *const connection,
+						const t_vector *const cost,
+						const size_t iteration)
+{
+	t_bool						result;
+	char						*string;
+	const char					*influxdb_line;
+	t_influxdb_line_element		influxdb_line_element[
+			NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
+
+	string = ft_strnew(100);
+	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
+		"dataset_train");
+	ft_sprintf(string, "cost=cost,iteration=%lu", iteration);
+	influxdb_line_element[E_TAGS].string = string;
+	influxdb_line_element[E_TAGS].string_length = ft_strlen(string);
+	cost_influxdb_field_elem_create(&influxdb_line_element[E_FIELDS], cost,
+		iteration);
+	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP]);
+	influxdb_line = elements_merge(influxdb_line_element);
+	result = ft_influxdb_write(connection, influxdb_line,
+			g_influxdb_token_array, NUMBER_OF_INFLUXDB_TOKENS);
+	if (!result)
+		FT_LOG_ERROR("Sending of data to an influxdb failed!");
+	ft_strdel((char **)&influxdb_line);
+	return ;
+}
+
 void	gradient_descent_iteration(
 							const t_regression_type regression_type,
-							const t_gradient_descent *const gradient_descent)
+							const t_gradient_descent *const gradient_descent,
+							const t_tcp_connection *const connection)
 {
 	t_derivative	*derivative;
 	size_t			i;
@@ -28,12 +77,16 @@ void	gradient_descent_iteration(
 	derivative = derivative_initialize(&weight_size, &bias_size);
 	if (regression_type == E_LOGISTIC)
 	{
-		i = -1;
-		while (++i < ITERATION_LOOP)
+		i = 0;
+		while (++i <= ITERATION_LOOP)
 		{
 			leayer_calculate(regression_type, gradient_descent, derivative);
-			if (ft_log_get_level() <= LOG_INFO && !(i % 100))
-				ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
+			if (!(i % 100) || i == 10 || i == 20 || i == 50)
+			{
+				cost_send_to_influxdb(connection, gradient_descent->cost, i);
+				if (ft_log_get_level() <= LOG_INFO)
+					ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
+			}
 		}
 	}
 	ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);

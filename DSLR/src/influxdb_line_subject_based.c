@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 12:39:55 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/01 12:46:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 08:41:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	influxdb_line_subject_based_create(
 		value_array, i);
 	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP]);
 	length = influxdb_line_length_calculate(influxdb_line_element);
-	influxdb_line = elements_merge(influxdb_line_element, length);
+	influxdb_line = elements_merge(influxdb_line_element);
 	ft_enqueue(queue, (void *)influxdb_line);
 	return (length + 1);
 }
