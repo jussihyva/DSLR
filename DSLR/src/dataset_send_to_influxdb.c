@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 00:20:24 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 17:10:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:50:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	dataset_send_to_influxdb(
 			result = ft_influxdb_write(connection, influxdb_lines,
 					g_influxdb_token_array, NUMBER_OF_INFLUXDB_TOKENS);
 			if (!result)
-				FT_LOG_ERROR("Sending of data to an influxdb failed!");
+				FT_LOG_ERROR("Sending of data to an influxdb failed! "
+					"Check line: %s", influxdb_lines);
 			ft_strdel((char **)&influxdb_lines);
 		}
 		elem = elem->next;

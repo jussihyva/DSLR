@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:11:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 13:09:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:38:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,55 @@ static void	statistics_update(
 	return ;
 }
 
+t_bool	is_input_function(const size_t column)
+{
+	static size_t	function_columns[NUMBER_OF_INPUT_FUNCTIONS] =
+						{
+							 6,  7,  8,  9, 10,
+							11, 12, 13, 14, 15,
+							16, 17, 18
+						};
+	size_t			i;
+	t_bool			is_function;
+
+	is_function = E_FALSE;
+	i = -1;
+	while (++i < NUMBER_OF_INPUT_FUNCTIONS)
+	{
+		if (function_columns[i] == column)
+		{
+			is_function = E_TRUE;
+			break ;
+		}
+	}
+	return (is_function);
+}
+
 void	example_validate_and_statistics_update(
 					t_example *const example,
 					const size_t number_of_values,
 					const t_dataset_stat *stat)
 {
-	size_t		i;
-	char		*endptr;
-	double		value;
+	size_t			i;
+	char			*endptr;
+	double			value;
 
 	example->are_all_values_valid = E_TRUE;
-	example->validity_array = ft_memalloc(sizeof(*example->validity_array)
-			* number_of_values);
-	example->double_value_array
-		= ft_memalloc(sizeof(*example->double_value_array)
-			* number_of_values);
 	i = -1;
 	while (++i < number_of_values)
 	{
 		errno = 0;
 		value = strtod(example->value_array[i], &endptr);
-		if (errno == 0 && *endptr == '\0')
+		if (errno == 0 && *endptr == '\0' && *example->value_array[i])
 		{
 			example->double_value_array[i] = value;
 			example->validity_array[i] = E_TRUE;
 			statistics_update(stat, value, i);
 		}
 		else
-			example->are_all_values_valid = E_FALSE;
+		{
+			if (is_input_function(i))
+				example->are_all_values_valid = E_FALSE;
+		}
 	}
-	return ;
 }

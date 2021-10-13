@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 09:55:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:52:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	cost_send_to_influxdb(
 	string = ft_strnew(100);
 	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
 		"dataset_train");
-	ft_sprintf(string, "cost=cost,iteration=%lu", iteration);
+	ft_sprintf(string, "Record_type=cost,iteration=%lu", iteration);
 	influxdb_line_element[E_TAGS].string = string;
 	influxdb_line_element[E_TAGS].string_length = ft_strlen(string);
 	cost_influxdb_field_elem_create(&influxdb_line_element[E_FIELDS], cost,

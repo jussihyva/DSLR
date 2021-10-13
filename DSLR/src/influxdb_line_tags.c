@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 14:40:40 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:09:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 13:07:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,34 @@ void	influxdb_line_tags_create(
 
 	string[0] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS,
 			hogwarts_subject);
-	string[1] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS,
-			hogwarts_house);
+	if (*hogwarts_house)
+		string[1] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS,
+				hogwarts_house);
 	tags_element->string_length = ft_strlen(tag_key1);
 	tags_element->string_length++;
 	tags_element->string_length += ft_strlen(tag_key2);
 	tags_element->string_length++;
 	tags_element->string_length += ft_strlen(string[0]);
-	tags_element->string_length++;
-	tags_element->string_length += ft_strlen(tag_key3);
-	tags_element->string_length++;
-	tags_element->string_length += ft_strlen(string[1]);
-	tags_element->string = ft_memalloc(sizeof(*tags_element->string)
-			* (tags_element->string_length + 1));
-	ft_sprintf(tags_element->string, "%s,%s=%s,%s=%s", tag_key1, tag_key2,
-		string[0], tag_key3, string[1]);
+	if (*hogwarts_house)
+	{
+		tags_element->string_length++;
+		tags_element->string_length += ft_strlen(tag_key3);
+		tags_element->string_length++;
+		tags_element->string_length += ft_strlen(string[1]);
+		tags_element->string = ft_memalloc(sizeof(*tags_element->string)
+				* (tags_element->string_length + 1));
+		ft_sprintf(tags_element->string, "%s,%s=%s,%s=%s", tag_key1, tag_key2,
+			string[0], tag_key3, string[1]);
+		ft_strdel((char **)&string[1]);
+	}
+	else
+	{
+		tags_element->string = ft_memalloc(sizeof(*tags_element->string)
+				* (tags_element->string_length + 1));
+		ft_sprintf(tags_element->string, "%s,%s=%s", tag_key1, tag_key2,
+			string[0]);
+	}
 	ft_strdel((char **)&string[0]);
-	ft_strdel((char **)&string[1]);
 	return ;
 }
 
@@ -55,22 +66,33 @@ void	influxdb_line_tags_create_2(
 	const char			*string[2];
 
 	string[0] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS, index);
-	string[1] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS,
-			hogwarts_house);
+	if (*hogwarts_house)
+		string[1] = backslash_chars_add(SPECIAL_CHARS_INFLUXDB_TAGS,
+				hogwarts_house);
 	tags_element->string_length = ft_strlen(tag_key1);
 	tags_element->string_length++;
 	tags_element->string_length += ft_strlen(tag_key2);
 	tags_element->string_length++;
 	tags_element->string_length += ft_strlen(string[0]);
-	tags_element->string_length++;
-	tags_element->string_length += ft_strlen(tag_key3);
-	tags_element->string_length++;
-	tags_element->string_length += ft_strlen(string[1]);
-	tags_element->string = ft_memalloc(sizeof(*tags_element->string)
-			* (tags_element->string_length + 1));
-	ft_sprintf(tags_element->string, "%s,%s=%s,%s=%s", tag_key1, tag_key2,
-		string[0], tag_key3, string[1]);
+	if (*hogwarts_house)
+	{
+		tags_element->string_length++;
+		tags_element->string_length += ft_strlen(tag_key3);
+		tags_element->string_length++;
+		tags_element->string_length += ft_strlen(string[1]);
+		tags_element->string = ft_memalloc(sizeof(*tags_element->string)
+				* (tags_element->string_length + 1));
+		ft_sprintf(tags_element->string, "%s,%s=%s,%s=%s", tag_key1, tag_key2,
+			string[0], tag_key3, string[1]);
+		ft_strdel((char **)&string[1]);
+	}
+	else
+	{
+		tags_element->string = ft_memalloc(sizeof(*tags_element->string)
+				* (tags_element->string_length + 1));
+		ft_sprintf(tags_element->string, "%s,%s=%s", tag_key1, tag_key2,
+			string[0]);
+	}
 	ft_strdel((char **)&string[0]);
-	ft_strdel((char **)&string[1]);
 	return ;
 }

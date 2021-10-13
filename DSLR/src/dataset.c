@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/12 13:00:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:44:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ static const char	**create_column_arrays(
 	return (column_name_array);
 }
 
+static t_example	*example_initialize_validate(
+										const char *const line,
+										size_t *const number_of_values,
+										const t_dataset_stat *stat)
+{
+	t_example		*example;
+
+	example = ft_memalloc(sizeof(*example));
+	example->value_array = (const char **)ft_strsplit_ex(line, ',',
+			number_of_values, E_TRUE);
+	example->validity_array = ft_memalloc(sizeof(*example->validity_array)
+			* *number_of_values);
+	example->double_value_array
+		= ft_memalloc(sizeof(*example->double_value_array) * *number_of_values);
+	example_validate_and_statistics_update(example, *number_of_values, stat);
+	if (!(example->are_all_values_valid))
+		FT_LOG_DEBUG("All values are not valid: %s", line);
+	return (example);
+}
+
 static void	dataset_save_record(
 							const char *const line,
 							t_list **const example_lst,
@@ -40,10 +60,7 @@ static void	dataset_save_record(
 	const t_list	*new_elem;
 	t_example		*example;
 
-	example = ft_memalloc(sizeof(*example));
-	example->value_array = (const char **)ft_strsplit_ex(line, ',',
-			&number_of_values, E_TRUE);
-	example_validate_and_statistics_update(example, number_of_values, stat);
+	example = example_initialize_validate(line, &number_of_values, stat);
 	if (number_of_values != number_of_columns)
 	{
 		if (ft_log_get_level() <= LOG_TRACE)
@@ -53,7 +70,6 @@ static void	dataset_save_record(
 	}
 	new_elem = ft_lstnew(&example, sizeof(example));
 	ft_lstadd(example_lst, (t_list *)new_elem);
-	FT_LOG_DEBUG("%s\n", line);
 	if (ft_log_get_level() <= LOG_TRACE)
 		ft_strarray_print(example->value_array);
 	return ;

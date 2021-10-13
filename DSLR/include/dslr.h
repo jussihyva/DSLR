@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 09:42:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:25:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define SUB_STRING_MAX_LENGTH				100
 # define TRAIN_MODE							"TRAIN"
 # define TEST_MODE							"TEST"
+# define NUMBER_OF_INPUT_FUNCTIONS			13
 
 static const char	*g_influxdb_token_array[NUMBER_OF_INFLUXDB_TOKENS] =
 {
