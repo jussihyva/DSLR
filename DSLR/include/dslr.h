@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 17:45:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 11:29:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ static const char	*g_hogwarts_house_array[NUMBER_OF_HOGWARTS_HOUSES] =
 	"Ravenclaw",
 	"Slytherin",
 	"Hufflepuff"
+};
+
+static const size_t	g_function_columns[NUMBER_OF_INPUT_FUNCTIONS] =
+{
+	6, 7, 8, 9, 10,
+	11, 12, 13, 14, 15,
+	16, 17, 18
 };
 
 typedef enum e_influxdb_line_type
@@ -337,7 +344,7 @@ void					ft_matrix_multiply_matrix(
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
 							t_matrix *const new_matrix);
-void					ft_matrix_add_matrix(iterations
+void					ft_matrix_add_matrix(
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
 							t_matrix *const new_matrix);
@@ -362,16 +369,16 @@ void					weight_bias_write(
 							const t_matrix *const weight,
 							const t_vector *const bias);
 void					weight_bias_read(
-							t_matrix **weight,
-							t_vector **bias);
+							t_matrix *weight,
+							t_vector *bias);
 void					ft_matrix_remove(t_matrix **matrix);
 void					ft_vector_remove(t_vector **vector);
 void					gradient_descent_remove(
 							t_gradient_descent **gradient_descent);
 char					*ft_file_path_create(char *file_name);
 t_derivative			*derivative_initialize(
-							const t_matrix_size *const weight_size,
-							const t_matrix_size *const bias_size);
+							const t_matrix *const input_values,
+							const t_matrix *const observed);
 void					derivative_remove(t_derivative **derivative);
 void					leayer_calculate(
 							const t_regression_type regression_type,
@@ -425,5 +432,13 @@ void					dataaset_stat_remove(t_dataset_stat **stat);
 void					prediction_validate(
 							const t_matrix *const observed,
 							const t_vector *const predicted_argmax);
+void					ft_queue_remove(t_queue **queue);
+size_t					name_value_pair_add(
+							const char *const name,
+							const char *const value,
+							t_queue *const queue_str);
+size_t					delimiter_add(
+							t_queue *queue,
+							const char *const delimiter);
 
 #endif

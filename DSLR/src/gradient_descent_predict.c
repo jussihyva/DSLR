@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 09:00:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 13:53:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 10:57:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	create_result_file(const t_vector *const predicted_argmax)
 		write(fd, write_buf, ft_strlen(write_buf));
 	}
 	close(fd);
+	ft_strdel((char **)&houses_file);
+	return ;
 }
 
 void	gradient_descent_predict(
@@ -40,7 +42,7 @@ void	gradient_descent_predict(
 	const t_matrix		*predicted_transposed;
 	const t_vector		*predicted_argmax;
 
-	weight_bias_read(&gradient_descent->weight, &gradient_descent->bias);
+	weight_bias_read(gradient_descent->weight, gradient_descent->bias);
 	predicted = predict(E_LOGISTIC, gradient_descent->input_values,
 			gradient_descent->bias, gradient_descent->weight);
 	predicted_transposed = ft_matrix_transpose(predicted);
@@ -49,6 +51,7 @@ void	gradient_descent_predict(
 	if (ft_log_get_level() <= LOG_DEBUG)
 		ft_matrix_print("PREDICTED", predicted_transposed, E_DOUBLE);
 	prediction_validate(gradient_descent->observed, predicted_argmax);
+	ft_matrix_remove((t_matrix **)&predicted_argmax);
 	ft_matrix_remove((t_matrix **)&predicted_transposed);
 	ft_matrix_remove((t_matrix **)&predicted);
 	return ;

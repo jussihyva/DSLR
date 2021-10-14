@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 17:39:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 11:05:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,9 @@ void	gradient_descent_iteration(
 {
 	t_derivative	*derivative;
 	size_t			i;
-	t_matrix_size	weight_size;
-	t_vector_size	bias_size;
 
-	weight_size.rows = gradient_descent->observed->size.rows;
-	weight_size.columns = gradient_descent->input_values->size.rows;
-	bias_size.rows = gradient_descent->observed->size.rows;
-	bias_size.columns = 1;
-	derivative = derivative_initialize(&weight_size, &bias_size);
+	derivative = derivative_initialize(gradient_descent->input_values,
+			gradient_descent->observed);
 	if (regression_type == E_LOGISTIC)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:01:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/02 22:32:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 11:04:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,21 @@ void	derivative_recalculate(
 }
 
 t_derivative	*derivative_initialize(
-								const t_matrix_size *const weight_size,
-								const t_matrix_size *const bias_size)
+								const t_matrix *const input_values,
+								const t_matrix *const observed)
 {
 	t_derivative	*derivative;
+	t_matrix_size	weight_size;
+	t_vector_size	bias_size;
 
+	weight_size.rows = observed->size.rows;
+	weight_size.columns = input_values->size.rows;
+	bias_size.rows = observed->size.rows;
+	bias_size.columns = 1;
 	derivative = ft_memalloc(sizeof(*derivative));
-	derivative->weight = ft_matrix_create(sizeof(double), weight_size->rows,
-			weight_size->columns);
-	derivative->bias = ft_vector_create(sizeof(double), bias_size->rows,
+	derivative->weight = ft_matrix_create(sizeof(double), weight_size.rows,
+			weight_size.columns);
+	derivative->bias = ft_vector_create(sizeof(double), bias_size.rows,
 			E_DIR_ROW);
 	return (derivative);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:11:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 12:38:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 10:18:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ static void	statistics_update(
 
 t_bool	is_input_function(const size_t column)
 {
-	static size_t	function_columns[NUMBER_OF_INPUT_FUNCTIONS] =
-						{
-							 6,  7,  8,  9, 10,
-							11, 12, 13, 14, 15,
-							16, 17, 18
-						};
 	size_t			i;
 	t_bool			is_function;
 
@@ -37,7 +31,7 @@ t_bool	is_input_function(const size_t column)
 	i = -1;
 	while (++i < NUMBER_OF_INPUT_FUNCTIONS)
 	{
-		if (function_columns[i] == column)
+		if (g_function_columns[i] == column)
 		{
 			is_function = E_TRUE;
 			break ;

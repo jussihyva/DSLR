@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 09:12:20 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/03 10:09:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 10:56:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static t_vector	*row_based_argmax(const t_matrix *const matrix)
 			}
 		}
 	}
+	ft_matrix_remove(&max);
 	return (argmax);
 }
 
