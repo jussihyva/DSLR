@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 11:05:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 13:37:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,14 @@ void	gradient_descent_iteration(
 				gradient_descent->hyper_parameters->learning_rate);
 			if (!(i % 100) || i == 10 || i == 20 || i == 50)
 			{
-				cost_send_to_influxdb(connection, gradient_descent->cost, i);
+				if (connection)
+					cost_send_to_influxdb(connection,
+						gradient_descent->cost, i);
 				if (ft_log_get_level() <= LOG_INFO)
 					ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 			}
 		}
 	}
-	ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 	weight_bias_write(gradient_descent->weight, gradient_descent->bias);
 	derivative_remove(&derivative);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 11:29:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 14:00:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,7 +436,8 @@ void					ft_queue_remove(t_queue **queue);
 size_t					name_value_pair_add(
 							const char *const name,
 							const char *const value,
-							t_queue *const queue_str);
+							t_queue *const queue_str,
+							const char *const special_chars);
 size_t					delimiter_add(
 							t_queue *queue,
 							const char *const delimiter);
