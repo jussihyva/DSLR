@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 09:43:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 12:53:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 16:35:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,29 @@ static void	check_number_of_mandatory_variables(t_argc_argv *argc_argv)
 	return ;
 }
 
+static t_mode	mode_set(const char *arg)
+{
+	const char		*arg_upper;
+	t_mode			mode;
+
+	mode = E_NO_MODE;
+	arg_upper = ft_str_toupper(arg);
+	if (ft_strequ(arg_upper, TRAIN_MODE))
+		mode = E_LEARNING_MODE;
+	else if (ft_strequ(arg_upper, TEST_MODE))
+		mode = E_TEST_MODE;
+	else
+		usage_print();
+	ft_strdel((char **)&arg_upper);
+	return (mode);
+}
+
 void	input_param_mandatory_validate(
 								t_input_params *const input_params,
 								char opt,
 								t_argc_argv *argc_argv)
 {
 	const char		*arg;
-	char			*arg_upper;
 	const char		*dataset_file_path;
 
 	(void)opt;
@@ -46,16 +62,7 @@ void	input_param_mandatory_validate(
 		input_params->dataset = dataset_initialize(dataset_file_path);
 	}
 	else if (((*argc_argv->argc) - argc_argv->i) == 2)
-	{
-		arg_upper = ft_str_toupper(arg);
-		if (ft_strequ(arg_upper, TRAIN_MODE))
-			input_params->mode = E_LEARNING_MODE;
-		else if (ft_strequ(arg_upper, TEST_MODE))
-			input_params->mode = E_TEST_MODE;
-		else
-			usage_print();
-		ft_strdel(&arg_upper);
-	}
+		input_params->mode = mode_set(arg);
 	else
 		usage_print();
 	return ;

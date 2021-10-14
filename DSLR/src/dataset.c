@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 12:44:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 16:32:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,4 @@ const t_dataset	*dataset_initialize(
 
 	dataset = dataset_read_file(dataset_file_path);
 	return (dataset);
-}
-
-void	dataset_value_array_remove(void *content, size_t size)
-{
-	const t_example		*example;
-
-	(void)size;
-	example = *(const t_example **)content;
-	ft_strarraydel((const char ***)&example->value_array);
-	ft_memdel((void **)&example->validity_array);
-	ft_memdel((void **)&example->double_value_array);
-	ft_memdel((void **)&example);
-	return ;
 }

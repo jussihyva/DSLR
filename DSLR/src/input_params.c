@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:05:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 17:43:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 16:33:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ t_input_params	*input_params_initialize(
 	return (input_params);
 }
 
+static t_logging_level	logging_level_activate(t_argc_argv *argc_argv)
+{
+	const char			*arg;
+	t_logging_level		logging_level;
+
+	arg = (*argc_argv->argv)[argc_argv->i];
+	logging_level = ft_logging_level_param_validate(arg);
+	ft_log_set_level(logging_level);
+	return (logging_level);
+}
+
 static void	input_param_save_short(
 								t_input_params *const input_params,
 								char opt,
@@ -35,12 +46,7 @@ static void	input_param_save_short(
 	char			*endptr;
 
 	if (opt == 'L')
-	{
-		arg = (*argc_argv->argv)[argc_argv->i];
-		input_params->logging_level
-			= ft_logging_level_param_validate(arg);
-		ft_log_set_level(input_params->logging_level);
-	}
+		input_params->logging_level = logging_level_activate(argc_argv);
 	else if (opt == 'S')
 		input_params->is_influxdb = E_TRUE;
 	else if (opt == 'A')
@@ -82,7 +88,7 @@ void	input_params_remove(
 	{
 		ft_strdel((char **)&dataset->file_path);
 		ft_strarraydel((const char ***const)&dataset->column_name_array);
-		ft_lstdel((t_list **)&dataset->example_lst, dataset_value_array_remove);
+		ft_lstdel((t_list **)&dataset->example_lst, example_remove);
 		dataaset_stat_remove((t_dataset_stat **)&dataset->stat);
 		ft_memdel((void **)&(*input_params)->dataset);
 	}
