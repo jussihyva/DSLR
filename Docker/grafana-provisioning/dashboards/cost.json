@@ -97,7 +97,7 @@
 			"groupBy": [
 			  {
 				"params": [
-				  "$__interval"
+				  "1m"
 				],
 				"type": "time"
 			  },
@@ -123,14 +123,208 @@
 				},
 				{
 				  "params": [],
-				  "type": "mean"
+				  "type": "count"
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "Record_type",
+				"operator": "=",
+				"value": "subject"
+			  },
+			  {
+				"condition": "AND",
+				"key": "hogwarts_subject",
+				"operator": "=",
+				"value": "Arithmancy"
+			  }
+			]
 		  }
 		],
-		"title": "Panel Title",
+		"title": "Number of examples (1 min period)",
+		"type": "timeseries"
+	  },
+	  {
+		"datasource": null,
+		"description": "",
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "axisLabel": "",
+			  "axisPlacement": "auto",
+			  "barAlignment": 0,
+			  "drawStyle": "line",
+			  "fillOpacity": 0,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  },
+			  "lineInterpolation": "linear",
+			  "lineStyle": {
+				"fill": "solid"
+			  },
+			  "lineWidth": 1,
+			  "pointSize": 5,
+			  "scaleDistribution": {
+				"type": "linear"
+			  },
+			  "showPoints": "auto",
+			  "spanNulls": false,
+			  "stacking": {
+				"group": "A",
+				"mode": "none"
+			  },
+			  "thresholdsStyle": {
+				"mode": "off"
+			  }
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 14,
+		  "w": 23,
+		  "x": 0,
+		  "y": 9
+		},
+		"id": 2,
+		"options": {
+		  "legend": {
+			"calcs": [
+			  "lastNotNull"
+			],
+			"displayMode": "table",
+			"placement": "right"
+		  },
+		  "tooltip": {
+			"mode": "single"
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "$__interval"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "null"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"Gryffindor"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				},
+				{
+				  "params": [
+					"Gryffindor"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Hufflepuff"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				},
+				{
+				  "params": [
+					"Hufflepuff"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Ravenclaw"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				},
+				{
+				  "params": [
+					"Ravenclaw"
+				  ],
+				  "type": "alias"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Slytherin"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				},
+				{
+				  "params": [
+					"Slytherin"
+				  ],
+				  "type": "alias"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Record_type",
+				"operator": "=",
+				"value": "cost"
+			  }
+			]
+		  }
+		],
+		"title": "Cost",
 		"type": "timeseries"
 	  },
 	  {
@@ -139,7 +333,7 @@
 		  "h": 12,
 		  "w": 23,
 		  "x": 0,
-		  "y": 9
+		  "y": 23
 		},
 		"id": 4,
 		"options": {
@@ -272,158 +466,112 @@
 			]
 		  }
 		],
-		"title": "Cost",
+		"title": "Cost (Learning rate = Any)",
 		"type": "michaeldmoore-scatter-panel"
 	  },
 	  {
 		"datasource": null,
-		"description": "",
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "palette-classic"
-			},
-			"custom": {
-			  "axisLabel": "",
-			  "axisPlacement": "auto",
-			  "barAlignment": 0,
-			  "drawStyle": "line",
-			  "fillOpacity": 0,
-			  "gradientMode": "none",
-			  "hideFrom": {
-				"legend": false,
-				"tooltip": false,
-				"viz": false
-			  },
-			  "lineInterpolation": "linear",
-			  "lineStyle": {
-				"fill": "solid"
-			  },
-			  "lineWidth": 1,
-			  "pointSize": 5,
-			  "scaleDistribution": {
-				"type": "linear"
-			  },
-			  "showPoints": "auto",
-			  "spanNulls": false,
-			  "stacking": {
-				"group": "A",
-				"mode": "none"
-			  },
-			  "thresholdsStyle": {
-				"mode": "off"
-			  }
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
-				}
-			  ]
-			}
-		  },
-		  "overrides": []
-		},
 		"gridPos": {
-		  "h": 14,
+		  "h": 12,
 		  "w": 23,
 		  "x": 0,
-		  "y": 21
+		  "y": 35
 		},
-		"id": 2,
+		"id": 7,
 		"options": {
-		  "legend": {
-			"calcs": [
-			  "lastNotNull"
-			],
-			"displayMode": "table",
-			"placement": "right"
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
 		  },
-		  "tooltip": {
-			"mode": "single"
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#a5ff84",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 3,
+			  "color": "#1052a8",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 4,
+			  "color": "#eac856",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 5,
+			  "color": "#B877D9",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": true,
+			"size": 2
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": false
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": 1500
+		  },
+		  "xAxisTitle": {
+			"text": "Iteration",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": 0.6
+		  },
+		  "yAxisTitle": {
+			"text": "",
+			"color": "#777",
+			"textSize": 1
 		  }
 		},
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "$__interval"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "null"
-				],
-				"type": "fill"
-			  }
-			],
+			"groupBy": [],
 			"measurement": "dataset_train",
 			"orderByTime": "ASC",
 			"policy": "default",
 			"refId": "A",
-			"resultFormat": "time_series",
+			"resultFormat": "table",
 			"select": [
 			  [
 				{
 				  "params": [
-					"Gryffindor"
+					"Ravenclaw"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				},
-				{
-				  "params": [
-					"Gryffindor"
-				  ],
-				  "type": "alias"
 				}
 			  ],
 			  [
 				{
 				  "params": [
-					"Hufflepuff"
+					"iteration"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				},
-				{
-				  "params": [
-					"Hufflepuff"
-				  ],
-				  "type": "alias"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"Ravenclaw"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				},
-				{
-				  "params": [
-					"Ravenclaw"
-				  ],
-				  "type": "alias"
 				}
 			  ],
 			  [
@@ -432,16 +580,22 @@
 					"Slytherin"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				},
+				}
+			  ],
+			  [
 				{
 				  "params": [
-					"Slytherin"
+					"Gryffindor"
 				  ],
-				  "type": "alias"
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Hufflepuff"
+				  ],
+				  "type": "field"
 				}
 			  ]
 			],
@@ -450,12 +604,314 @@
 				"key": "Record_type",
 				"operator": "=",
 				"value": "cost"
+			  },
+			  {
+				"condition": "AND",
+				"key": "learning_rate",
+				"operator": "=",
+				"value": "0.200000"
 			  }
 			]
 		  }
 		],
-		"title": "Cost",
-		"type": "timeseries"
+		"title": "Cost (Learning rate = 0.2)",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 12,
+		  "w": 23,
+		  "x": 0,
+		  "y": 47
+		},
+		"id": 9,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#a5ff84",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 3,
+			  "color": "#1052a8",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 4,
+			  "color": "#eac856",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 5,
+			  "color": "#B877D9",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": true,
+			"size": 2
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": false
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": 1500
+		  },
+		  "xAxisTitle": {
+			"text": "Iteration",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": 0.6
+		  },
+		  "yAxisTitle": {
+			"text": "",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"Ravenclaw"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"iteration"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Slytherin"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Gryffindor"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Hufflepuff"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Record_type",
+				"operator": "=",
+				"value": "cost"
+			  },
+			  {
+				"condition": "AND",
+				"key": "learning_rate",
+				"operator": "=",
+				"value": "0.500000"
+			  }
+			]
+		  }
+		],
+		"title": "Cost (Learning rate = 0.5)",
+		"type": "michaeldmoore-scatter-panel"
+	  },
+	  {
+		"datasource": null,
+		"gridPos": {
+		  "h": 12,
+		  "w": 23,
+		  "x": 0,
+		  "y": 59
+		},
+		"id": 8,
+		"options": {
+		  "border": {
+			"show": false,
+			"color": "yellow",
+			"size": 1
+		  },
+		  "fieldSets": [
+			{
+			  "col": 1,
+			  "color": "#a5ff84",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 3,
+			  "color": "#1052a8",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 4,
+			  "color": "#eac856",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			},
+			{
+			  "col": 5,
+			  "color": "#B877D9",
+			  "dotSize": 1,
+			  "hidden": false,
+			  "lineSize": 1,
+			  "lineType": "simple"
+			}
+		  ],
+		  "grid": {
+			"color": "gray"
+		  },
+		  "legend": {
+			"show": true,
+			"size": 2
+		  },
+		  "rotateYAxisTitle": false,
+		  "xAxis": {
+			"col": 2,
+			"inverted": false
+		  },
+		  "xAxisExtents": {
+			"min": null,
+			"max": 1500
+		  },
+		  "xAxisTitle": {
+			"text": "Iteration",
+			"color": "white",
+			"textSize": 1
+		  },
+		  "yAxisExtents": {
+			"min": null,
+			"max": 0.6
+		  },
+		  "yAxisTitle": {
+			"text": "",
+			"color": "#777",
+			"textSize": 1
+		  }
+		},
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "dataset_train",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"Ravenclaw"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"iteration"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Slytherin"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Gryffindor"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"Hufflepuff"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "Record_type",
+				"operator": "=",
+				"value": "cost"
+			  },
+			  {
+				"condition": "AND",
+				"key": "learning_rate",
+				"operator": "=",
+				"value": "1.000000"
+			  }
+			]
+		  }
+		],
+		"title": "Cost (Learning rate = 1.0)",
+		"type": "michaeldmoore-scatter-panel"
 	  }
 	],
 	"refresh": "5s",
@@ -466,12 +922,12 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-5m",
+	  "from": "now-15m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "Cost",
 	"uid": "iUZC33v7z",
-	"version": 2
+	"version": 3
   }

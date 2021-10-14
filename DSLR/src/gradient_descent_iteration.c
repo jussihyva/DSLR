@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:37:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 17:30:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	cost_influxdb_field_elem_create(
 static void	cost_send_to_influxdb(
 						const t_tcp_connection *const connection,
 						const t_vector *const cost,
+						const t_hyper_parameters *const hyper_parameters,
 						const size_t iteration)
 {
 	t_bool						result;
@@ -42,10 +43,11 @@ static void	cost_send_to_influxdb(
 	t_influxdb_line_element		influxdb_line_element[
 			NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
 
-	string = ft_strnew(100);
+	string = ft_strnew(1000);
 	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
 		"dataset_train");
-	ft_sprintf(string, "Record_type=cost,iteration=%lu", iteration);
+	ft_sprintf(string, "Record_type=cost,iteration=%lu,learning_rate=%f",
+		iteration, hyper_parameters->learning_rate);
 	influxdb_line_element[E_TAGS].string = string;
 	influxdb_line_element[E_TAGS].string_length = ft_strlen(string);
 	cost_influxdb_field_elem_create(&influxdb_line_element[E_FIELDS], cost,
@@ -80,8 +82,8 @@ void	gradient_descent_iteration(
 			if (!(i % 100) || i == 10 || i == 20 || i == 50)
 			{
 				if (connection)
-					cost_send_to_influxdb(connection,
-						gradient_descent->cost, i);
+					cost_send_to_influxdb(connection, gradient_descent->cost,
+						gradient_descent->hyper_parameters, i);
 				if (ft_log_get_level() <= LOG_INFO)
 					ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 			}

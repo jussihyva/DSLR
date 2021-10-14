@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 16:32:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/14 18:13:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,5 +441,9 @@ size_t					name_value_pair_add(
 size_t					delimiter_add(
 							t_queue *queue,
 							const char *const delimiter);
+t_logging_level			set_logging_level(const t_argc_argv *const argc_argv);
+double					set_learning_rate(const t_argc_argv *const argc_argv);
+double					set_number_of_iteration_loops(
+							const t_argc_argv *const argc_argv);
 
 #endif
