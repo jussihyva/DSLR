@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 18:49:56 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 14:25:55 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/15 09:32:02 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ def histogram(dataset_file):
 	hogwartsSubjects = HogwartsSubjects(dataset)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	pd.DataFrame.hist(hogwartsSubjects_df)
+	title = "Overview of Hogwards courses (Histogram)"
+	plt.suptitle(title)
 	plt.show()
 
 if __name__ == "__main__":

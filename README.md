@@ -12,6 +12,30 @@
 
 ### 5.1 Solution description
 
+### 5.x Visualization
+
+#### 5.x.x Describe
+
+![Describe](Documentation/Python_Describe.png)
+
+#### 5.x.x Box plot
+
+Boxplot visualize function values so that its easy to get overview about possible problems in functions. In the picture below we see that some functions includes values which are not in common limits. To avoid unexpected behavier during data post-processing a content of those functions requires deeper analysis. Maybe some corrective actions are required as well.
+
+![Boxplot](Documentation/Python_Boxplot.png)
+
+#### 5.x.x Correlations plot
+
+![Correlationsplot](Documentation/Python_Correlationsplot.png)
+
+#### 5.x.x Histogram plot
+
+![Histogramsplot](Documentation/Python_Histogramplot.png)
+
+#### 5.x.x Scatter plot
+
+![Scatterplot](Documentation/Python_Scatterplot.png)
+
 ### 5.2 Implemented Matrix and Vector calculation funtions
 
 | Name of the function | similar functionality in python

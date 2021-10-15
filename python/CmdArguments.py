@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/11 14:12:25 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/15 09:44:29 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,24 +43,28 @@ class CmdArguments_describe(CmdArguments):
 
 class CmdArguments_histogram(CmdArguments):
 	def __init__(self):
+		CmdArguments.__init__(self)
 		parser = self._create_parser("histogram visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_scatter(CmdArguments):
 	def __init__(self):
+		CmdArguments.__init__(self)
 		parser = self._create_parser("scatter visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_box(CmdArguments):
 	def __init__(self):
+		CmdArguments.__init__(self)
 		parser = self._create_parser("box visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
 class CmdArguments_correlation(CmdArguments):
 	def __init__(self):
+		CmdArguments.__init__(self)
 		parser = self._create_parser("correlation visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 14:26:00 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/15 09:34:04 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,12 @@ def scatter_plot(dataset_file):
 	axes = pd.plotting.scatter_matrix(hogwartsSubjects_df, alpha=0.2, 
 		diagonal="kde")
 	for ax in axes.flatten():
-		ax.xaxis.label.set_rotation(0)
+		ax.xaxis.label.set_rotation(30)
 		ax.yaxis.label.set_rotation(0)
 		ax.set_xticklabels([])
 		ax.set_yticklabels([])
+	title = "Overview of Hogwards courses (Scatter)"
+	plt.suptitle(title)
 	plt.tight_layout()
 	plt.gcf().subplots_adjust(wspace=0, hspace=0)
 	plt.show()

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 10:38:42 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 14:26:10 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/15 09:13:08 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,11 @@ def correlation_plot(dataset_file):
 	cax = ax.matshow(correlations, vmin=-1, vmax=1)
 	fig.colorbar(cax)
 	ticks = np.arange(0, numOfSubjects, 1)
+	title = "Overview of Hogwards courses (Correlations)"
+	fig.suptitle(title)
 	ax.set_xticks(ticks)
 	ax.set_yticks(ticks)
-	ax.set_xticklabels(subjects, rotation=40)
+	ax.set_xticklabels(subjects, rotation=20)
 	ax.set_yticklabels(subjects)
 	plt.show()
 
