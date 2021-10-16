@@ -20,27 +20,32 @@
 
 #### 5.x.x Box plot
 
-Boxplot visualize functions (values of them) so that its easy to get overview about functions. In the picture below we see that some functions includes values which are not in common limits. To avoid unexpected behavier during data processing a content of those functions requires deeper analysis.
+Boxplot visualizes functions (values of them) so that it's easy to get an overview of functions. In the picture below we see that some functions include values that are not within common (Q1 and Q3) limits. To avoid unexpected behavior during data processing the content of those functions requires deeper analysis.
 
 ![Boxplot](Documentation/Python_Boxplot.png)
 
 #### 5.x.x Correlations plot
 
-Correction plot visualize correlation between functions. Functions which correlate strongly does not add additional value for data processing. In case of limitation of amount of a input data is required, selecting just one of functions which correlate each other might be valid solution. Correlation could be same or opposite direction. In the picture below yellow and purple colours indicate strong correlation between functions.
+Correction plot visualizes correlation between functions. Functions that correlate strongly do not add additional value for data processing. In case of limitation of the amount of input data is required, selecting just one of the functions that correlate each other might be a valid solution. The correlation could be the same or opposite direction. In the picture below the yellow and the purple colors indicate a strong correlation between functions.
 
 ![Correlationsplot](Documentation/Python_Correlationsplot.png)
 
 #### 5.x.x Histogram plot
 
-Histogram plot visualize how values in a function are distributed. Currently I do not have any idea how this information could be usefull for data processing. Let see do I get some ideas in future.
+Histogram plots visualize how values in a function are distributed. Currently, I do not have any idea how this information could be useful for data processing. Let see do I get some ideas in the future.
 
 ![Histogramsplot](Documentation/Python_Histogramplot.png)
 
 #### 5.x.x Scatter plot
 
+A scatter plot and correlation plot visualizes similar things (at least from my point of view). The visualization view is different that makes the possibility for a different kind of information. Currently, I don't know what kind of, but in any case.
+
 ![Scatterplot](Documentation/Python_Scatterplot.png)
 
 ### 5.2 Implemented Matrix and Vector calculation funtions
+
+To learn (all details) I decided to write logistic regression functionality with C-language. It's a lot of work and forces me to really understand how details must be implemented. Looking forward that this kind of way of learning helps me to use ready-made functionality (like in numpy, pandas etc...) fluently.
+Below, is a list of matrix/vector functions that I wrote.
 
 | Name of the function | similar functionality in python
 |:-|:-|
