@@ -1,8 +1,30 @@
 # Datascience X Logistic Regression (DSLR)
 
+**NOTE:**<span style="color:red">The project is still ongoing. Daily updates into the contents.</span>
+
+## 1. Project overview
+
+The project is part of my studying at [Hive (Helsinki) Coding School](https://hive.fi). Programs are written in C-, and python- languages. An additional visualization (Bonus part of the project) I used Influxdb and Grafana which are running inside a docker container. For learning and testing purposes I used a Jupyter notebook. The picture below visualizes a general overview of projects at Hive (Helsinki) Coding School.
+
+![Hive_Holy_Graph](Documentation/Hive_Holy_Graph.png)
+
 ## 1. Project description
 
-### 1.1 Formulas for calculation
+**Note.** Text into this chapter (project description) was copied (partly or fully) from Hive Coding School document.
+
+### 1.1 Introduction
+
+On no! Since its creation, the famous school of wizards, Hogwarts, had never known such an offense. The forces of evil have bewitched the Sorting Hat. It no longer responds, and is unable to fulfill his role of sorting the students to the houses. The new academic year is approaching. Gladly, the Professor McGonagall was able to take action in such a stressful situation, since it is impossible for Hogwarts not to welcome new students. . . She decided to call on you, a muggle "datascientist" who is able to create miracles with the tool which all muggles know how to use: a "computer". Despite the intrinsic reluctance of many wizards, the director of the school welcomes you to his office to explain the situation. You are here because his informant discovered that you are able to recreate a magic Sorting Hat using your muggle tools. You explain to him that in order for your "muggle" tools to work, you need students data. Hesitantly, Professor McGonagall gives you a dusty spellbook. Fortunately for you, a simple "Digitalis!" and the book turned into a USB stick.
+
+### 1.2 Objectives
+
+In this project DataScience x Logistic Regression, you will continue your exploration of Machine Learning by discovering different tools. The use of the term DataScience in the title will be clearly considered by some to be abusive. That is true. We do not pretend to give you all the basics of DataScience in this topic. The subject is vast. We will only see here some bases which seemed to us useful for data exploration before sending it to the machine learning algorithm . You will implement a linear classification model, as a continuation of the subject linear regression : a logistic regression. We also encourage you a lot to create a machine learning toolkit while you will move along the branch.
+
+**Summarizing**
+- You will learn how to read a data set, to visualize it in different ways, to select and clean unnecessary information from your data.
+- You will train a logistic regression that will solve classification problem.
+
+### 1.3 Formulas for calculation
 
 ![sigmoid](https://latex.codecogs.com/svg.latex?\Large&space;sigmoid(z)=\frac{1}{1+e^{-z})
 
@@ -89,5 +111,5 @@ Below, is a list of matrix/vector functions that I wrote.
 
 | Argument | Description |
 | :- | - |
-| \<mode\> | The mode specify contnet of an input file. The file may include either learning examples or test examples. L --> Training examples, T --> Test examples|
+| \<mode\> | The mode specify contnet of an input file. The file may include either learning examples or test examples. L --> Training examples, T --> Test examples|some *blue* text
 | \<input file\> | A file includes either learning or test examples |
