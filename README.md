@@ -1,7 +1,7 @@
 # Datascience X Logistic Regression (DSLR)
-'''html
+´´´html
 **NOTE:**<span style="color:red">The project is still ongoing. Daily updates into the contents.</span>
-'''
+´´´
 ## 1. Project overview
 
 The project is part of my studying at [Hive (Helsinki) Coding School](https://hive.fi). Programs are written in C-, and python- languages. An additional visualization (Bonus part of the project) I used Influxdb and Grafana which are running inside a docker container. For learning and testing purposes I used a Jupyter notebook. The picture below visualizes a general overview of projects at Hive (Helsinki) Coding School.
