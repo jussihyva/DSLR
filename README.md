@@ -1,15 +1,8 @@
 # Datascience X Logistic Regression (DSLR)
 
-
-<style
-  type="text/css">
-h1 {color:red;}
-
-p {color:blue;}
-</style>
-<h1>Test</h1>
-<span style="color:red">The project is still ongoing. Daily updates into the contents.</span>
-okay
+```diff
+- The project is still ongoing. Daily updates into the contents.
+```
 
 ## 1. Project overview
 
