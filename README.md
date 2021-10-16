@@ -20,15 +20,19 @@
 
 #### 5.x.x Box plot
 
-Boxplot visualize function values so that its easy to get overview about possible problems in functions. In the picture below we see that some functions includes values which are not in common limits. To avoid unexpected behavier during data post-processing a content of those functions requires deeper analysis. Maybe some corrective actions are required as well.
+Boxplot visualize functions (values of them) so that its easy to get overview about functions. In the picture below we see that some functions includes values which are not in common limits. To avoid unexpected behavier during data processing a content of those functions requires deeper analysis.
 
 ![Boxplot](Documentation/Python_Boxplot.png)
 
 #### 5.x.x Correlations plot
 
+Correction plot visualize correlation between functions. Functions which correlate strongly does not add additional value for data processing. In case of limitation of amount of a input data is required, selecting just one of functions which correlate each other might be valid solution. Correlation could be same or opposite direction. In the picture below yellow and purple colours indicate strong correlation between functions.
+
 ![Correlationsplot](Documentation/Python_Correlationsplot.png)
 
 #### 5.x.x Histogram plot
+
+Histogram plot visualize how values in a function are distributed. Currently I do not have any idea how this information could be usefull for data processing. Let see do I get some ideas in future.
 
 ![Histogramsplot](Documentation/Python_Histogramplot.png)
 
