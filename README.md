@@ -1,6 +1,6 @@
 # Datascience X Logistic Regression (DSLR)
 ```html
-**NOTE:**<span style="color:red">The project is still ongoing. Daily updates into the contents.</span>
+<span style="color:red">The project is still ongoing. Daily updates into the contents.</span>
 ```
 ## 1. Project overview
 
