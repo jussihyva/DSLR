@@ -4,7 +4,7 @@
 - The project is still ongoing. Daily updates into the contents.
 ```
 
-![4444](Documentation/DSLR_use_cases.drawio.png)
+<!-- ![4444](Documentation/DSLR_use_cases.drawio.png) -->
 
 ## 1. Project overview
 
@@ -36,7 +36,12 @@ In this project DataScience x Logistic Regression, you will continue your explor
 
 ## 5. Solution
 
+Required functions are implemented with python and C languages. Visualization functions are impemented with python (numpy module) and logistic regression functionality with c language.
+Program/scripts are commandline based (requires terminal app in MAC-OS). Additional bonus functionalities are implemented with influxdb/grafana applications. Those are running in docker contatainers. make file is used for compaining C-program and seting up docker containers.
+
 ### 5.1 Solution overview
+
+![4444](Documentation/SolutionOverView.png)
 
 ### 5.2 Visualization
 
