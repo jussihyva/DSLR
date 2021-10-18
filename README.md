@@ -36,7 +36,8 @@ Where hθ(x) is defined in the following way :
 
 ![h](https://latex.codecogs.com/svg.latex?\Large&space;h_\theta(x)=g(\theta^{T}x))
 
-With :
+With:
+
 ![g](https://latex.codecogs.com/svg.latex?\Large&space;g(z)=\frac{1}{1+e^{-z}})
 
 The loss function gives us the following partial derivative :
