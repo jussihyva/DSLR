@@ -4,8 +4,6 @@
 - The project is still ongoing. Daily updates into the contents.
 ```
 
-<!-- ![4444](Documentation/DSLR_use_cases.drawio.png) -->
-
 ## 1. Project overview
 
 The project is part of my studying at [Hive (Helsinki) Coding School](https://hive.fi). Programs are written in C-, and python- languages. An additional visualization (Bonus part of the project) I used Influxdb and Grafana which are running inside a docker container. For learning and testing purposes I used a Jupyter notebook. The picture below visualizes a general overview of projects at Hive (Helsinki) Coding School.
@@ -30,14 +28,25 @@ In this project DataScience x Logistic Regression, you will continue your explor
 
 ### 2.3 Formulas for calculation
 
-![sigmoid](https://latex.codecogs.com/svg.latex?\Large&space;sigmoid(z)=\frac{1}{1+e^{-z})
+Logistic regression works almost like the linear regression. Here is a cost (loss) function:
 
 ![Cost](https://latex.codecogs.com/svg.latex?\Large&space;J(\theta)=-\frac{1}{m}\sum_{i=1}^{m}y^ilog(h_\theta(x^i))+(1-y^i)log(1-h_\theta(x^i)))
 
+Where hθ(x) is defined in the following way :
+
+![h](https://latex.codecogs.com/svg.latex?\Large&space;h_\theta(x)=g(\theta^{T}x))
+
+With :
+![g](https://latex.codecogs.com/svg.latex?\Large&space;g(z)=\frac{1}{1+e^{-z}})
+
+The loss function gives us the following partial derivative :
+
+![Partial derivative](https://latex.codecogs.com/svg.latex?\Large&space;\frac{\delta1}{\delta\theta_j}J\theta=\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^i)-y^i)x^i_j)
+
+
 ## 5. Solution
 
-Required functions are implemented with python and C languages. Visualization functions are impemented with python (numpy module) and logistic regression functionality with c language.
-Program/scripts are commandline based (requires terminal app in MAC-OS). Additional bonus functionalities are implemented with influxdb/grafana applications. Those are running in docker contatainers. make file is used for compaining C-program and seting up docker containers.
+Required functions are implemented with python and C languages. Visualization functions are implemented with python (numpy module) and logistic regression functionality with c language. Program/scripts are command-line based (requires terminal app in MAC-OS). Additional bonus functionalities are implemented with influxdb/grafana applications. Those are running in docker containers. make file is used for compiling C-program and setting up docker containers.
 
 ### 5.1 Solution overview
 
