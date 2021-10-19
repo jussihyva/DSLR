@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/20 10:35:04 by ubuntu            #+#    #+#              #
-#    Updated: 2021/09/01 09:00:18 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/19 13:09:58 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ build: check_openssl check_docker $(SUB_FOLDERS) folders check_jupyter
 
 .PHONY: run
 run:
-	make -C linear_regression run
+	make -C DSLR run
 
 $(SUB_FOLDERS):
 	mkdir $@
