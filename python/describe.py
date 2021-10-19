@@ -6,16 +6,28 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/09 14:24:14 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/19 18:40:26 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import os
 import sys
+import math
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
+
+def clculate_quantile(hogwartsSubjects):
+	value_list = []
+	for course in hogwartsSubjects:
+		value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+		value_list_sorted = value_list_sorted.reset_index(drop=True)
+		numOfValues = len(value_list_sorted)
+		percentile25 = math.ceil(numOfValues * 0.25) - 1
+		value_list.append(value_list_sorted[percentile25])
+	return ({"25%+": value_list})
 
 def createDescribeList(hogwartsSubjects):
 	describe_list = {}
@@ -27,6 +39,7 @@ def createDescribeList(hogwartsSubjects):
 	describe_list.update({"Max": hogwartsSubjects.max()})
 	describe_list.update({"1%": hogwartsSubjects.quantile(0.01)})
 	describe_list.update({"25%": hogwartsSubjects.quantile(0.25)})
+	describe_list.update(clculate_quantile(hogwartsSubjects))
 	describe_list.update({"50%": hogwartsSubjects.quantile(0.50)})
 	describe_list.update({"75%": hogwartsSubjects.quantile(0.75)})
 	describe_list.update({"99%": hogwartsSubjects.quantile(0.99)})
