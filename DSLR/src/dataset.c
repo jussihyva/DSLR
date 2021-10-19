@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 16:32:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 06:55:14 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static void	dataset_save_record(
 	t_example		*example;
 
 	example = example_initialize_validate(line, &number_of_values, stat);
-	if (number_of_values != number_of_columns)
+	if (number_of_values != number_of_columns || number_of_columns < NUMBER_OF_INPUT_FUNCTIONS)
 	{
 		if (ft_log_get_level() <= LOG_TRACE)
 			ft_strarray_print(example->value_array);
 		ft_printf("%s\n", line);
-		FT_LOG_FATAL("FATAL: %u\n", number_of_values);
+		FT_LOG_FATAL("FATAL: A content of the dataset file is not valid!");
 	}
 	new_elem = ft_lstnew(&example, sizeof(example));
 	ft_lstadd(example_lst, (t_list *)new_elem);
@@ -111,5 +111,7 @@ const t_dataset	*dataset_initialize(
 	const t_dataset	*dataset;
 
 	dataset = dataset_read_file(dataset_file_path);
+	if (!dataset->column_name_array || !dataset->number_of_rows)
+		FT_LOG_ERROR("Input file is not valid!");
 	return (dataset);
 }

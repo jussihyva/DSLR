@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gradient_descent_iteration.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 17:30:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 06:07:54 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static void	cost_send_to_influxdb(
 void	gradient_descent_iteration(
 							const t_regression_type regression_type,
 							const t_gradient_descent *const gradient_descent,
-							const t_tcp_connection *const connection)
+							const t_tcp_connection *const connection,
+							const t_bool is_influxdb)
 {
 	t_derivative	*derivative;
 	size_t			i;
@@ -81,7 +82,7 @@ void	gradient_descent_iteration(
 				gradient_descent->hyper_parameters->learning_rate);
 			if (!(i % 100) || i == 10 || i == 20 || i == 50)
 			{
-				if (connection)
+				if (connection && is_influxdb)
 					cost_send_to_influxdb(connection, gradient_descent->cost,
 						gradient_descent->hyper_parameters, i);
 				if (ft_log_get_level() <= LOG_INFO)

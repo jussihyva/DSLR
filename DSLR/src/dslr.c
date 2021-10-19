@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:37:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 06:02:15 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	main(
 			input_params->dataset, &input_params->hyper_parameters);
 	if (input_params->mode == E_LEARNING_MODE)
 	{
-		gradient_descent_iteration(E_LOGISTIC, gradient_descent, connection);
+		gradient_descent_iteration(E_LOGISTIC, gradient_descent, connection,
+			input_params->is_influxdb);
 		ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 	}
 	else if (input_params->mode == E_TEST_MODE)

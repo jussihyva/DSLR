@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 18:13:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 06:03:18 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,8 @@ t_vector				*ft_vector_create(
 void					gradient_descent_iteration(
 							const t_regression_type regression_type,
 							const t_gradient_descent *const gradient_descent,
-							const t_tcp_connection *const connection);
+							const t_tcp_connection *const connection,
+							const t_bool is_influxdb);
 void					ft_matrix_dot_matrix(
 							const t_matrix *const matrix1,
 							const t_matrix *const matrix2,
