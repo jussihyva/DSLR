@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 17:06:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 06:55:14 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:52:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void	dataset_save_record(
 	t_example		*example;
 
 	example = example_initialize_validate(line, &number_of_values, stat);
-	if (number_of_values != number_of_columns || number_of_columns < NUMBER_OF_INPUT_FUNCTIONS)
+	if (number_of_values != number_of_columns
+		|| number_of_columns < NUMBER_OF_INPUT_FUNCTIONS)
 	{
 		if (ft_log_get_level() <= LOG_TRACE)
 			ft_strarray_print(example->value_array);

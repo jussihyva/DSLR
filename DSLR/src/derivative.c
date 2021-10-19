@@ -6,14 +6,14 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:01:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 11:04:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 09:42:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dslr.h"
 
 static void	derivative_recalculate_weight(
-						const t_matrix *residual,
+						const t_matrix *loss,
 						const t_matrix *activation_input,
 						t_matrix *const weight)
 {
@@ -21,9 +21,9 @@ static void	derivative_recalculate_weight(
 	t_matrix			*weight_prel;
 
 	weight_prel = ft_matrix_create(sizeof(double),
-			residual->size.rows, activation_input->size.rows);
+			loss->size.rows, activation_input->size.rows);
 	activation_input_transposed = ft_matrix_transpose(activation_input);
-	ft_matrix_dot_matrix(residual, activation_input_transposed,
+	ft_matrix_dot_matrix(loss, activation_input_transposed,
 		weight_prel);
 	ft_matrix_remove((t_matrix **)&activation_input_transposed);
 	ft_matrix_div_double(weight_prel, activation_input->size.columns, weight);
@@ -38,13 +38,13 @@ void	derivative_recalculate(
 							const t_derivative *const derivative)
 {
 	const t_vector		*bias_prel;
-	const t_matrix		*residual;
+	const t_matrix		*loss;
 
-	residual = residual_calculate(observed, predicted);
-	derivative_recalculate_weight(residual, activation_input,
+	loss = loss_calculate(observed, predicted);
+	derivative_recalculate_weight(loss, activation_input,
 		derivative->weight);
-	bias_prel = ft_matrix_sum(residual, E_DIR_ROW);
-	ft_matrix_remove((t_matrix **)&residual);
+	bias_prel = ft_matrix_sum(loss, E_DIR_ROW);
+	ft_matrix_remove((t_matrix **)&loss);
 	ft_vector_div_double(bias_prel, activation_input->size.columns,
 		derivative->bias);
 	ft_matrix_remove((t_matrix **)&bias_prel);

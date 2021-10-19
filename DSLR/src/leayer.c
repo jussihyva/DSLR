@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:19:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 17:38:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:44:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,24 @@ static void	update_weight_and_bias(
 	return ;
 }
 
+static t_matrix	*linear_calculation(
+									const t_matrix *const weight,
+									const t_vector *bias,
+									const t_matrix *const activation_input)
+{
+	t_matrix	*predicted_prel;
+	t_matrix	*predicted_add;
+
+	predicted_prel = ft_matrix_create(sizeof(double), weight->size.rows,
+			activation_input->size.columns);
+	predicted_add = ft_matrix_create(sizeof(double), weight->size.rows,
+			activation_input->size.columns);
+	ft_matrix_dot_matrix(weight, activation_input, predicted_prel);
+	ft_matrix_add_vector(predicted_prel, bias, predicted_add);
+	ft_matrix_remove(&predicted_prel);
+	return (predicted_add);
+}
+
 const t_matrix	*predict(
 					t_regression_type regression_type,
 					const t_matrix *const activation_input,
@@ -54,24 +72,17 @@ const t_matrix	*predict(
 					const t_matrix *const weight)
 {
 	t_matrix			*predicted_prel;
-	t_matrix			*predicted_add;
 	const t_matrix		*predicted;
 
-	predicted_prel = ft_matrix_create(sizeof(double), weight->size.rows,
-			activation_input->size.columns);
-	predicted_add = ft_matrix_create(sizeof(double), weight->size.rows,
-			activation_input->size.columns);
 	predicted = NULL;
 	if (regression_type == E_LOGISTIC)
 	{
-		ft_matrix_dot_matrix(weight, activation_input, predicted_prel);
-		ft_matrix_add_vector(predicted_prel, bias, predicted_add);
-		predicted = ft_sigmoid(predicted_add);
+		predicted_prel = linear_calculation(weight, bias, activation_input);
+		predicted = ft_sigmoid(predicted_prel);
+		ft_matrix_remove(&predicted_prel);
 		if (ft_log_get_level() <= LOG_DEBUG)
 			print_shapes(activation_input, weight, predicted);
 	}
-	ft_matrix_remove(&predicted_prel);
-	ft_matrix_remove(&predicted_add);
 	return (predicted);
 }
 

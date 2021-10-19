@@ -1,8 +1,8 @@
 # Datascience X Logistic Regression (DSLR)
 
-```diff
+<!-- ```diff
 - The project is still ongoing. Daily updates into the contents.
-```
+``` -->
 
 ## 1. Project overview
 
@@ -43,7 +43,7 @@ With:
 
 The loss function gives us the following partial derivative:
 
-![Partial derivative](https://latex.codecogs.com/svg.latex?\Large&space;\frac{\delta1}{\delta\theta_j}J\theta=\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^i)-y^i)x^i_j)
+![Partial derivative](https://latex.codecogs.com/svg.latex?\Large&space;\frac{{\partial}1}{{\partial}\theta_j}J\theta=\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^i)-y^i)x^i_j)
 
 ## 5. Solution
 
@@ -184,7 +184,18 @@ Below, is a list of matrix/vector functions that I wrote.
 
 ### 5.4 Implemented activation functions
 
+| Name of the function | equation |
+|:-|:-|
+| ft_sigmoid.c | ![g](https://latex.codecogs.com/svg.latex?\Large&space;g(z)=\frac{1}{1+e^{-z}}) |
+
 ### 5.5 Implemented gradient descent functions
+
+| Name of the function | equation |
+|:-|:-|
+| loss.c | ![g](https://latex.codecogs.com/svg.latex?\Large&space;loss=\frac{1}{m}\sum_{i=1}^{m}(y^{predicted}-y^{observed})) |
+| update_weight_and_bias | ![g](https://latex.codecogs.com/svg.latex?\Large&space;W=W-\alpha\frac{{\partial}L}{{\partial}W})<br>![fggfgf](https://latex.codecogs.com/svg.latex?\Large&space;b=b-\frac{{\partial}L}{{\partial}W}) |
+| cost_recalculate | ![Cost](https://latex.codecogs.com/svg.latex?\Large&space;J(\theta)=-\frac{1}{m}\sum_{i=1}^{m}y^{obs}log(y^{pred})+(1-y^{obs})log(1-y^{pred}))|
+|linear_calculation| ![g](https://latex.codecogs.com/svg.latex?\Large&space;Z=Wx+b) |
 
 ### 5.6 Implemented command line arguments
 

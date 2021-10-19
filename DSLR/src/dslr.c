@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:56:21 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 06:02:15 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:49:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	main(
 
 	arg_parser = arg_parser_init(&argc, &argv);
 	input_params = ft_arg_parser(arg_parser);
+	if (input_params->mode == E_NO_MODE)
+		usage_print();
 	connection = ft_influxdb_connect("127.0.0.1", "8086",
 			INFLUXDB_CONNECTION_PROTOCOL);
 	if (input_params->is_influxdb && connection && input_params->dataset)

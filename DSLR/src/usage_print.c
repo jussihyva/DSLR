@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 11:21:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/11 12:57:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 09:13:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	usage_print(void)
 	ft_printf("  <input file>              "
 		"A file with data for learning or test phases\n");
 	ft_printf("Optional parameter:\n");
-	ft_printf("  -I                        Send input data to a influxdb\n");
+	ft_printf("  -S                        Send data to an influxdb\n");
+	ft_printf("  -I <iter loops>           Number of iteration loops\n");
+	ft_printf("  -A <learning rate>        Learning rate\n");
 	ft_printf("  -h                        Help printout\n");
 	ft_printf("  -l                        %s\n",
 		"Print leaks. Only in MAC-OS");

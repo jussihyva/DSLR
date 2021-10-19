@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 06:03:18 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/19 09:42:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ void					ft_vector_print(
 							const char *const vectior_name,
 							const t_vector *const vector,
 							const t_content_type content_type);
-const t_matrix			*residual_calculate(
+const t_matrix			*loss_calculate(
 							const t_matrix *const observed,
 							const t_matrix *const predicted);
 void					ft_matrix_subtract_matrix(
