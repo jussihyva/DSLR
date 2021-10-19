@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 09:00:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 10:57:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/19 12:42:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	create_result_file(const t_vector *const predicted_argmax)
 	remove(houses_file);
 	fd = open(houses_file, O_CREAT | O_RDWR, S_IWUSR | S_IRUSR);
 	i = -1;
+	ft_sprintf(write_buf, "Index,Hogwarts House\n");
+	write(fd, write_buf, ft_strlen(write_buf));
 	while (++i < predicted_argmax->size.rows)
 	{
 		house_id = (int)((double **)predicted_argmax->values)[i][0];
