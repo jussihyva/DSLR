@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/20 16:19:28 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/20 16:59:55 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,20 @@ class MyDescribe():
 				self.__validate_percentile(hogwartsSubjects, value_series, quantile, name)
 		return ({name: value_list})
 
+	def __calculate_max(self, hogwartsSubjects, validate):
+		name = "Max"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			numOfValues = len(value_list_sorted)
+			value = value_list_sorted[numOfValues - 1]
+			value_list.append(value)
+		# value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		# if validate:
+		# 	self.__validate_max(hogwartsSubjects, value_series, quantile, name)
+		return ({name: value_list})
+
 	def createDescribeDataFrame(self, hogwartsSubjects, validate):
 		describe_list = {}
 		describe_list.update({"Count": hogwartsSubjects.count()})
@@ -54,7 +68,8 @@ class MyDescribe():
 		describe_list.update({"Std": hogwartsSubjects.std()})
 		describe_list.update({"Median": hogwartsSubjects.median()})
 		describe_list.update({"Min": hogwartsSubjects.min()})
-		describe_list.update({"Max": hogwartsSubjects.max()})
+		describe_list.update({"Max_old": hogwartsSubjects.max()})
+		describe_list.update(self.__calculate_max(hogwartsSubjects, validate))
 		describe_list.update({"1%_old": hogwartsSubjects.quantile(0.01, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.01, validate))
 		describe_list.update({"25%_old": hogwartsSubjects.quantile(0.25, interpolation="lower")})
