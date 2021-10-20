@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/15 09:44:29 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/20 16:17:02 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ class CmdArguments_describe(CmdArguments):
 		CmdArguments.__init__(self)
 		parser = self._create_parser("describe prints basic informtion about a content of a dataset file.")
 		parser.add_argument("-T", "--Transpose", help = "Transposed printout",
+			action=argparse.BooleanOptionalAction, required = False, default = False)
+		parser.add_argument("-V", "--Validate", help = "Validate calculations printout",
 			action=argparse.BooleanOptionalAction, required = False, default = False)
 		self._create_arguments(parser)
 		return None
