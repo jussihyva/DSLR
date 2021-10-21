@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/21 11:45:48 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/21 13:53:17 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,47 +18,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
-
-class DescribeValidator():
-	def __init__(self) -> None:
-		pass
-	def percentile(self, hogwartsSubjects, value_series, quantile, name):
-		ref_list = hogwartsSubjects.quantile(quantile, interpolation="lower")
-		result = value_series.compare(ref_list)
-		if result.empty:
-			print(name + ": OK")
-		else:
-			print(name + ": NOT OK")
-			print("START (details)")
-			print(result)
-			print("END")
-
-	def max(self, hogwartsSubjects, value_series, name):
-		ref_list = hogwartsSubjects.max()
-		result = value_series.compare(ref_list)
-		if result.empty:
-			print(name + ": OK")
-		else:
-			print(name + ": NOT OK")
-			print("START (details)")
-			print(result)
-			print("END")
-
-	def min(self, hogwartsSubjects, value_series, name):
-		ref_list = hogwartsSubjects.min()
-		result = value_series.compare(ref_list)
-		if result.empty:
-			print(name + ": OK")
-		else:
-			print(name + ": NOT OK")
-			print("START (details)")
-			print(result)
-			print("END")
+from DescribeValidator import *
 
 class MyDescribe():
 	def __init__(self):
 		self.interpolation = "lower"
 		self.describeValidator = DescribeValidator()
+
 	def __calculate_percentile(self, hogwartsSubjects, quantile, validate):
 		name = str(int(quantile * 100)) + "%"
 		value_list = []
@@ -68,8 +34,9 @@ class MyDescribe():
 				value_list_sorted = value_list_sorted.reset_index(drop=True)
 				numOfValues = len(value_list_sorted)
 				rankValuePrel = numOfValues * quantile
-				# print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel))
-				rankValue = round(numOfValues * quantile)
+				rankValue = round(rankValuePrel + 0.00000001)
+				# if validate:
+				# 	print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
 				if (numOfValues % 2) == 1:
 					if (int(rankValuePrel) % 2) == 2:
 						value = value_list_sorted[rankValue - 1]
@@ -116,12 +83,92 @@ class MyDescribe():
 			self.describeValidator.min(hogwartsSubjects, value_series, name)
 		return ({name: value_list})
 
+	def __calculate_count(self, hogwartsSubjects, validate):
+		name = "Count"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			numOfValues = len(value_list_sorted)
+			value = numOfValues
+			value_list.append(value)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.count(hogwartsSubjects, value_series, name)
+		return ({name: value_list})
+
+	def __calculate_median(self, hogwartsSubjects, validate):
+		name = "Median"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			numOfValues = len(value_list_sorted)
+			rankValuePrel = numOfValues / 2
+			rankValue = round(rankValuePrel + 0.000000000001)
+			# if validate:
+			# 	print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
+			if (numOfValues % 2) == 0:
+				value = (value_list_sorted[rankValue] + value_list_sorted[rankValue - 1]) / 2
+			else:
+				value = value_list_sorted[rankValue - 1]
+			value_list.append(value)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.median(hogwartsSubjects, value_series, name)
+		return ({name: value_list})
+
+	def __sum(self, valueList):
+		sum = 0
+		for value in valueList:
+			sum += value
+		return (sum)
+
+	def __variance(self, valueList, mean):
+		sum = 0
+		for value in valueList:
+			sum += abs(value - mean)
+		variance = sum / len(valueList)
+		return (variance)
+
+	def __calculate_mean(self, hogwartsSubjects, validate):
+		name = "Mean"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			sum = self.__sum(value_list_sorted)
+			numOfValues = len(value_list_sorted)
+			value = sum / numOfValues
+			value_list.append(value)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.mean(hogwartsSubjects, value_series, name)
+		return ({name: value_list})
+
+	def __calculate_std(self, hogwartsSubjects, validate):
+		name = "Std"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			sum = self.__sum(value_list_sorted)
+			numOfValues = len(value_list_sorted)
+			variance = self.__variance(value_list_sorted, sum / numOfValues)
+			value = math.sqrt(variance)
+			value = variance
+			value_list.append(value)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.std(hogwartsSubjects, value_series, name)
+		return ({name: value_list})
+
 	def createDescribeDataFrame(self, hogwartsSubjects, validate):
 		describe_list = {}
-		describe_list.update({"Count": hogwartsSubjects.count()})
-		describe_list.update({"Mean": hogwartsSubjects.mean()})
-		describe_list.update({"Std": hogwartsSubjects.std()})
-		describe_list.update({"Median": hogwartsSubjects.median()})
+		describe_list.update(self.__calculate_count(hogwartsSubjects, validate))
+		describe_list.update(self.__calculate_mean(hogwartsSubjects, validate))
+		describe_list.update(self.__calculate_std(hogwartsSubjects, validate))
+		describe_list.update(self.__calculate_median(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_min(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_max(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.01, validate))
