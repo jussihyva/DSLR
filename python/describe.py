@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/20 16:59:55 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/21 11:32:33 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,24 @@ import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
 
-class MyDescribe():
-	def __init__(self):
-		self.interpolation = "lower"
-	def __validate_percentile(self, hogwartsSubjects, value_series, quantile, name):
+class DescribeValidator():
+	def __init__(self) -> None:
+		pass
+	def percentile(self, hogwartsSubjects, value_series, quantile, name):
 		ref_list = hogwartsSubjects.quantile(quantile, interpolation="lower")
-		result = ref_list.compare(value_series)
+		result = value_series.compare(ref_list)
 		if result.empty:
 			print(name + ": OK")
 		else:
+			print("START")
 			print(name + ": NOT OK")
+			print(result)
+			print("END")
+
+class MyDescribe():
+	def __init__(self):
+		self.interpolation = "lower"
+		self.describeValidator = DescribeValidator()
 	def __calculate_percentile(self, hogwartsSubjects, quantile, validate):
 		name = str(int(quantile * 100)) + "%"
 		value_list = []
@@ -37,14 +45,26 @@ class MyDescribe():
 				value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
 				value_list_sorted = value_list_sorted.reset_index(drop=True)
 				numOfValues = len(value_list_sorted)
-				# rankValuePrel = numOfValues * quantile
-				# print(rankValuePrel)
-				rankValue = math.ceil(numOfValues * quantile)
-				value = value_list_sorted[rankValue - 1]
+				rankValuePrel = numOfValues * quantile
+				print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel))
+				rankValue = round(numOfValues * quantile)
+				if (numOfValues % 2) == 1:
+					if (int(rankValuePrel) % 2) == 2:
+						value = value_list_sorted[rankValue - 1]
+					# elif ((rankValue % 2) == 1) and (int(rankValuePrel) == rankValue):
+					# 	value = value_list_sorted[rankValue - 1]
+					elif int(rankValuePrel) == rankValue:
+						value = value_list_sorted[rankValue]
+					else:
+						value = value_list_sorted[rankValue - 1]
+				elif ((numOfValues % 2) == 1) and ((int(rankValuePrel) % 2) == 0):
+					value = value_list_sorted[rankValue]
+				else:
+					value = value_list_sorted[rankValue - 1]
 				value_list.append(value)
 			value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
 			if validate:
-				self.__validate_percentile(hogwartsSubjects, value_series, quantile, name)
+				self.describeValidator.percentile(hogwartsSubjects, value_series, quantile, name)
 		return ({name: value_list})
 
 	def __calculate_max(self, hogwartsSubjects, validate):
