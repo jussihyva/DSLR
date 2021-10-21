@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/21 11:32:33 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/21 11:45:48 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,30 @@ class DescribeValidator():
 		if result.empty:
 			print(name + ": OK")
 		else:
-			print("START")
 			print(name + ": NOT OK")
+			print("START (details)")
+			print(result)
+			print("END")
+
+	def max(self, hogwartsSubjects, value_series, name):
+		ref_list = hogwartsSubjects.max()
+		result = value_series.compare(ref_list)
+		if result.empty:
+			print(name + ": OK")
+		else:
+			print(name + ": NOT OK")
+			print("START (details)")
+			print(result)
+			print("END")
+
+	def min(self, hogwartsSubjects, value_series, name):
+		ref_list = hogwartsSubjects.min()
+		result = value_series.compare(ref_list)
+		if result.empty:
+			print(name + ": OK")
+		else:
+			print(name + ": NOT OK")
+			print("START (details)")
 			print(result)
 			print("END")
 
@@ -46,7 +68,7 @@ class MyDescribe():
 				value_list_sorted = value_list_sorted.reset_index(drop=True)
 				numOfValues = len(value_list_sorted)
 				rankValuePrel = numOfValues * quantile
-				print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel))
+				# print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel))
 				rankValue = round(numOfValues * quantile)
 				if (numOfValues % 2) == 1:
 					if (int(rankValuePrel) % 2) == 2:
@@ -76,9 +98,22 @@ class MyDescribe():
 			numOfValues = len(value_list_sorted)
 			value = value_list_sorted[numOfValues - 1]
 			value_list.append(value)
-		# value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
-		# if validate:
-		# 	self.__validate_max(hogwartsSubjects, value_series, quantile, name)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.max(hogwartsSubjects, value_series, name)
+		return ({name: value_list})
+
+	def __calculate_min(self, hogwartsSubjects, validate):
+		name = "Min"
+		value_list = []
+		for course in hogwartsSubjects:
+			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = value_list_sorted.reset_index(drop=True)
+			value = value_list_sorted[0]
+			value_list.append(value)
+		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
+		if validate:
+			self.describeValidator.min(hogwartsSubjects, value_series, name)
 		return ({name: value_list})
 
 	def createDescribeDataFrame(self, hogwartsSubjects, validate):
@@ -87,18 +122,12 @@ class MyDescribe():
 		describe_list.update({"Mean": hogwartsSubjects.mean()})
 		describe_list.update({"Std": hogwartsSubjects.std()})
 		describe_list.update({"Median": hogwartsSubjects.median()})
-		describe_list.update({"Min": hogwartsSubjects.min()})
-		describe_list.update({"Max_old": hogwartsSubjects.max()})
+		describe_list.update(self.__calculate_min(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_max(hogwartsSubjects, validate))
-		describe_list.update({"1%_old": hogwartsSubjects.quantile(0.01, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.01, validate))
-		describe_list.update({"25%_old": hogwartsSubjects.quantile(0.25, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.25, validate))
-		describe_list.update({"50%_old": hogwartsSubjects.quantile(0.50, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.50, validate))
-		describe_list.update({"75%_old": hogwartsSubjects.quantile(0.75, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.75, validate))
-		describe_list.update({"99%_old": hogwartsSubjects.quantile(0.99, interpolation="lower")})
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.99, validate))
 		return (describe_list)
 
