@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    CmdArguments.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
+#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 09:21:50 by juhani           ###   ########.fr        #
+#    Updated: 2021/10/22 15:07:33 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,10 +52,10 @@ class CmdArguments_histogram(CmdArguments):
 		self._create_arguments(parser)
 		return None
 
-class CmdArguments_scatter(CmdArguments):
+class CmdArguments_pair(CmdArguments):
 	def __init__(self):
 		CmdArguments.__init__(self)
-		parser = self._create_parser("scatter visualize basic informtion about a content of a dataset file.")
+		parser = self._create_parser("pair visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None
 
@@ -70,5 +70,12 @@ class CmdArguments_correlation(CmdArguments):
 	def __init__(self):
 		CmdArguments.__init__(self)
 		parser = self._create_parser("correlation visualize basic informtion about a content of a dataset file.")
+		self._create_arguments(parser)
+		return None
+
+class CmdArguments_scatter(CmdArguments):
+	def __init__(self):
+		CmdArguments.__init__(self)
+		parser = self._create_parser("scatter visualize basic informtion about a content of a dataset file.")
 		self._create_arguments(parser)
 		return None

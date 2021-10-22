@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    scatter_plot.py                                    :+:      :+:    :+:    #
+#    pair_plot.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 15:36:38 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 15:00:36 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from CmdArguments import *
 from HogwartsSubjects import *
 
-def scatter_plot(dataset_file):
+def pair_plot(dataset_file):
 	color_dict = {}
 	dataset = pd.read_csv(dataset_file)
 	dataset = dataset.dropna()
@@ -33,14 +33,20 @@ def scatter_plot(dataset_file):
 	for name in dataset['Hogwarts House']:
 		color_list.append(color_dict[name])
 	color_set = np.array(color_list)
-	plot1 = plt.figure(1)
-	plt.scatter("Defense Against the Dark Arts", "Astronomy", data=hogwartsSubjects_df, c=color_set)
-	plt.title("Correlation of Defense Against the Dark Arts and Astronomy (scatter)")
-	plt.xlabel("Defense Against the Dark Arts")
-	plt.ylabel("Astronomy")
+	axes = pd.plotting.scatter_matrix(hogwartsSubjects_df, alpha=0.2, 
+		diagonal="kde", c=color_set)
+	for ax in axes.flatten():
+		ax.xaxis.label.set_rotation(30)
+		ax.yaxis.label.set_rotation(0)
+		ax.set_xticklabels([])
+		ax.set_yticklabels([])
+	title = "Overview of Hogwards courses (pair)"
+	plt.suptitle(title)
+	plt.tight_layout()
+	plt.gcf().subplots_adjust(wspace=0, hspace=0)
+	plt.show()
 
 if __name__ == "__main__":
-	cmdArguments = CmdArguments_scatter()
+	cmdArguments = CmdArguments_pair()
 	inputParams = cmdArguments.getArguments()
-	scatter_plot(inputParams.dataset_file)
-	plt.show()
+	pair_plot(inputParams.dataset_file)

@@ -147,10 +147,15 @@ A scatter plot visualizes cluster areas. In the picture below we see that there 
 
 ![Scatterplot](Documentation/Python_Scatterplot.png)
 
+#### 5.2.5 Pair plot
+
+A pair plot visualizes cluster areas. In the picture below we see that there are feature pairs which clusterize colours in different areas.
+
+![Scatterplot](Documentation/Python_Pairplot.png)
+
 #### 5.2.6 Cost
 
 ![Cost](Documentation/Grafana_Cost.png)
-
 
 ### 5.3 Implemented Matrix and Vector calculation funtions
 
