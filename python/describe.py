@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    describe.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/21 13:53:17 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 10:49:40 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,21 +33,15 @@ class MyDescribe():
 				value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
 				value_list_sorted = value_list_sorted.reset_index(drop=True)
 				numOfValues = len(value_list_sorted)
-				rankValuePrel = numOfValues * quantile
-				rankValue = round(rankValuePrel + 0.00000001)
-				# if validate:
-				# 	print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
+				rankValuePrel = int(numOfValues * int(quantile * 100))
+				rankValue = int((rankValuePrel + 50) / 100)
+				if inputParams.verbose <= 2:
+					print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
 				if (numOfValues % 2) == 1:
-					if (int(rankValuePrel) % 2) == 2:
-						value = value_list_sorted[rankValue - 1]
-					# elif ((rankValue % 2) == 1) and (int(rankValuePrel) == rankValue):
-					# 	value = value_list_sorted[rankValue - 1]
-					elif int(rankValuePrel) == rankValue:
+					if int(rankValuePrel / 100) == rankValue:
 						value = value_list_sorted[rankValue]
 					else:
 						value = value_list_sorted[rankValue - 1]
-				elif ((numOfValues % 2) == 1) and ((int(rankValuePrel) % 2) == 0):
-					value = value_list_sorted[rankValue]
 				else:
 					value = value_list_sorted[rankValue - 1]
 				value_list.append(value)
@@ -97,7 +91,7 @@ class MyDescribe():
 			self.describeValidator.count(hogwartsSubjects, value_series, name)
 		return ({name: value_list})
 
-	def __calculate_median(self, hogwartsSubjects, validate):
+	def __calculate_median(self, hogwartsSubjects, validate, inputParams):
 		name = "Median"
 		value_list = []
 		for course in hogwartsSubjects:
@@ -106,8 +100,8 @@ class MyDescribe():
 			numOfValues = len(value_list_sorted)
 			rankValuePrel = numOfValues / 2
 			rankValue = round(rankValuePrel + 0.000000000001)
-			# if validate:
-			# 	print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
+			if inputParams.verbose <= 2:
+				print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
 			if (numOfValues % 2) == 0:
 				value = (value_list_sorted[rankValue] + value_list_sorted[rankValue - 1]) / 2
 			else:
@@ -168,7 +162,7 @@ class MyDescribe():
 		describe_list.update(self.__calculate_count(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_mean(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_std(hogwartsSubjects, validate))
-		describe_list.update(self.__calculate_median(hogwartsSubjects, validate))
+		describe_list.update(self.__calculate_median(hogwartsSubjects, validate, inputParams))
 		describe_list.update(self.__calculate_min(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_max(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.01, validate))
@@ -178,14 +172,14 @@ class MyDescribe():
 		describe_list.update(self.__calculate_percentile(hogwartsSubjects, 0.99, validate))
 		return (describe_list)
 
-def describe(dataset_file, transpose, validate):
+def describe(dataset_file, inputParams):
 	myDescribe = MyDescribe()
 	dataset = pd.read_csv(dataset_file)
 	hogwartsSubjects = HogwartsSubjects(dataset)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
-	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, validate)
+	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, inputParams.Validate)
 	my_describe_df = pd.DataFrame(describe_list)
-	if transpose:
+	if inputParams.Transpose:
 		print(my_describe_df.T)
 	else:
 		print(my_describe_df)
@@ -193,4 +187,4 @@ def describe(dataset_file, transpose, validate):
 if __name__ == "__main__":
 	cmdArguments = CmdArguments_describe()
 	inputParams = cmdArguments.getArguments()
-	describe(inputParams.dataset_file, inputParams.Transpose, inputParams.Validate)
+	describe(inputParams.dataset_file, inputParams)

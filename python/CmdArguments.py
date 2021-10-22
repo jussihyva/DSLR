@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    CmdArguments.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/20 16:17:02 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 09:21:50 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ class CmdArguments_describe(CmdArguments):
 			action=argparse.BooleanOptionalAction, required = False, default = False)
 		parser.add_argument("-V", "--Validate", help = "Validate calculations printout",
 			action=argparse.BooleanOptionalAction, required = False, default = False)
+		parser.add_argument("-v", "--verbose", help = "Print details",
+			type=int, required = False, default = 3)
 		self._create_arguments(parser)
 		return None
 
