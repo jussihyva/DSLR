@@ -1,8 +1,8 @@
 # Datascience X Logistic Regression (DSLR)
 
-<!-- ```diff
+```diff
 - The project is still ongoing. Daily updates into the contents.
-``` -->
+```
 
 ## 1. Project overview
 
@@ -143,7 +143,7 @@ Histogram plots visualize how values in a function are distributed. Currently, I
 
 #### 5.2.5 Scatter plot
 
-A scatter plot and correlation plot visualizes similar things (at least from my point of view). The visualization view is different that makes the possibility for a different kind of information. Currently, I don't know what kind of, but in any case.
+A scatter plot visualizes cluster areas. In the picture below we see that there are feature pairs which clusterize colours in different areas.
 
 ![Scatterplot](Documentation/Python_Scatterplot.png)
 
