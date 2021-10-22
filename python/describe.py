@@ -6,7 +6,7 @@
 #    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 10:49:40 by juhani           ###   ########.fr        #
+#    Updated: 2021/10/22 11:11:15 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ import math
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from pandas.core import indexing
 from CmdArguments import *
 from HogwartsSubjects import *
 from DescribeValidator import *
@@ -98,8 +99,8 @@ class MyDescribe():
 			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
 			value_list_sorted = value_list_sorted.reset_index(drop=True)
 			numOfValues = len(value_list_sorted)
-			rankValuePrel = numOfValues / 2
-			rankValue = round(rankValuePrel + 0.000000000001)
+			rankValuePrel = int(numOfValues * 50)
+			rankValue = int((rankValuePrel + 50) / 100)
 			if inputParams.verbose <= 2:
 				print(str(numOfValues) + "   " + course + ": " + str(rankValuePrel) + " : " + str(rankValue))
 			if (numOfValues % 2) == 0:
@@ -178,11 +179,11 @@ def describe(dataset_file, inputParams):
 	hogwartsSubjects = HogwartsSubjects(dataset)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, inputParams.Validate)
-	my_describe_df = pd.DataFrame(describe_list)
+	my_describe_df = pd.DataFrame(describe_list, index=hogwartsSubjects.getSubjectList())
 	if inputParams.Transpose:
-		print(my_describe_df.T)
-	else:
 		print(my_describe_df)
+	else:
+		print(my_describe_df.T)
 
 if __name__ == "__main__":
 	cmdArguments = CmdArguments_describe()
