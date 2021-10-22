@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    describe.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
+#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 11:11:15 by juhani           ###   ########.fr        #
+#    Updated: 2021/10/22 17:51:54 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,8 +175,7 @@ class MyDescribe():
 
 def describe(dataset_file, inputParams):
 	myDescribe = MyDescribe()
-	dataset = pd.read_csv(dataset_file)
-	hogwartsSubjects = HogwartsSubjects(dataset)
+	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, inputParams.Validate)
 	my_describe_df = pd.DataFrame(describe_list, index=hogwartsSubjects.getSubjectList())

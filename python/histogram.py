@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 18:49:56 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/15 09:32:02 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 17:46:40 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ from CmdArguments import *
 from HogwartsSubjects import *
 
 def histogram(dataset_file):
-	dataset = pd.read_csv(dataset_file)
-	hogwartsSubjects = HogwartsSubjects(dataset)
+	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
+	color_set = hogwartsSubjects.getColorSet()
 	pd.DataFrame.hist(hogwartsSubjects_df)
 	title = "Overview of Hogwards courses (Histogram)"
 	plt.suptitle(title)

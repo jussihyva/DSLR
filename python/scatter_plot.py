@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 15:36:38 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 17:36:11 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,9 @@ from CmdArguments import *
 from HogwartsSubjects import *
 
 def scatter_plot(dataset_file):
-	color_dict = {}
-	dataset = pd.read_csv(dataset_file)
-	dataset = dataset.dropna()
-	hogwartsSubjects = HogwartsSubjects(dataset)
+	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
-	color_dict['Ravenclaw'] = 'blue'
-	color_dict['Slytherin'] = 'red'
-	color_dict['Gryffindor'] = 'green'
-	color_dict['Hufflepuff'] = 'black'
-	color_list = []
-	for name in dataset['Hogwarts House']:
-		color_list.append(color_dict[name])
-	color_set = np.array(color_list)
+	color_set = hogwartsSubjects.getColorSet()
 	plot1 = plt.figure(1)
 	plt.scatter("Defense Against the Dark Arts", "Astronomy", data=hogwartsSubjects_df, c=color_set)
 	plt.title("Correlation of Defense Against the Dark Arts and Astronomy (scatter)")

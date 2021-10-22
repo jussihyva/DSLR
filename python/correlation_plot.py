@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 10:38:42 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/15 09:13:08 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 17:51:22 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ from CmdArguments import *
 from HogwartsSubjects import *
 
 def correlation_plot(dataset_file):
-	dataset = pd.read_csv(dataset_file)
-	hogwartsSubjects = HogwartsSubjects(dataset)
+	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	subjects = hogwartsSubjects.getSubjectList()
 	numOfSubjects = hogwartsSubjects.getNumOfSubjects()

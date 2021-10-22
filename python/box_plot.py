@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 10:24:10 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/11 14:04:01 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/22 17:56:38 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ from CmdArguments import *
 from HogwartsSubjects import *
 
 def box_plot(dataset_file):
-	dataset = pd.read_csv(dataset_file)
-	hogwartsSubjects = HogwartsSubjects(dataset)
+	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	numOfSubjects = hogwartsSubjects.getNumOfSubjects()
 	columns = math.ceil(np.sqrt(hogwartsSubjects_df.shape[1]))
