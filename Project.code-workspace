@@ -38,5 +38,18 @@
 			"vector": "c"
 		},
 		"python.pythonPath": "/usr/local/bin/python3"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Python: Current File",
+				"type": "python",
+				"request": "launch",
+				"program": "${file}",
+				"args": ["DSLR/data/dataset_train.csv"],
+				"console": "integratedTerminal"
+			}
+		]
 	}
 }

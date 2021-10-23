@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    pair_plot.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 19:16:48 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 17:20:27 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/23 22:43:41 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import os
 import sys
 from matplotlib import colors
+from numpy.core.fromnumeric import mean
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,8 +24,9 @@ def pair_plot(dataset_file):
 	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
 	color_set = hogwartsSubjects.getColorSet()
+	hogwartsSubjects_df = hogwartsSubjects_df.fillna(hogwartsSubjects_df.mean())
 	axes = pd.plotting.scatter_matrix(hogwartsSubjects_df, alpha=0.2, 
-		diagonal="kde", c=color_set)
+		diagonal="kde", color=color_set)
 	for ax in axes.flatten():
 		ax.xaxis.label.set_rotation(30)
 		ax.yaxis.label.set_rotation(0)
