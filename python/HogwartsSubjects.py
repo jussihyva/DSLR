@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    HogwartsSubjects.py                                :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/08 10:50:45 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 17:19:32 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/23 11:51:22 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ class HogwartsSubjects():
     	   'Care of Magical Creatures', 'Charms', 'Flying']
 		self.hogwartsSubjects = dataset[self.subjectList]
 		self.color_set = self.__create_color_list(dataset)
+		self.subjectListLen = len(self.subjectList)
 
 	def __create_color_list(self, dataset):
 		color_dict = {}
@@ -46,5 +47,5 @@ class HogwartsSubjects():
 		return (self.subjectList)
 
 	def getNumOfSubjects(self):
-		return (len(self.subjectList))
+		return (self.subjectListLen)
 
