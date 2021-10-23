@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    describe.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 17:51:54 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/23 16:57:24 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ class MyDescribe():
 		name = "Count"
 		value_list = []
 		for course in hogwartsSubjects:
-			value_list_sorted = (hogwartsSubjects[course].dropna()).sort_values()
+			value_list_sorted = (hogwartsSubjects[course].dropna())
 			value_list_sorted = value_list_sorted.reset_index(drop=True)
 			numOfValues = len(value_list_sorted)
 			value = numOfValues

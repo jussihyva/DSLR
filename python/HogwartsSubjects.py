@@ -6,7 +6,7 @@
 #    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/08 10:50:45 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/23 11:51:22 by juhani           ###   ########.fr        #
+#    Updated: 2021/10/23 17:46:50 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ import numpy as np
 class HogwartsSubjects():
 	def __init__(self, dataset_file):
 		dataset = pd.read_csv(dataset_file)
-		dataset = dataset.dropna()
 		self.subjectList = ["Arithmancy", "Astronomy", "Herbology", \
 			"Defense Against the Dark Arts", "Divination", 'Muggle Studies', \
 	       'Ancient Runes', 'History of Magic', 'Transfiguration', 'Potions', \
@@ -24,6 +23,8 @@ class HogwartsSubjects():
 		self.hogwartsSubjects = dataset[self.subjectList]
 		self.color_set = self.__create_color_list(dataset)
 		self.subjectListLen = len(self.subjectList)
+		self.hogwartsHouses = dataset["Hogwarts House"]
+		self.houseList = ["Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"]
 
 	def __create_color_list(self, dataset):
 		color_dict = {}
@@ -46,6 +47,11 @@ class HogwartsSubjects():
 	def getSubjectList(self):
 		return (self.subjectList)
 
+	def getHouseList(self):
+		return (self.houseList)
+
 	def getNumOfSubjects(self):
 		return (self.subjectListLen)
 
+	def getHouses(self):
+		return (self.hogwartsHouses)
