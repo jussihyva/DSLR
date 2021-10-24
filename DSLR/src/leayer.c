@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leayer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:19:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 10:44:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 16:38:09 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static t_matrix	*linear_calculation(
 }
 
 const t_matrix	*predict(
-					t_regression_type regression_type,
 					const t_matrix *const activation_input,
 					const t_vector *bias,
 					const t_matrix *const weight)
@@ -75,27 +74,22 @@ const t_matrix	*predict(
 	const t_matrix		*predicted;
 
 	predicted = NULL;
-	if (regression_type == E_LOGISTIC)
-	{
-		predicted_prel = linear_calculation(weight, bias, activation_input);
-		predicted = ft_sigmoid(predicted_prel);
-		ft_matrix_remove(&predicted_prel);
-		if (ft_log_get_level() <= LOG_DEBUG)
-			print_shapes(activation_input, weight, predicted);
-	}
+	predicted_prel = linear_calculation(weight, bias, activation_input);
+	predicted = ft_sigmoid(predicted_prel);
+	ft_matrix_remove(&predicted_prel);
+	if (ft_log_get_level() <= LOG_DEBUG)
+		print_shapes(activation_input, weight, predicted);
 	return (predicted);
 }
 
 void	leayer_calculate(
-				const t_regression_type regression_type,
 				const t_gradient_descent *const gradient_descent,
 				const t_derivative *const derivative,
 				const double learning_rate)
 {
 	const t_matrix	*predicted;
 
-	predicted = predict(regression_type,
-			gradient_descent->input_values, gradient_descent->bias,
+	predicted = predict(gradient_descent->input_values, gradient_descent->bias,
 			gradient_descent->weight);
 	derivative_recalculate(gradient_descent->input_values,
 		gradient_descent->observed, predicted, derivative);

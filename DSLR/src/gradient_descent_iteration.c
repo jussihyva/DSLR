@@ -6,7 +6,7 @@
 /*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/24 10:26:42 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/24 19:01:06 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	cost_influxdb_field_elem_create(
 
 static void	cost_send_to_influxdb(
 						const t_tcp_connection *const connection,
+						const t_dataset *const dataset,
 						const t_gradient_descent *const gradient_descent,
 						const size_t iteration)
 {
@@ -57,12 +58,13 @@ static void	cost_send_to_influxdb(
 	if (!result)
 		FT_LOG_ERROR("Sending of data to an influxdb failed!");
 	ft_strdel((char **)&influxdb_line);
-	influxdb_send_weight_and_bias(connection, gradient_descent, iteration);
+	influxdb_send_weight_and_bias(connection, dataset, gradient_descent,
+		iteration);
 	return ;
 }
 
 void	gradient_descent_iteration(
-							const t_regression_type regression_type,
+							const t_dataset *const dataset,
 							const t_gradient_descent *const gradient_descent,
 							const t_tcp_connection *const connection,
 							const t_bool is_influxdb)
@@ -72,23 +74,21 @@ void	gradient_descent_iteration(
 
 	derivative = derivative_initialize(gradient_descent->input_values,
 			gradient_descent->observed);
-	if (regression_type == E_LOGISTIC)
+	i = 0;
+	while (++i <= gradient_descent->hyper_parameters->iterations)
 	{
-		i = 0;
-		while (++i <= gradient_descent->hyper_parameters->iterations)
+		leayer_calculate(gradient_descent, derivative,
+			gradient_descent->hyper_parameters->learning_rate);
+		if (!(i % 100) || i == 10 || i == 20 || i == 50)
 		{
-			leayer_calculate(regression_type, gradient_descent, derivative,
-				gradient_descent->hyper_parameters->learning_rate);
-			if (!(i % 100) || i == 10 || i == 20 || i == 50)
-			{
-				if (connection && is_influxdb)
-					cost_send_to_influxdb(connection, gradient_descent, i);
-				if (ft_log_get_level() <= LOG_INFO)
-					ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
-			}
+			if (connection && is_influxdb)
+				cost_send_to_influxdb(connection, dataset, gradient_descent, i);
+			if (ft_log_get_level() <= LOG_INFO)
+				ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 		}
 	}
-	weight_bias_write(gradient_descent->weight, gradient_descent->bias);
+	weight_bias_write(gradient_descent->weight, gradient_descent->bias,
+		dataset->column_name_array);
 	derivative_remove(&derivative);
 	return ;
 }

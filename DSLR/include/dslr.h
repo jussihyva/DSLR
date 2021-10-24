@@ -6,7 +6,7 @@
 /*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/24 10:25:59 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/24 19:06:42 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ t_vector				*ft_vector_create(
 							size_t length,
 							t_vector_type vector_type);
 void					gradient_descent_iteration(
-							const t_regression_type regression_type,
+							const t_dataset *const dataset,
 							const t_gradient_descent *const gradient_descent,
 							const t_tcp_connection *const connection,
 							const t_bool is_influxdb);
@@ -368,7 +368,8 @@ void					ft_matrix_subtract_vector(
 							t_matrix *const new_matrix);
 void					weight_bias_write(
 							const t_matrix *const weight,
-							const t_vector *const bias);
+							const t_vector *const bias,
+							const char **const column_name_array);
 void					weight_bias_read(
 							t_matrix *weight,
 							t_vector *bias);
@@ -382,7 +383,6 @@ t_derivative			*derivative_initialize(
 							const t_matrix *const observed);
 void					derivative_remove(t_derivative **derivative);
 void					leayer_calculate(
-							const t_regression_type regression_type,
 							const t_gradient_descent *const gradient_descent,
 							const t_derivative *const derivative,
 							const double learning_rate);
@@ -410,7 +410,6 @@ char					*ft_strcat_queue(
 							t_queue *const queue,
 							const size_t string_length);
 const t_matrix			*predict(
-							t_regression_type regression_type,
 							const t_matrix *const activation_input,
 							const t_vector *bias,
 							const t_matrix *const weight);
@@ -448,6 +447,7 @@ double					set_number_of_iteration_loops(
 							const t_argc_argv *const argc_argv);
 void					influxdb_send_weight_and_bias(
 							const t_tcp_connection *const connection,
+							const t_dataset *const dataset,
 							const t_gradient_descent *const gradient_descent,
 							const size_t iteration);
 #endif

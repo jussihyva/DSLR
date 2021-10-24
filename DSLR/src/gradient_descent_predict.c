@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gradient_descent_predict.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 09:00:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 12:42:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 17:05:48 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	gradient_descent_predict(
 	const t_vector		*predicted_argmax;
 
 	weight_bias_read(gradient_descent->weight, gradient_descent->bias);
-	predicted = predict(E_LOGISTIC, gradient_descent->input_values,
+	predicted = predict(gradient_descent->input_values,
 			gradient_descent->bias, gradient_descent->weight);
 	predicted_transposed = ft_matrix_transpose(predicted);
 	predicted_argmax = ft_matrix_argmax(predicted_transposed, E_DIR_ROW);

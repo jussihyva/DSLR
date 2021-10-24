@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weight_bias_file_write.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:59:36 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:31:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 19:09:11 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,25 @@ static const char	*yaml_string_create(
 
 void	weight_bias_write(
 				const t_matrix *const weight,
-				const t_vector *const bias)
+				const t_vector *const bias,
+				const char **const column_name_array)
 {
 	const char		*write_buf;
 	char			*weight_bias_file_yaml;
 	int				fd;
 	ssize_t			ret;
 	size_t			i;
+	size_t			column;
+	const char		*column_name;
 
+	i = -1;
+	while (++i < NUMBER_OF_INPUT_FUNCTIONS)
+	{
+		column = g_function_columns[i];
+		column_name = column_name_array[column];
+		ft_printf("%s ", column_name);
+	}
+	ft_printf("\n");
 	ft_matrix_print("WEIGHT", weight, E_DOUBLE);
 	ft_matrix_print("BIAS", bias, E_DOUBLE);
 	weight_bias_file_yaml = ft_file_path_create(WEIGHT_BIAS_FILE_NAME);
