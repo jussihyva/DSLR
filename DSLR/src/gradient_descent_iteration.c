@@ -6,7 +6,7 @@
 /*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 06:07:54 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/24 10:26:42 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,23 @@ static void	cost_influxdb_field_elem_create(
 
 static void	cost_send_to_influxdb(
 						const t_tcp_connection *const connection,
-						const t_vector *const cost,
-						const t_hyper_parameters *const hyper_parameters,
+						const t_gradient_descent *const gradient_descent,
 						const size_t iteration)
 {
 	t_bool						result;
 	char						*string;
 	const char					*influxdb_line;
-	t_influxdb_line_element		influxdb_line_element[
-			NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
+	t_influxdb_line_element		influxdb_line_element[NUM_INFLUXDB_ELEMENTS];
 
 	string = ft_strnew(1000);
 	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
 		"dataset_train");
 	ft_sprintf(string, "Record_type=cost,iteration=%lu,learning_rate=%f",
-		iteration, hyper_parameters->learning_rate);
+		iteration, gradient_descent->hyper_parameters->learning_rate);
 	influxdb_line_element[E_TAGS].string = string;
 	influxdb_line_element[E_TAGS].string_length = ft_strlen(string);
-	cost_influxdb_field_elem_create(&influxdb_line_element[E_FIELDS], cost,
-		iteration);
+	cost_influxdb_field_elem_create(&influxdb_line_element[E_FIELDS],
+		gradient_descent->cost, iteration);
 	influxdb_line_timestamp_create(&influxdb_line_element[E_TIMESTAMP]);
 	influxdb_line = elements_merge(influxdb_line_element);
 	result = ft_influxdb_write(connection, influxdb_line,
@@ -59,6 +57,7 @@ static void	cost_send_to_influxdb(
 	if (!result)
 		FT_LOG_ERROR("Sending of data to an influxdb failed!");
 	ft_strdel((char **)&influxdb_line);
+	influxdb_send_weight_and_bias(connection, gradient_descent, iteration);
 	return ;
 }
 
@@ -83,8 +82,7 @@ void	gradient_descent_iteration(
 			if (!(i % 100) || i == 10 || i == 20 || i == 50)
 			{
 				if (connection && is_influxdb)
-					cost_send_to_influxdb(connection, gradient_descent->cost,
-						gradient_descent->hyper_parameters, i);
+					cost_send_to_influxdb(connection, gradient_descent, i);
 				if (ft_log_get_level() <= LOG_INFO)
 					ft_matrix_print("COST", gradient_descent->cost, E_DOUBLE);
 			}

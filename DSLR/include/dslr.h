@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/19 09:42:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 10:25:59 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define NUMBER_OF_INFLUXDB_TOKENS			2
 # define INFLUXDB_CONNECTION_PROTOCOL		E_TLS
-# define NUMBER_OF_INFLUXDB_LINE_ELEMENTS	4
+# define NUM_INFLUXDB_ELEMENTS				4
 # define SPECIAL_CHARS_INFLUXDB_MEASUREMENT	", "
 # define SPECIAL_CHARS_INFLUXDB_TAGS		", ="
 # define SPECIAL_CHARS_INFLUXDB_FIELDS		", ="
@@ -446,5 +446,8 @@ t_logging_level			set_logging_level(const t_argc_argv *const argc_argv);
 double					set_learning_rate(const t_argc_argv *const argc_argv);
 double					set_number_of_iteration_loops(
 							const t_argc_argv *const argc_argv);
-
+void					influxdb_send_weight_and_bias(
+							const t_tcp_connection *const connection,
+							const t_gradient_descent *const gradient_descent,
+							const size_t iteration);
 #endif

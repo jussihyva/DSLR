@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    mk_source_files.mk                                 :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
+#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/09 12:38:32 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/19 09:42:25 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/24 10:09:14 by juhani           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_C_FILES				=	input_params.c usage_print.c dataset.c \
 							ft_vector_set.c ft_str_toupper.c \
 							dataset_validate.c dataset_stat.c \
 							prediction_validate.c ft_queue_remove.c example.c \
-							input_params_set_validate.c
+							input_params_set_validate.c \
+							influxdb_send_weight_and_bias.c
 SRC_H_FILES				=	$(NAME).h
 LOCAL_LIBS				=	libft_addons.a libftprintf.a libft.a
 GLOBAL_LIBS				=	libssl.a libcrypto.a

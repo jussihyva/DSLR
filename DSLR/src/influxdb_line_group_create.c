@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   influxdb_line_group_create.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 14:51:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:30:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 10:31:55 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,13 @@ static const char	*influxdb_line_create_2(
 	const char					*influxdb_line;
 	const char					*index;
 	const char					*hogwarts_house;
-	t_influxdb_line_element		influxdb_line_element
-											[NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
+	t_influxdb_line_element		influxdb_line_element[NUM_INFLUXDB_ELEMENTS];
 
 	index = value_array[0];
 	hogwarts_house = value_array[1];
 	influxdb_line = NULL;
 	ft_bzero(influxdb_line_element, sizeof(*influxdb_line_element)
-		* NUMBER_OF_INFLUXDB_LINE_ELEMENTS);
+		* NUM_INFLUXDB_ELEMENTS);
 	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
 		"dataset_train");
 	influxdb_line_tags_create_2(&influxdb_line_element[E_TAGS], index,

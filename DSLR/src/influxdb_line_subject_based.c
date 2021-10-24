@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   influxdb_line_subject_based.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 12:39:55 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/13 08:41:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/24 10:32:29 by juhani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ size_t	influxdb_line_subject_based_create(
 {
 	const char					*influxdb_line;
 	size_t						length;
-	t_influxdb_line_element		influxdb_line_element
-											[NUMBER_OF_INFLUXDB_LINE_ELEMENTS];
+	t_influxdb_line_element		influxdb_line_element[NUM_INFLUXDB_ELEMENTS];
 
 	ft_bzero(influxdb_line_element, sizeof(*influxdb_line_element)
-		* NUMBER_OF_INFLUXDB_LINE_ELEMENTS);
+		* NUM_INFLUXDB_ELEMENTS);
 	influxdb_line_measurement_create(&influxdb_line_element[E_MEASUREMENT],
 		"dataset_train");
 	subject_related_values(influxdb_line_element, column_name_array,
