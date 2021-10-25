@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dslr.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 21:54:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/24 19:06:42 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/25 12:15:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,9 +445,13 @@ t_logging_level			set_logging_level(const t_argc_argv *const argc_argv);
 double					set_learning_rate(const t_argc_argv *const argc_argv);
 double					set_number_of_iteration_loops(
 							const t_argc_argv *const argc_argv);
-void					influxdb_send_weight_and_bias(
+void					influxdb_send_weight(
 							const t_tcp_connection *const connection,
 							const t_dataset *const dataset,
+							const t_gradient_descent *const gradient_descent,
+							const size_t iteration);
+void					influxdb_send_bias(
+							const t_tcp_connection *const connection,
 							const t_gradient_descent *const gradient_descent,
 							const size_t iteration);
 #endif

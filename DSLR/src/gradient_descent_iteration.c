@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gradient_descent_iteration.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juhani <juhani@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 22:45:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/24 19:01:06 by juhani           ###   ########.fr       */
+/*   Updated: 2021/10/25 12:15:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static void	cost_send_to_influxdb(
 	if (!result)
 		FT_LOG_ERROR("Sending of data to an influxdb failed!");
 	ft_strdel((char **)&influxdb_line);
-	influxdb_send_weight_and_bias(connection, dataset, gradient_descent,
+	influxdb_send_weight(connection, dataset, gradient_descent,
+		iteration);
+	influxdb_send_bias(connection, gradient_descent,
 		iteration);
 	return ;
 }
