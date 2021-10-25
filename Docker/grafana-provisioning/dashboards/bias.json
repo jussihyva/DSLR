@@ -204,8 +204,8 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 18,
-		  "w": 20,
+		  "h": 12,
+		  "w": 7,
 		  "x": 0,
 		  "y": 10
 		},
@@ -338,12 +338,12 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-5m",
+	  "from": "now-1m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "Bias",
 	"uid": "Bias_01",
-	"version": 1
+	"version": 2
   }
