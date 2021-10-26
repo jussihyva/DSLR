@@ -157,6 +157,17 @@ A pair plot visualizes cluster areas. In the picture below we see that there are
 
 ![Cost](Documentation/Grafana_Cost.png)
 
+#### 5.2.7 Bias
+
+![Bias](Documentation/Bias.png)
+
+#### 5.2.7 Weight
+
+![Weight_](Documentation/Weight_Gryffindor.png)![Weight_](Documentation/Weight_Gryffindor.png)![Weight_](Documentation/Weight_Functions.png)
+![Weight_](Documentation/Weight_Gryffindor.png)![Weight_](Documentation/Weight_Gryffindor.png)![Weight_](Documentation/Weight_Functions.png)
+
+
+
 ### 5.3 Implemented Matrix and Vector calculation funtions
 
 To learn (all details) I decided to write logistic regression functionality with C-language. It's a lot of work and forces me to really understand how details must be implemented. Looking forward that this kind of way of learning helps me to use ready-made functionality (like in numpy, pandas etc...) fluently.

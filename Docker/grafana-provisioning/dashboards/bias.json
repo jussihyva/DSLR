@@ -293,7 +293,7 @@
 				},
 				{
 				  "params": [
-					"Herbology"
+					"Slytherin"
 				  ],
 				  "type": "alias"
 				}
@@ -330,7 +330,7 @@
 		"type": "timeseries"
 	  }
 	],
-	"refresh": "",
+	"refresh": "5s",
 	"schemaVersion": 30,
 	"style": "dark",
 	"tags": [],
@@ -338,7 +338,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-1m",
+	  "from": "now-15m",
 	  "to": "now"
 	},
 	"timepicker": {},
