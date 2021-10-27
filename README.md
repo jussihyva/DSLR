@@ -137,44 +137,44 @@ Correction plot visualizes correlation between functions. Functions that correla
 
 #### 5.2.4 Histogram plot
 
-Histogram plots visualize how values in a function are distributed. Histograms are coloured according to Hogwards house. That helps to see is there eny differences beween houses. Histogram plot shows that two features (Hogwards Courses) are homogeneous between all for houses.
+Histogram plots visualize how values in a function are distributed. Histograms are colored according to Hogwarts house. That helps to see if there are any differences between houses. Histogram plot shows that two features (Hogwarts Courses) are homogeneous between all four houses.
 
 ![Histogramsplot](Documentation/Python_Histogramplot.png)
 
 #### 5.2.5 Scatter plot
 
-A scatter plot visualizes correlation between two feature (Hogwards Courses). In to the picture below I selected two which correlates each other wery well.
+A scatter plot visualize correlations between two feature (Hogwarts Courses). In the picture below I selected two which correlate with each other very well.
 
 ![Scatterplot](Documentation/Python_Scatterplot.png)
 
 #### 5.2.5 Pair plot
 
-A pair plot visualizes cluster areas. In the picture below we see that there are feature pairs which clusterize colours in different areas. Those features could be god enough to teach machine learning model (Biases and Weights) well enough to predict right houses. In my solution I decided to use all available features to understand how Bias and Weight values impacts to prediction.
+A pair plot visualizes cluster areas. In the picture below we see that there are feature pairs that cluster (colors) in different areas. Those features could be good enough to teach machine learning model (Biases and Weights) well enough to predict the right houses. In my solution, I decided to use all available features to understand how Bias and Weight values impact prediction results.
 
 ![Scatterplot](Documentation/Python_Pairplot.png)
 
 #### 5.2.6 Cost
 
-The model learn (cost value decrease) really fast. In the picture below I run 100k loops. The picture shows that less than 10k loops is good enough to teach model.
+The model learns (cost value decrease) really fast. In the picture below I run 100k loops. The picture shows that less than 10k loops are good enough to teach a model.
 
 ![Cost](Documentation/Grafana_Cost.png)
 
 #### 5.2.7 Bias
 
-Bahave of a bias suprised me a bit. I toughts that it will remain same like cost value did. But like we seen in the picture below, values continues changing all long time from the first loop until last one (100k).
+Behave of a bias surprised me a bit. I thought that it will remain the same as a cost value did. But like we see in the picture below, values continue changing all long time from the first loop until the last one (100k).
 
 ![Bias](Documentation/Bias.png)
 
 #### 5.2.7 Weight
 
-Bahave of a weight values suprised me as well. I toughts those it will remain same like cost value did. But like we seen in the picture below, values continues changing all long time from the first loop until last one (100k).
+Behave of weight values surprised me as well. I thought that those will remain the same as the cost value did. But like we see in the picture below, values continue changing all long time from the first loop until the last one (100k).
 
 <img src="Documentation/Weight_Gryffindor.png" width="260" height="350"><img src="Documentation/Weight_Ravenclaw.png" width="260" height="350">![Weight_](Documentation/Weight_Functions.png)
 <img src="Documentation/Weight_Slytherin.png" width="260" height="350"><img src="Documentation/Weight_Hufflepuff.png" width="260" height="350">![Weight_](Documentation/Weight_Functions.png)
 
 ### 5.3 Implemented Matrix and Vector calculation funtions
 
-To learn (all details) I decided to write logistic regression functionality with C-language. It's a lot of work and forces me to really understand how details must be implemented. Looking forward that this kind of way of learning helps me to use ready-made functionality (like in numpy, pandas etc...) fluently.
+To learn (all details) I decided to write logistic regression functionality with C-language. It's a lot of work and forces me to really understand how details must be implemented. Looking forward that this kind of way of learning helping me to use ready-made functionality (like in numpy, pandas etc...) fluently.
 Below, is a list of matrix/vector functions that I wrote.
 
 | Name of the function | similar functionality in python
