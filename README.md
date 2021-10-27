@@ -163,7 +163,7 @@ A pair plot visualizes cluster areas. In the picture below we see that there are
 
 #### 5.2.7 Weight
 
-<img src="Documentation/Weight_Gryffindor.png" width="270" height="350"><img src="Documentation/Weight_Ravenclaw.png" width="270" height="350">![Weight_](Documentation/Weight_Functions.png)
+<img src="Documentation/Weight_Gryffindor.png" width="260" height="350"><img src="Documentation/Weight_Ravenclaw.png" width="260" height="350">![Weight_](Documentation/Weight_Functions.png)
 <img src="Documentation/Weight_Slytherin.png" width="260" height="350"><img src="Documentation/Weight_Hufflepuff.png" width="260" height="350">![Weight_](Documentation/Weight_Functions.png)
 
 ### 5.3 Implemented Matrix and Vector calculation funtions
