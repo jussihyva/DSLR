@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 10:09:32 by juhani            #+#    #+#             */
-/*   Updated: 2021/10/25 12:05:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/27 12:37:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	create_field_elem(
 		field_elem->string_length
 			+= name_value_pair_add(column_name, string, queue,
 				SPECIAL_CHARS_INFLUXDB_FIELDS);
+		ft_strdel(&string);
 		if (i < (NUMBER_OF_INPUT_FUNCTIONS - 1))
 			field_elem->string_length += delimiter_add(queue, ",");
 	}

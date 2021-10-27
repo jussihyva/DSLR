@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:04:18 by jkauppi           #+#    #+#             */
-/*   Updated: 2021/10/25 14:49:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2021/10/27 12:38:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	create_field_elem(
 		field_elem->string_length
 			+= name_value_pair_add(house, string, queue,
 				SPECIAL_CHARS_INFLUXDB_FIELDS);
+		ft_strdel(&string);
 		if (i < (NUMBER_OF_HOGWARTS_HOUSES - 1))
 			field_elem->string_length += delimiter_add(queue, ",");
 	}
