@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 14:46:19 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/22 15:07:33 by jkauppi          ###   ########.fr        #
+#    Updated: 2021/10/27 11:10:44 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ class CmdArguments_describe(CmdArguments):
 		parser.add_argument("-T", "--Transpose", help = "Transposed printout",
 			action=argparse.BooleanOptionalAction, required = False, default = False)
 		parser.add_argument("-V", "--Validate", help = "Validate calculations printout",
+			action=argparse.BooleanOptionalAction, required = False, default = False)
+		parser.add_argument("-S", "--Std2", help = "Standard deviation. Another calculation alt.",
 			action=argparse.BooleanOptionalAction, required = False, default = False)
 		parser.add_argument("-v", "--verbose", help = "Print details",
 			type=int, required = False, default = 3)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    describe.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: juhani <juhani@student.42.fr>              +#+  +:+       +#+         #
+#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 15:45:44 by jkauppi           #+#    #+#              #
-#    Updated: 2021/10/23 16:57:24 by juhani           ###   ########.fr        #
+#    Updated: 2021/10/27 11:13:13 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,11 +119,14 @@ class MyDescribe():
 			sum += value
 		return (sum)
 
-	def __variance(self, valueList, mean):
+	def __variance(self, valueList, mean, std2):
 		sum = 0
 		for value in valueList:
-			sum += abs(value - mean)
-		variance = sum / len(valueList)
+			sum += pow((value - mean), 2)
+		if std2 == True:
+			variance = sum / (len(valueList) - 1)
+		else:
+			variance = sum / len(valueList)
 		return (variance)
 
 	def __calculate_mean(self, hogwartsSubjects, validate):
@@ -141,7 +144,7 @@ class MyDescribe():
 			self.describeValidator.mean(hogwartsSubjects, value_series, name)
 		return ({name: value_list})
 
-	def __calculate_std(self, hogwartsSubjects, validate):
+	def __calculate_std(self, hogwartsSubjects, validate, std2):
 		name = "Std"
 		value_list = []
 		for course in hogwartsSubjects:
@@ -149,20 +152,19 @@ class MyDescribe():
 			value_list_sorted = value_list_sorted.reset_index(drop=True)
 			sum = self.__sum(value_list_sorted)
 			numOfValues = len(value_list_sorted)
-			variance = self.__variance(value_list_sorted, sum / numOfValues)
+			variance = self.__variance(value_list_sorted, sum / numOfValues, std2)
 			value = math.sqrt(variance)
-			value = variance
 			value_list.append(value)
 		value_series = pd.Series(value_list, index=hogwartsSubjects.columns)
 		if validate:
 			self.describeValidator.std(hogwartsSubjects, value_series, name)
 		return ({name: value_list})
 
-	def createDescribeDataFrame(self, hogwartsSubjects, validate):
+	def createDescribeDataFrame(self, hogwartsSubjects, validate, std2):
 		describe_list = {}
 		describe_list.update(self.__calculate_count(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_mean(hogwartsSubjects, validate))
-		describe_list.update(self.__calculate_std(hogwartsSubjects, validate))
+		describe_list.update(self.__calculate_std(hogwartsSubjects, validate, std2))
 		describe_list.update(self.__calculate_median(hogwartsSubjects, validate, inputParams))
 		describe_list.update(self.__calculate_min(hogwartsSubjects, validate))
 		describe_list.update(self.__calculate_max(hogwartsSubjects, validate))
@@ -177,7 +179,7 @@ def describe(dataset_file, inputParams):
 	myDescribe = MyDescribe()
 	hogwartsSubjects = HogwartsSubjects(dataset_file)
 	hogwartsSubjects_df = hogwartsSubjects.getDataFrame()
-	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, inputParams.Validate)
+	describe_list = myDescribe.createDescribeDataFrame(hogwartsSubjects_df, inputParams.Validate, inputParams.Std2)
 	my_describe_df = pd.DataFrame(describe_list, index=hogwartsSubjects.getSubjectList())
 	if inputParams.Transpose:
 		print(my_describe_df)
